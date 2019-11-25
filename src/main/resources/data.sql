@@ -24,10 +24,15 @@ INSERT INTO pos_mst_outlet (active, address, email, name, phone, postalCode, pro
 INSERT INTO pos_mst_outlet (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (1, 'Jl.Cikokol No.19', 'cikokol.outlet@gmail.com', 'Cikokol Outlet', '08321321313', '16323', 2, 2, 2);
 INSERT INTO pos_mst_outlet (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (1, 'Jl.Cimahi No.30', 'cimahi.outlet@gmail.com', 'Cimahi Outlet', '08323234494', '17393', 3, 3, 3);
 
--- INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (1, 1);
--- INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (2, 2);
--- INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (3, 3);
--- INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (4, 1);
+INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (1, 1);
+INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (2, 2);
+INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (3, 3);
+INSERT INTO pos_employee_outlet (employee_id, outlet_id) VALUES (4, 1);
+
+INSERT INTO pos_mst_user (active, password, username, employee_id, role_id) VALUES (1, '123', 'miftah', 1, 1);
+INSERT INTO pos_mst_user (active, password, username, employee_id, role_id) VALUES (1, '123', 'syifa', 2, 2);
+INSERT INTO pos_mst_user (active, password, username, employee_id, role_id) VALUES (1, '123', 'al', 3, 3);
+INSERT INTO pos_mst_user (active, password, username, employee_id, role_id) VALUES (1, '123', 'ergon', 4, 2);
 
 
 

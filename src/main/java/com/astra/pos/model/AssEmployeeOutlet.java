@@ -15,7 +15,7 @@ public class AssEmployeeOutlet
     @NotNull
     private MstEmployee employee;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private MstOutlet outlet;
 

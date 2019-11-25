@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "pos_mst_outlet")
@@ -54,8 +55,8 @@ public class MstOutlet {
     @NotNull
     private MstDistrict district;
 
-    @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
-    private AssEmployeeOutlet employeeOutlet;
+    @OneToMany(mappedBy = "outlet")
+    private List<AssEmployeeOutlet> employeeOutlet;
 
     @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
     private AssItemInventory itemInventory;
@@ -173,11 +174,11 @@ public class MstOutlet {
         this.district = district;
     }
 
-    public AssEmployeeOutlet getEmployeeOutlet() {
+    public List<AssEmployeeOutlet> getEmployeeOutlet() {
         return employeeOutlet;
     }
 
-    public void setEmployeeOutlet(AssEmployeeOutlet employeeOutlet) {
+    public void setEmployeeOutlet(List<AssEmployeeOutlet> employeeOutlet) {
         this.employeeOutlet = employeeOutlet;
     }
 

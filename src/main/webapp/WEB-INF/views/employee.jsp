@@ -275,7 +275,7 @@
                                     <td>${user.employee.firstName} ${user.employee.lastName}</td>
                                     <td>${user.employee.email}</td>
                                     <td>${user.employee.haveAccount}</td>
-                                    <td>Outlet</td>
+                                    <td>${user.employee.employeeOutlet.outlet.name}</td>
                                     <td>${user.role.name}</td>
                                     <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Edit</button></td>
                                     <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/createUser';">Delete</button></td>
