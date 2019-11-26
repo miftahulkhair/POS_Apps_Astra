@@ -20,7 +20,7 @@ public class MstUser {
     @NotNull
     private String password;
 
-    @NotNull
+//    @NotNull
     @ManyToOne
     private MstRole role;
 

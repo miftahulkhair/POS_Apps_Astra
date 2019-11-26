@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -168,11 +169,13 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+
+                    <form action="/employees" method="post">
                     <div class="row">
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="First Name">
+                                <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName">
                                 </input>
                             </div>
                             <!-- /.form-group -->
@@ -180,14 +183,14 @@
                         <!-- /.col -->
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="Last Name">
+                                <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName">
                                 </input>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="Email">
+                                <input class="form-control" style="width: 100%;" placeholder="Email" id="email">
                                 </input>
                             </div>
                         </div>
@@ -195,9 +198,10 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                    <option selected="selected">Mr.</option>
-                                    <option>Mrs.</option>
+                                <select class="custom-select" id="title">
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Miss">Miss</option>
                                 </select>
                             </div>
                         </div>
@@ -220,8 +224,8 @@
                         <div class="col-12 col-sm-3">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                    <label for="customCheckbox1" class="custom-control-label">Create Account?</label>
+                                    <input id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
+                                    <label for="showSecondary" class="custom-control-label">Create Account?</label>
                                 </div>
                             </div>
                         </div>
@@ -229,6 +233,26 @@
                     </div>
 
                     <hr>
+
+                    <fieldset id="secondary" style="display:none;">
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <select class="custom-select" id="role">
+                                    <c:forEach items="${roles}" var="role">
+                                    <option value="${role.name}">${role.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="text" class="form-control" id="validationUsername" placeholder="Username" aria-describedby="inputGroupPrepend">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="password" class="form-control" id="validationPassword" placeholder="Password" aria-describedby="inputGroupPrepend">
+                                <div class="valid-feedback">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
 
                     <div class="row">
                         <div class="col-12 col-sm-3">
@@ -243,6 +267,8 @@
                         </div>
                     </div>
                     <!-- /.row -->
+
+                    </form>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -287,10 +313,65 @@
                         </div>
                     </div>
                     <!-- /.card -->
-                </div>>
+                </div>
                 <%--
         --%>
             </div>
+
+
+
+            <h1>Register User</h1>
+            <form action="/employees" method="POST">
+                <table>
+                    <tr>
+                        <td>firstname :</td>
+                        <td><input type="text" name="firstName"></td>
+                    </tr>
+                    <tr>
+                        <td>lastname :</td>
+                        <td><input type="text" name="lastName" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>email :</td>
+                        <td><input type="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td>title :</td>
+                        <td><input type="text" name="title"></td>
+                    </tr>
+                    <tr>
+                        <td>username :</td>
+                        <td><input type="text" name="username"></td>
+                    </tr>
+                    <tr>
+                        <td>password :</td>
+                        <td><input type="text" name="password"></td>
+                    </tr>
+                    <tr>
+
+                        <td><select name="role" id="roles">
+                            <c:forEach items="${roles}" var="role">
+                                <option value="${role.id}">${role.name}</option>
+                            </c:forEach>
+                        </select>
+                        </td>
+
+
+<%--                        <td>--%>
+<%--                            <form:select path="role" class="form-control">--%>
+<%--                                <form:option value="0" label="-SELECT ROLE-"/>--%>
+<%--                                <form:options items="${roles}"/>--%>
+<%--                            </form:select>--%>
+<%--                        </td>--%>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="submit" value="submit"></td>
+                    </tr>
+                </table>
+            </form>
+
+
+
             <!-- /.row -->
         </section>
         <!-- /.content -->
@@ -337,5 +418,16 @@
         });
     });
 </script>
+
+<script>
+    function showSubMenu(){
+        if(document.getElementById('showSecondary').checked){
+            document.getElementById('secondary').style.display='block';
+        } else {
+            document.getElementById('secondary').style.display='none';
+        }
+    }
+</script>
+
 </body>
 </html>

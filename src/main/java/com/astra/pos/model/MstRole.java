@@ -34,6 +34,7 @@ public class MstRole
     @NotNull
     private boolean active;
 
+
     @OneToMany(mappedBy = "role")
     private List<MstUser> user;
 
