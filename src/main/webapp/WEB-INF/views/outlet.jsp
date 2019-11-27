@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,6 +21,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -188,7 +205,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -200,13 +217,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="Supplier" class="nav-link active">
+                                <a href="Supplier" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/jsgrid.html" class="nav-link">
+                                <a href="viewoutlets" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
@@ -340,10 +357,10 @@
                             <!-- SEARCH FORM -->
                             <form class="form-inline ml-3">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
+                                        <button class="btn btn-navbar bg-transparent border-transparent" type="submit">
+                                            <i class="fas fa-search bg-transparent"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -364,21 +381,18 @@
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Email</th>
-                                    <th>prov</th>
                                     <th>#</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <c:forEach var="supplier" items="${allSupplier}">
+                                <tbody id="myTable">
+                                <c:forEach var="outlet" items="${outlets}">
                                     <tr>
-                                        <td hidden>${supplier.id}</td>
-                                        <td>${supplier.name}</td>
-                                        <td>${supplier.address}</td>
-                                        <td>${supplier.phone}</td>
-                                        <td>${supplier.email}</td>
-                                        <td>${supplier.province.name}</td>
+                                        <td>${outlet.name}</td>
+                                        <td>${outlet.address}</td>
+                                        <td>${outlet.phone}</td>
+                                        <td>${outlet.email}</td>
                                         <td align="center">
-                                            <button type="button" class="btn btn-block btn-info" href="Supplier/edit_form?id=${supplier.id}"
+                                            <button type="button" class="btn btn-block btn-info" href="edit/${outlet.id}"
                                                     data-toggle="modal" data-target="#modal-edit">Edit
                                             </button>
                                         </td>
@@ -404,31 +418,31 @@
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
+                            <h4 class="modal-title">Edit Outlet</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <c:choose>
                                 <c:when test="${mode=='MODE_UPDATE' }">
-                                    <form role="form" method="POST" action="save_edit">
+                                    <form role="form" method="POST" action="/editSave">
                                         <div class="card-body">
-                                            <input type="hidden" name="id" value=${supplier.id} />
+                                            <input type="hidden" name="id" value=${outlet.id} />
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" value="${supplier.name}">
+                                                <input type="text" class="form-control" id="name" value="${outlet.name}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="address">Address</label>
-                                                <input type="text" class="form-control" id="address" value="${supplier.address}">
+                                                <input type="text" class="form-control" id="address" value="${outlet.address}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" id="phone" value="${supplier.phone}">
+                                                <input type="text" class="form-control" id="phone" value="${outlet.phone}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="${supplier.email}">
+                                                <input type="email" class="form-control" id="email" value="${outlet.email}">
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
@@ -448,76 +462,21 @@
             </div>
 
             <div class="modal fade" id="modal-create">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Supplier Detail</h4>
+                            <h4 class="modal-title">Create Outlet</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <form role="form" method="POST" action="save-supplier">
-                                <div class="card-body">
-                                    <input type="hidden" name="id" value=${supplier.id} />
-                                    <div class="form-group">
-                                        <label for="supplierName">Supplier Name</label>
-                                        <input type="text" class="form-control" id="supplierName" value="${supplier.name}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="supplierAddress">Address</label>
-                                        <input type="text" class="form-control" id="supplierAddress" value="${supplier.address}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Province</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Select Province ..</option>
-                                            <c:forEach var="province" items="${allProvince}">
-                                                <option>${province.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <label>Region</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Select Region ..</option>
-                                            <c:forEach var="region" items="${allRegion}">
-                                                <option>${region.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>District</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Select District ..</option>
-                                            <c:forEach var="district" items="${allDistrict}">
-                                                <option>${district.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="postalCode">Postal Code</label>
-                                        <input type="text" class="form-control" id="postalCode" value="${supplier.postalCode}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="supplierPhone">Phone</label>
-                                        <input type="text" class="form-control" id="supplierPhone" value="${supplier.phone}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="supplierEmail">Email</label>
-                                        <input type="email" class="form-control" id="supplierEmail" value="${supplier.email}">
-                                    </div>
-                                    <!-- /.form-group -->
-
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-outline-light">Save</button>
-                                </div>
-                            </form>
+                            <jsp:include page="outletform.jsp"/>
                         </div>
+<%--                        <div class="modal-footer justify-content-between">--%>
+<%--                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
+<%--                            <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
+<%--                        </div>--%>
 
                     </div>
                     <!-- /.modal-content -->

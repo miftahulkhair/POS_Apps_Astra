@@ -478,7 +478,6 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-
                                         <label>Region</label>
                                         <select class="form-control select2" style="width: 100%;">
                                             <option selected="selected">Select Region ..</option>

@@ -117,10 +117,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/lockers" class="nav-link">
+                        <a href="/outlets" class="nav-link">
                             <i class="nav-icon fas fa-lock-open"></i>
                             <p>
-                                Locker
+                                Outlet
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -252,9 +252,9 @@
                 <div class="col-12">
                     <!-- /.card -->
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">DataTable Employee</h3>
-                        </div>
+<%--                        <div class="card-header">--%>
+<%--                            <h3 class="card-title">DataTable Employee</h3>--%>
+<%--                        </div>--%>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
@@ -287,7 +287,7 @@
                         </div>
                     </div>
                     <!-- /.card -->
-                </div>>
+                </div>
                 <%--
         --%>
             </div>

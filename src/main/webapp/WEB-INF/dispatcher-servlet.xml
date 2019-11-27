@@ -34,9 +34,9 @@
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/pos_apps?serverTimezone=UTC" />
+        <property name="url" value="jdbc:mysql://localhost:3306/posapp?serverTimezone=UTC" />
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="ahmids"/>
     </bean>
 
         <!--    JPA-->
@@ -48,7 +48,7 @@
             <property name="jpaProperties">
                 <props>
                     <prop key="hibernate.show_sql">true</prop>
-                    <prop key="hibernate.hbm2ddl.auto">create</prop>
+                    <prop key="hibernate.hbm2ddl.auto">update</prop>
                     <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
                 </props>
             </property>
