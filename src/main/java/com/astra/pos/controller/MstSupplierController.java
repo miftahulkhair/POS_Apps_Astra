@@ -65,25 +65,24 @@ public class MstSupplierController {
     }
 
     @RequestMapping(value = "/edit_form", method = RequestMethod.GET)
-    public ModelAndView editForm(@RequestParam int id){
-        ModelAndView mv = new ModelAndView("editSupplier");
+    public ModelAndView editForm(@RequestParam long id){
+        ModelAndView mv = new ModelAndView("mstSupplier");
         MstSupplier supplier = mstSupplierService.getSupplier(id);
         mv.addObject("editSupplier", supplier);
         return mv;
     }
 
-    @RequestMapping(value = "/save_edit", method = RequestMethod.POST)
-    public ModelAndView saveEdit(MstSupplier mstSupplier){
-        ModelAndView mv = new ModelAndView();
-        mstSupplierService.update(mstSupplier);
-        mv.setViewName("redirect:/Supplier/");
+    @RequestMapping(value = "/save-update", method = RequestMethod.POST)
+    public ModelAndView update(@ModelAttribute("update") MstSupplier supplier){
+        ModelAndView mv = new ModelAndView("redirect:/Supplier/");
+        mstSupplierService.update(supplier);
         return mv;
     }
 
     @RequestMapping(value = "/save-supplier", method = RequestMethod.POST)
     public ModelAndView create(@ModelAttribute("sup") MstSupplier supplier){
         ModelAndView mv = new ModelAndView("redirect:/Supplier/");
-        mstSupplierService.saveSupplier(supplier);
+        mstSupplierService.save(supplier);
         return mv;
     }
 }

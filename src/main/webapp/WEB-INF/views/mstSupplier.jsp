@@ -351,7 +351,7 @@
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-edit-create">Create</button>
                             </div>
 
                         </div>
@@ -379,14 +379,8 @@
                                         <td>${supplier.email}</td>
                                         <td align="center">
                                             <button type="button" class="btn btn-block btn-info"
-<%--                                                    <c:set var = "idEdit" scope = "session" value = "${supplier.id}"/>--%>
-<%--                                                    <c:set var = "nameEdit" scope = "session" value = "${supplier.name}"/>--%>
-<%--                                                    <c:set var = "addressEdit" scope = "session" value = "${supplier.address}"/>--%>
-<%--                                                    <c:set var = "phoneEdit" scope = "session" value = "${supplier.phone}"/>--%>
-<%--                                                    <c:set var = "emailEdit" scope = "session" value = "${supplier.email}"/>--%>
-<%--                                                    data-action="edit_form?id=${supplier.id}"--%>
-                                                    onclick="href = '/Supplier/edit_form?id=${supplier.id}';"
-                                                    data-toggle="modal" data-target="#modal-edit"
+                                                    onclick="href = '/edit_form?id=${supplier.id}';"
+                                                    data-toggle="modal" data-target="#modal-edit-create"
                                             >Edit
                                             </button>
                                         </td>
@@ -406,36 +400,64 @@
 
         <section class="content">
             <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-<%--                            <form:form method="POST" action="/Supplier/save_edit" modelAttribute="edit">--%>
+<%--            <div class="modal fade" id="modal-edit">--%>
+<%--                <div class="modal-dialog">--%>
+<%--                    <div class="modal-content bg-info">--%>
+<%--                        <div class="modal-header">--%>
+<%--                            <h4 class="modal-title">Supplier</h4>--%>
+<%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                                <span aria-hidden="true">&times;</span></button>--%>
+<%--                        </div>--%>
+<%--                        <div class="modal-body">--%>
+<%--                            <form:form method="POST" action="/Supplier/save-supplier" modelAttribute="supp">--%>
 <%--                                <div class="card-body">--%>
 <%--                                    <div class="form-group">--%>
 <%--                                        <label>Supplier Id</label>--%>
-<%--                                        <form:input disabled="true" type="text" class="form-control" path="id" value = "${edit.id}"/>--%>
+<%--                                        <form:input disabled="true" type="text" class="form-control" path="id" value = "${supplier.id}"/>--%>
 <%--                                    </div>--%>
 <%--                                    <div class="form-group">--%>
 <%--                                        <label>Supplier Name</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="name" value = "${edit.name}"/>--%>
+<%--                                        <form:input type="text" class="form-control" path="name" value = "${editSupplier.name}"/>--%>
 <%--                                    </div>--%>
 <%--                                    <div class="form-group">--%>
 <%--                                        <label>Address</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="address" value = "${edit.address}"/>--%>
+<%--                                        <form:input type="text" class="form-control" path="address" value = "${editSupplier.address}"/>--%>
+<%--                                    </div>--%>
+
+<%--                                    <div class="form-group">--%>
+<%--                                        <label>Province</label>--%>
+<%--                                        <form:select path="province.id" class="form-control select2" style="width: 100%;"  >--%>
+<%--                                            <form:option value="0" label="-SELECT PROVINCE-"/>--%>
+<%--                                            <form:options items="${province}"/>--%>
+<%--                                        </form:select>--%>
 <%--                                    </div>--%>
 <%--                                    <div class="form-group">--%>
+<%--                                        <label>Region</label>--%>
+<%--                                        <form:select path="region.id" class="form-control select2" style="width: 100%;"  >--%>
+<%--                                            <form:option value="0" label="-SELECT REGION-"/>--%>
+<%--                                            <form:options items="${region}"/>--%>
+<%--                                        </form:select>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="form-group">--%>
+<%--                                        <label>District</label>--%>
+<%--                                        <form:select path="district.id" class="form-control select2" style="width: 100%;"  >--%>
+<%--                                            <form:option value="0" label="-SELECT DISTRICT-"/>--%>
+<%--                                            <form:options items="${district}"/>--%>
+<%--                                        </form:select>--%>
+<%--                                    </div>--%>
+
+<%--                                    <div class="form-group">--%>
 <%--                                        <label>Phone</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="phone" value = "${edit.phone}"/>--%>
+<%--                                        <form:input type="text" class="form-control" path="phone" value = "${editSupplier.phone}"/>--%>
 <%--                                    </div>--%>
 <%--                                    <div class="form-group">--%>
 <%--                                        <label>Email</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="email" value = "${edit.email}"/>--%>
+<%--                                        <form:input type="text" class="form-control" path="email" value = "${editSupplier.email}"/>--%>
+<%--                                    </div>--%>
+
+<%--                                    <div class="form-group">--%>
+<%--                                        <label>Postal Code</label>--%>
+<%--                                        <form:input type="text" class="form-control" path="postalCode" value = "${editSupplier.postalCode}"/>--%>
 <%--                                    </div>--%>
 <%--                                </div>--%>
 <%--                                <!-- /.card-body -->--%>
@@ -444,59 +466,38 @@
 <%--                                    <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
 <%--                                </div>--%>
 <%--                            </form:form>--%>
-<%--                            <form role="form" method="POST" action="/Supplier/save_edit" >--%>
-<%--                                <div class="card-body">--%>
-<%--                                    <input type="hidden" name="id" <c:out value = "${idEdit}"/> />--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label for="name">Name</label>--%>
-<%--                                        <input type="text" class="form-control" id="name" <c:out value = "${}"/>">--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label for="address">Address</label>--%>
-<%--                                        <input type="text" class="form-control" id="address" value="${supplier.address}">--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label for="phone">Phone</label>--%>
-<%--                                        <input type="text" class="form-control" id="phone" value="${supplier.phone}">--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label for="email">Email</label>--%>
-<%--                                        <input type="email" class="form-control" id="email" value="${supplier.email}">--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <!-- /.card-body -->--%>
-<%--                                <div class="modal-footer justify-content-between">--%>
-<%--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
-<%--                                    <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
-<%--                                </div>--%>
-<%--                            </form>--%>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- /.modal-content -->--%>
+<%--                </div>--%>
+<%--                <!-- /.modal-dialog -->--%>
+<%--            </div>--%>
 
-            <div class="modal fade" id="modal-create">
+            <div class="modal fade" id="modal-edit-create">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Supplier Detail</h4>
+                            <h4 class="modal-title">Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <!-- form start -->
                             <form:form method="POST" action="/Supplier/save-supplier" modelAttribute="supp">
                                 <div class="card-body">
                                     <div class="form-group">
+                                        <label>Supplier Id</label>
+                                        <form:input disabled="true" type="text" class="form-control" path="id" value = "${supplier.id}"/>
+                                        <c:out value="${id}"/>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Supplier Name</label>
-                                        <form:input type="text" class="form-control" path="name"/>
+                                        <form:input type="text" class="form-control" path="name" value = "${editSupplier.name}"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <form:input type="text" class="form-control" path="address"/>
+                                        <form:input type="text" class="form-control" path="address" value = "${editSupplier.address}"/>
                                     </div>
+
                                     <div class="form-group">
                                         <label>Province</label>
                                         <form:select path="province.id" class="form-control select2" style="width: 100%;"  >
@@ -518,17 +519,19 @@
                                             <form:options items="${district}"/>
                                         </form:select>
                                     </div>
+
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <form:input type="text" class="form-control" path="phone"/>
+                                        <form:input type="text" class="form-control" path="phone" value = "${editSupplier.phone}"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <form:input type="text" class="form-control" path="email"/>
+                                        <form:input type="text" class="form-control" path="email" value = "${editSupplier.email}"/>
                                     </div>
+
                                     <div class="form-group">
                                         <label>Postal Code</label>
-                                        <form:input type="text" class="form-control" path="postalCode"/>
+                                        <form:input type="text" class="form-control" path="postalCode" value = "${editSupplier.postalCode}"/>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -585,6 +588,27 @@
             "ordering": true,
             "info": true,
             "autoWidth": false,
+        });
+    });
+
+    //edit
+    $(document).on('click', '.edit_form', function () {
+        var idSuppplier = $(this).attr("id");
+        $.ajax({
+            url: "/supplierJson/" + idSupplier,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#id').val(data.id);
+                $('#name').val(data.name);
+                $('#address').val(data.address);
+                // $('#province').val(data.provinceId);
+                // $('#region').val(data.regionId);
+                // $('#district').val(data.districtId);
+                // $('#postal_code').val(data.postalCode);
+                $('#phone').val(data.phone);
+                $('#email').val(data.email);
+            }
         });
     });
 </script>

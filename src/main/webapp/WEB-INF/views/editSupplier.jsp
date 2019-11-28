@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -170,7 +171,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="/Dashboard/" class="nav-link">
+                        <a href="Dashboard" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -200,7 +201,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Supplier/" class="nav-link ">
+                                <a href="Supplier" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
@@ -212,7 +213,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/" class="nav-link active">
+                                <a href="Item" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -229,7 +230,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/PurchaseRequest/" class="nav-link">
+                                <a href="employee.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Request</p>
                                 </a>
@@ -319,7 +320,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Item</h1>
+                        <h1>Supplier</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -356,43 +357,40 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th hidden>Id</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Unit Price</th>
-                                    <th>In Stock</th>
-                                    <th>Stock Alert</th>
-                                    <th>#</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="variant" items="${variant}" >
-                                        <tr>
-                                            <td hidden>${variant.item.id}</td>
-
-                                            <td>${variant.item.name} - ${variant.name}</td>
-                                            <td>${variant.item.category.name}</td>
-                                            <td>${variant.price}</td>
-                                            <td>${variant.sku}</td>
-                                            <td>${variant.item.name}</td>
-                                            <td align="center">
-                                                <button type="button" class="btn btn-block btn-info"
-                                                        onclick="href = '/edit_form?id=${variant.item.id}';
-                                                                <c:set var="id" value="${variant.item.id}"/>"
-                                                        data-toggle="modal" data-target="#modal-edit"
-                                                >Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                            <form role="form" method="POST" action="save_edit">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="id">Id</label>
+                                        <input type="text" class="form-control" id="id" value="${supplier.id}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" value="${supplier.name}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control" id="address" value="${supplier.address}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" id="phone" value="${supplier.phone}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" value="${supplier.email}">
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                                <div>
+                                    <button type="button" class="btn btn-primary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
+
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
@@ -400,240 +398,7 @@
             <!-- /.row -->
         </section>
 
-        <section class="content">
-            <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <c:choose>
-                                <c:when test="${mode=='MODE_UPDATE'}">
-                                    <form role="form" method="POST" action="save_edit">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="id">Id</label>
-                                                <input disabled type="text" id="id" value=${id} />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" value="${supplier.name}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address">Address</label>
-                                                <input type="text" class="form-control" id="address" value="${supplier.address}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" id="phone" value="${supplier.phone}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="${supplier.email}">
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-outline-light">Save changes</button>
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                        </div>
 
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-create">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Items</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="card-body">
-                                    <%--                                    Image--%>
-                                    <div class="form-group">
-                                        <label for="supplierName">Item Name</label>
-                                        <input type="text" class="form-control" id="supplierName" value="${supplier.name}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Category</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Select Category ..</option>
-                                            <c:forEach var="province" items="${allProvince}">
-                                                <option>${province.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Variant</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div align="right">
-                                            <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-addVariant">Add Variant</button>
-                                        </div>
-                                        <table id="example" class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th hidden>Id</th>
-                                                <th>Variant Name</th>
-                                                <th>Unit Price</th>
-                                                <th>SKU</th>
-                                                <th>Beginning Stock</th>
-                                                <th>#</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach var="supplier" items="${allSupplier}">
-                                                <tr>
-                                                    <td hidden>${supplier.id}</td>
-                                                    <td>${supplier.name}</td>
-                                                    <td>${supplier.address}</td>
-                                                    <td>${supplier.phone}</td>
-                                                    <td>${supplier.email}</td>
-                                                    <td align="center">
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                        </a>
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Delete
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-outline-light">Save</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-addVariant">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- form start -->
-                        <form role="form" method="POST" action="save_edit">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Variant</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="variantName" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="unitPrice" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sku">SKU</label>
-                                    <input type="text" class="form-control" id="sku" value="${supplier.name}">
-                                </div>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Set Beginning Stock</h4>
-                                </div>
-                                <div class="form-group">
-                                    <label for="beginningStock">Beginning Stock</label>
-                                    <input type="text" class="form-control" id="beginningStock" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="alertAt" value="${supplier.name}">
-                                </div>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-editVariant">
-                <div class="modal-dialog">
-                    <form class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Variant</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="editVariantName" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="editUnitPrice" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sku">SKU</label>
-                                    <input type="text" class="form-control" id="editSku" value="${supplier.name}">
-                                </div>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Set Beginning Stock</h4>
-                                </div>
-                                <div class="form-group">
-                                    <label for="beginningStock">Beginning Stock</label>
-                                    <input type="text" class="form-control" id="editBeginningStock" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="editAlertAt" value="${supplier.name}">
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </form>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
-        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -675,27 +440,6 @@
             "ordering": true,
             "info": true,
             "autoWidth": false,
-        });
-    });
-
-    //edit
-    $(document).on('click', '.edit_data', function () {
-        var idSupllier = $(this).attr("id");
-        $.ajax({
-            url: "/supplierJson/" + idSupllier,
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                $('#id').val(data.id);
-                $('#name').val(data.name);
-                $('#address').val(data.address);
-                $('#province').val(data.provinceId);
-                $('#region').val(data.regionId);
-                $('#district').val(data.districtId);
-                $('#postal_code').val(data.postalCode);
-                $('#phone').val(data.phone);
-                $('#email').val(data.email);
-            }
         });
     });
 </script>

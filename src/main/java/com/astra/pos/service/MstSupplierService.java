@@ -14,12 +14,12 @@ public class MstSupplierService {
     @Autowired
     MstSupplierDao mstSupplierDao;
 
-    public void saveSupplier(MstSupplier mstSupplier) {
+    public void save(MstSupplier mstSupplier) {
         this.mstSupplierDao.save(mstSupplier);
     }
 
-    public void update(MstSupplier mstSupplier){
-        mstSupplierDao.update(mstSupplier);
+    public void update(MstSupplier mstSupplier) {
+        this.mstSupplierDao.update(mstSupplier);
     }
 
     public MstSupplier getSupplier(long id) {
