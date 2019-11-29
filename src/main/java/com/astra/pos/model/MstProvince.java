@@ -1,6 +1,8 @@
 package com.astra.pos.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -32,19 +34,6 @@ public class MstProvince {
 
     @NotNull
     private boolean active;
-
-    @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
-    private List<MstRegion> region;
-
-    @OneToMany(mappedBy = "province")
-    private List<MstCustomer> customer;
-
-    @OneToMany(mappedBy = "province")
-    private List<MstOutlet> outlet;
-
-    @OneToMany(mappedBy = "province")
-    private List<MstSupplier> supplier;
-
 
     public Long getId() {
         return id;
@@ -102,35 +91,4 @@ public class MstProvince {
         this.active = active;
     }
 
-    public List<MstRegion> getRegion() {
-        return region;
-    }
-
-    public void setRegion(List<MstRegion> region) {
-        this.region = region;
-    }
-
-    public List<MstCustomer> getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(List<MstCustomer> customer) {
-        this.customer = customer;
-    }
-
-    public List<MstOutlet> getOutlet() {
-        return outlet;
-    }
-
-    public void setOutlet(List<MstOutlet> outlet) {
-        this.outlet = outlet;
-    }
-
-    public List<MstSupplier> getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(List<MstSupplier> supplier) {
-        this.supplier = supplier;
-    }
 }

@@ -35,6 +35,40 @@
             });
         });
     </script>
+    <script>
+        $(document).on('click', '.edit_data', function(){
+            var outletId = $(this).attr("id");
+            $.ajax({
+                url:"/edit/"+ outletId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    $('.myForm #id').val(data.id);
+                    $('.myForm #name').val(data.name);
+                    $('.myForm #address').val(data.address);
+                    $('.myForm #province').val(data.province);
+                    $('.myForm #region').val(data.region);
+                    $('.myForm #district').val(data.district);
+                    $('.myForm #phone').val(data.phone);
+                    $('.myForm #email').val(data.email);
+                    $('.myForm #postalCode').val(data.postalCode);
+
+                }
+            });
+        });
+
+        $(document).on('click', '.save_data', function(){
+            $('.myForm #id').val("");
+            $('.myForm #name').val("");
+            $('.myForm #address').val("");
+            $('.myForm #province').val("0");
+            $('.myForm #region').val("0");
+            $('.myForm #district').val("0");
+            $('.myForm #phone').val("");
+            $('.myForm #email').val("");
+            $('.myForm #postalCode').val("");
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -387,13 +421,14 @@
                                 <tbody id="myTable">
                                 <c:forEach var="outlet" items="${outlets}">
                                     <tr>
+                                        <td hidden>${outlet.id}</td>
                                         <td>${outlet.name}</td>
                                         <td>${outlet.address}</td>
                                         <td>${outlet.phone}</td>
                                         <td>${outlet.email}</td>
                                         <td align="center">
-                                            <button type="button" class="btn btn-block btn-info" href="edit/${outlet.id}"
-                                                    data-toggle="modal" data-target="#modal-edit">Edit
+                                            <button type="button" class="edit_data btn btn-block btn-info" id="${outlet.id}"
+                                                    data-toggle="modal" data-target="#modal-create">Edit
                                             </button>
                                         </td>
                                     </tr>
@@ -413,54 +448,6 @@
         </section>
 
         <section class="content">
-            <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Outlet</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <c:choose>
-                                <c:when test="${mode=='MODE_UPDATE' }">
-                                    <form role="form" method="POST" action="/editSave">
-                                        <div class="card-body">
-                                            <input type="hidden" name="id" value=${outlet.id} />
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" value="${outlet.name}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address">Address</label>
-                                                <input type="text" class="form-control" id="address" value="${outlet.address}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" id="phone" value="${outlet.phone}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="${outlet.email}">
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-outline-light">Save changes</button>
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
             <div class="modal fade" id="modal-create">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content bg-info">

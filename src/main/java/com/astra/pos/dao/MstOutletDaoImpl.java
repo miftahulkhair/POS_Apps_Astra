@@ -36,6 +36,13 @@ public class MstOutletDaoImpl implements MstOutletDao{
     }
 
     @Override
+    public void saveOrUpdate(MstOutlet mstOutlet) {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        session.saveOrUpdate(mstOutlet);
+        session.flush();
+    }
+
+    @Override
     public MstOutlet findOne(Long id) {
         Session session = entityManager.unwrap(Session.class).getSession();
         return session.get(MstOutlet.class, id);

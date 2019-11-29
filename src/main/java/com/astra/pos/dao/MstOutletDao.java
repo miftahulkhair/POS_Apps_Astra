@@ -8,6 +8,7 @@ public interface MstOutletDao {
     void save(MstOutlet mstOutlet);
     void delete(MstOutlet mstOutlet);
     void update(MstOutlet mstOutlet);
+    void saveOrUpdate(MstOutlet mstOutlet);
     MstOutlet findOne(Long id);
     List<MstOutlet> findAll();
 }

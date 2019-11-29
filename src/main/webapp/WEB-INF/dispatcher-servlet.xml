@@ -25,6 +25,7 @@
 
     <jpa:repositories base-package="com.astra.pos.repository" entity-manager-factory-ref="entityManagerFactory"/>
 
+
     <!-- Define Spring MVC view resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />

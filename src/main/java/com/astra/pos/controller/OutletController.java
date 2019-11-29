@@ -9,13 +9,8 @@ import com.astra.pos.service.MstOutletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Min;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,24 +44,33 @@ public class OutletController {
 //    }
 
     //update
-    @RequestMapping(value="/edit/{id}")
-    public ModelAndView editOutlet(@PathVariable long id) {
-        MstOutlet mstOutlet = mstOutletService.findOne(id);
-        return new ModelAndView("", "outlet", mstOutlet );
+//    @RequestMapping(value="/edit/{id}")
+//    public ModelAndView editOutlet(@PathVariable long id) {
+//        MstOutlet mstOutlet = mstOutletService.findOne(id);
+//        return new ModelAndView("", "outlet", mstOutlet );
+//    }
+
+    @RequestMapping(value="/edit/{id}" , method = RequestMethod.GET)
+    public @ResponseBody
+        MstOutlet getOutlet(@PathVariable Long id) {
+        MstOutlet outlet = mstOutletService.findOne(id);
+        System.out.println(outlet.getId());
+        return outlet;
     }
 
     @RequestMapping(value="/editSave",method = RequestMethod.POST)
     public String edit(@ModelAttribute("outlet") MstOutlet mstOutlet){
-        mstOutletService.update(mstOutlet);
-        return "redirect:/outlet";
+        mstOutlet.setActive(true);
+        mstOutletService.saveOrUpdate(mstOutlet);
+        return "redirect:/viewoutlets";
     }
 
     //save
-    @RequestMapping(value="/save",method = RequestMethod.POST)
-    public String save(@ModelAttribute("outlet") MstOutlet mstOutlet){
-        mstOutletService.save(mstOutlet);
-        return "redirect:/viewoutlets";
-    }
+//    @RequestMapping(value="/save",method = RequestMethod.POST)
+//    public S tring save(@ModelAttribute("outlet") MstOutlet mstOutlet){
+//        mstOutletService.save(mstOutlet);
+//        return "redirect:/viewoutlets";
+//    }
 
     //indexing
     @RequestMapping(value = "/viewoutlets")

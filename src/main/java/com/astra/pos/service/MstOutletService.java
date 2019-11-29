@@ -2,6 +2,7 @@ package com.astra.pos.service;
 
 import com.astra.pos.dao.MstOutletDao;
 import com.astra.pos.model.MstOutlet;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,10 @@ public class MstOutletService {
 
     public void update(MstOutlet mstOutlet){
         mstOutletDao.update(mstOutlet);
+    }
+
+    public void saveOrUpdate(MstOutlet mstOutlet){
+        mstOutletDao.saveOrUpdate(mstOutlet);
     }
 
     public MstOutlet findOne(Long id) {

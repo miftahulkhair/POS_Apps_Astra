@@ -42,20 +42,29 @@ public class MstOutlet {
     @NotNull
     private boolean active;
 
-    @ManyToOne
+    @NotNull
+    private Long  province_id;
+
+    @NotNull
+    private Long  region_id;
+
+    @NotNull
+    private Long  district_id;
+
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstProvince.class)
+    @JoinColumn(name = "province_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstProvince province;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstRegion.class)
+    @JoinColumn(name = "region_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstRegion region;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstDistrict.class)
+    @JoinColumn(name = "district_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstDistrict district;
-
-    @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
-    private AssEmployeeOutlet employeeOutlet;
 
     @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
     private AssItemInventory itemInventory;
@@ -173,19 +182,35 @@ public class MstOutlet {
         this.district = district;
     }
 
-    public AssEmployeeOutlet getEmployeeOutlet() {
-        return employeeOutlet;
-    }
-
-    public void setEmployeeOutlet(AssEmployeeOutlet employeeOutlet) {
-        this.employeeOutlet = employeeOutlet;
-    }
-
     public AssItemInventory getItemInventory() {
         return itemInventory;
     }
 
     public void setItemInventory(AssItemInventory itemInventory) {
         this.itemInventory = itemInventory;
+    }
+
+    public Long getProvince_id() {
+        return province_id;
+    }
+
+    public void setProvince_id(Long province_id) {
+        this.province_id = province_id;
+    }
+
+    public Long getRegion_id() {
+        return region_id;
+    }
+
+    public void setRegion_id(Long region_id) {
+        this.region_id = region_id;
+    }
+
+    public Long getDistrict_id() {
+        return district_id;
+    }
+
+    public void setDistrict_id(Long district_id) {
+        this.district_id = district_id;
     }
 }
