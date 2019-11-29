@@ -369,19 +369,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="variant" items="${variant}" >
+                                    <c:forEach var="inventory" items="${allInventory}" >
                                         <tr>
-                                            <td hidden>${variant.item.id}</td>
+                                            <td hidden>${inventory.variant.item.id}</td>
 
-                                            <td>${variant.item.name} - ${variant.name}</td>
-                                            <td>${variant.item.category.name}</td>
-                                            <td>${variant.price}</td>
-                                            <td>${variant.sku}</td>
-                                            <td>${variant.item.name}</td>
+                                            <td>${inventory.variant.item.name} - ${inventory.variant.name}</td>
+                                            <td>${inventory.variant.item.category.name}</td>
+                                            <td>${inventory.variant.price}</td>
+                                            <td>${inventory.variant.sku}</td>
+                                            <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
+                                                <td>Low</td>
+                                            </c:if>
+                                            <c:if test="${inventory.endingQty > inventory.alertAtQty}">
+                                                <td>Normal</td>
+                                            </c:if>
                                             <td align="center">
                                                 <button type="button" class="btn btn-block btn-info"
-                                                        onclick="href = '/edit_form?id=${variant.item.id}';
-                                                                <c:set var="id" value="${variant.item.id}"/>"
+                                                        onclick="href = '/edit_form?id=${inventory.variant.item.id}';
+                                                                <c:set var="id" value="${inventory.variant.item.id}"/>"
                                                         data-toggle="modal" data-target="#modal-edit"
                                                 >Edit
                                                 </button>

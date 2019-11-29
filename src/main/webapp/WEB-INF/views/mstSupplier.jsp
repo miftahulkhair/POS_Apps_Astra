@@ -19,6 +19,29 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script>
+        //edit
+        $(document).on('click', '.edit', function () {
+            var idSupplier = $(this).attr("id");
+            $.ajax({
+                url: "/edit_form?" + idSupplier,
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#address').val(data.address);
+                    $('#province').val(data.province);
+                    $('#region').val(data.region);
+                    $('#district').val(data.district);
+                    $('#phone').val(data.phone);
+                    $('#email').val(data.email);
+                    $('#postalCode').val(data.postalCode);
+                }
+            });
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -378,8 +401,9 @@
                                         <td>${supplier.phone}</td>
                                         <td>${supplier.email}</td>
                                         <td align="center">
-                                            <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/edit_form?id=${supplier.id}';"
+                                            <button type="button" class="edit btn btn-block btn-info"
+                                                    onclick="href = '/Supplier/edit_form?id=${supplier.id}';"
+                                                    id="${supplier.id}"
                                                     data-toggle="modal" data-target="#modal-edit-create"
                                             >Edit
                                             </button>
@@ -482,39 +506,38 @@
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form:form method="POST" action="/Supplier/save-supplier" modelAttribute="supp">
+                            <form:form method="POST" action="/Supplier/saveUpdate-supplier" modelAttribute="supp">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Supplier Id</label>
-                                        <form:input disabled="true" type="text" class="form-control" path="id" value = "${supplier.id}"/>
-                                        <c:out value="${id}"/>
+                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />
                                     </div>
                                     <div class="form-group">
                                         <label>Supplier Name</label>
-                                        <form:input type="text" class="form-control" path="name" value = "${editSupplier.name}"/>
+                                        <form:input type="text" class="form-control" id="name" path="name" />
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <form:input type="text" class="form-control" path="address" value = "${editSupplier.address}"/>
+                                        <form:input type="text" class="form-control" id="adddress" path="address" />
                                     </div>
 
                                     <div class="form-group">
                                         <label>Province</label>
-                                        <form:select path="province.id" class="form-control select2" style="width: 100%;"  >
+                                        <form:select path="province.id" id="province" class="form-control select2" style="width: 100%;"  >
                                             <form:option value="0" label="-SELECT PROVINCE-"/>
                                             <form:options items="${province}"/>
                                         </form:select>
                                     </div>
                                     <div class="form-group">
                                         <label>Region</label>
-                                        <form:select path="region.id" class="form-control select2" style="width: 100%;"  >
-                                            <form:option value="0" label="-SELECT REGION-"/>
+                                        <form:select path="region.id" id="region" class="form-control select2" style="width: 100%;"  >
+                                            <form:option value="0"  label="-SELECT REGION-"/>
                                             <form:options items="${region}"/>
                                         </form:select>
                                     </div>
                                     <div class="form-group">
                                         <label>District</label>
-                                        <form:select path="district.id" class="form-control select2" style="width: 100%;"  >
+                                        <form:select path="district.id" id="district" class="form-control select2" style="width: 100%;"  >
                                             <form:option value="0" label="-SELECT DISTRICT-"/>
                                             <form:options items="${district}"/>
                                         </form:select>
@@ -522,16 +545,16 @@
 
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <form:input type="text" class="form-control" path="phone" value = "${editSupplier.phone}"/>
+                                        <form:input type="text" class="form-control" id="phone" path="phone" />
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <form:input type="text" class="form-control" path="email" value = "${editSupplier.email}"/>
+                                        <form:input type="text" class="form-control" id="email" path="email" />
                                     </div>
 
                                     <div class="form-group">
                                         <label>Postal Code</label>
-                                        <form:input type="text" class="form-control" path="postalCode" value = "${editSupplier.postalCode}"/>
+                                        <form:input type="text" class="form-control" id="postalCode" path="postalCode" />
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -579,6 +602,7 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/demo.js"></script>
 <!-- page script -->`
 <script>
+
     $(function () {
         $("#example1").DataTable();
         $('#example2').DataTable({
@@ -591,26 +615,7 @@
         });
     });
 
-    //edit
-    $(document).on('click', '.edit_form', function () {
-        var idSuppplier = $(this).attr("id");
-        $.ajax({
-            url: "/supplierJson/" + idSupplier,
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                $('#id').val(data.id);
-                $('#name').val(data.name);
-                $('#address').val(data.address);
-                // $('#province').val(data.provinceId);
-                // $('#region').val(data.regionId);
-                // $('#district').val(data.districtId);
-                // $('#postal_code').val(data.postalCode);
-                $('#phone').val(data.phone);
-                $('#email').val(data.email);
-            }
-        });
-    });
+
 </script>
 </body>
 </html>

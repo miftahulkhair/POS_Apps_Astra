@@ -1,7 +1,9 @@
 package com.astra.pos.controller;
 
+import com.astra.pos.model.AssItemInventory;
 import com.astra.pos.model.MstItem;
 import com.astra.pos.model.MstVariant;
+import com.astra.pos.service.AssInventoryService;
 import com.astra.pos.service.MstItemService;
 import com.astra.pos.service.MstVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,18 @@ public class MstItemController {
     @Autowired
     MstVariantService mstVariantService;
 
+    @Autowired
+    AssInventoryService assInventoryService;
+
     @RequestMapping("/")
     public ModelAndView getAllItem(@ModelAttribute MstItem mstItem) {
         ModelAndView mv = new ModelAndView("mstItem");
         List<MstItem> items = mstItemService.getAllItem();
         mv.addObject("allItem", items);
         mv.addObject("supp", new  MstItem());
+
+        List<AssItemInventory> inventories = assInventoryService.getAllInventory();
+        mv.addObject("allInventory", inventories);
 
         List<MstVariant> variants = mstVariantService.getAllVariant();
 //        Map<Long, String> variant = new HashMap<>();

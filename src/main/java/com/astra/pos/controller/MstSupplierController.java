@@ -79,10 +79,10 @@ public class MstSupplierController {
         return mv;
     }
 
-    @RequestMapping(value = "/save-supplier", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("sup") MstSupplier supplier){
+    @RequestMapping(value = "/saveUpdate-supplier", method = RequestMethod.POST)
+    public ModelAndView saveUpdate(@ModelAttribute("sup") MstSupplier supplier){
         ModelAndView mv = new ModelAndView("redirect:/Supplier/");
-        mstSupplierService.save(supplier);
+        mstSupplierService.saveUpdate(supplier);
         return mv;
     }
 }

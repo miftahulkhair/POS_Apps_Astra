@@ -8,6 +8,7 @@ import java.util.List;
 public interface MstSupplierDao {
     void save(MstSupplier mstSupplier);
     void update(MstSupplier mstSupplier);
+    void saveUpdate(MstSupplier mstSupplier);
     MstSupplier findOne(Long id);
     List<MstSupplier> findAll();
     List<MstSupplier> search(String searchField);

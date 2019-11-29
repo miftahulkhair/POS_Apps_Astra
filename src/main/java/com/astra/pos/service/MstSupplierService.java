@@ -14,6 +14,10 @@ public class MstSupplierService {
     @Autowired
     MstSupplierDao mstSupplierDao;
 
+    public void saveUpdate(MstSupplier mstSupplier) {
+        this.mstSupplierDao.saveUpdate(mstSupplier);
+    }
+
     public void save(MstSupplier mstSupplier) {
         this.mstSupplierDao.save(mstSupplier);
     }

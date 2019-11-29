@@ -19,12 +19,12 @@ public class MstSupplierDaoImpl implements MstSupplierDao{
     @Autowired
     EntityManager entityManager;
 
-//    @Override
-//    public void saveUpdate(MstSupplier mstSupplier) {
-//        Session session = entityManager.unwrap(Session.class).getSession();
-//        session.saveOrUpdate(mstSupplier);
-//        session.flush();
-//    }
+    @Override
+    public void saveUpdate(MstSupplier mstSupplier) {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        session.saveOrUpdate(mstSupplier);
+        session.flush();
+    }
 
     @Override
     public void save(MstSupplier mstSupplier) {
