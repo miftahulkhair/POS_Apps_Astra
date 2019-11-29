@@ -60,7 +60,6 @@ public class OutletController {
 
     @RequestMapping(value="/editSave",method = RequestMethod.POST)
     public String edit(@ModelAttribute("outlet") MstOutlet mstOutlet){
-        mstOutlet.setActive(true);
         mstOutletService.saveOrUpdate(mstOutlet);
         return "redirect:/viewoutlets";
     }

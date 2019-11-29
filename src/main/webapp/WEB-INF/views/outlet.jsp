@@ -43,30 +43,31 @@
                 method:"GET",
                 dataType:"json",
                 success:function(data){
-                    $('.myForm #id').val(data.id);
-                    $('.myForm #name').val(data.name);
-                    $('.myForm #address').val(data.address);
-                    $('.myForm #province').val(data.province);
-                    $('.myForm #region').val(data.region);
-                    $('.myForm #district').val(data.district);
-                    $('.myForm #phone').val(data.phone);
-                    $('.myForm #email').val(data.email);
-                    $('.myForm #postalCode').val(data.postalCode);
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#address').val(data.address);
+                    $('#province').val(data.province_id);
+                    $('#region').val(data.region_id);
+                    $('#district').val(data.district_id);
+                    $('#phone').val(data.phone);
+                    $('#email').val(data.email);
+                    $('#postalCode').val(data.postalCode);
 
                 }
             });
         });
-
+    </script>
+    <script>
         $(document).on('click', '.save_data', function(){
-            $('.myForm #id').val("");
-            $('.myForm #name').val("");
-            $('.myForm #address').val("");
-            $('.myForm #province').val("0");
-            $('.myForm #region').val("0");
-            $('.myForm #district').val("0");
-            $('.myForm #phone').val("");
-            $('.myForm #email').val("");
-            $('.myForm #postalCode').val("");
+            $('#id').val("");
+            $('#name').val("");
+            $('#address').val("");
+            $('#province').val("0");
+            $('#region').val("0");
+            $('#district').val("0");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#postalCode').val("");
         });
     </script>
 </head>
@@ -401,7 +402,7 @@
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="save_data btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
                             </div>
 
                         </div>
@@ -458,7 +459,63 @@
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <jsp:include page="outletform.jsp"/>
+<%--                            <jsp:include page="outletform.jsp"/>--%>
+                            <div class="container-fluid">
+                                <form:form method="POST" action="/editSave" modelAttribute="outlet">
+                                    <div class="card-body">
+
+                                        <div class="form-group">
+                                            <form:input type="hidden" class="form-control" id="id" path="id"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Name</label>
+                                            <form:input type="text" class="form-control" id="name" path="name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Address</label>
+                                            <form:input type="text" class="form-control" id="address" path="address"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Province</label>
+                                            <form:select id="province" path="province_id" class="form-control select2 " style="width: 100%;"  >
+                                                <form:option value="0" label="Select Province"/>
+                                                <form:options items="${province}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Region</label>
+                                            <form:select id="region" path="region_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select Region"/>
+                                                <form:options items="${region}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>District</label>
+                                            <form:select id="district" path="district_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select District"/>
+                                                <form:options items="${district}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Phone</label>
+                                            <form:input type="text" class="form-control" id="phone" path="phone"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Email</label>
+                                            <form:input type="text" class="form-control" id="email" path="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Postal Code</label>
+                                            <form:input type="text" class="form-control" id="postalCode" path="postalCode"/>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer justify-content-between">
+                                        <button type="button" class="btn btn-outline-light align-content-sm-start" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-outline-light align-content-sm-end">Save</button>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </form:form>
+                            </div>
                         </div>
 <%--                        <div class="modal-footer justify-content-between">--%>
 <%--                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
