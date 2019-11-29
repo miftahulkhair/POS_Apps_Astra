@@ -42,8 +42,8 @@
             <tr>
 
                 <td>
-                    <form:select path="role">
-                        <form:option value="NONE" label="-select-"/>
+                    <form:select path="role_id" id="role_id">
+                        <form:option value="0" label="-select-"/>
                         <form:options items="${roles}"/>
                     </form:select>
                 </td>
