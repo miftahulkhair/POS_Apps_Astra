@@ -3,7 +3,7 @@ package com.astra.pos.controller;
 import com.astra.pos.UserEmployeeOutletCmd;
 import com.astra.pos.model.*;
 import com.astra.pos.repository.*;
-import com.astra.pos.service.MstUserService;
+import com.astra.pos.service.MstEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,10 +30,9 @@ public class UserController {
     @Autowired
     AssEmployeeOutletRepository assEmployeeOutletRepository;
 
+    @Autowired
+    MstEmployeeService mstEmployeeService;
 
-
-//    @Autowired
-//    MstUserService mstUserService;
 
     @GetMapping("/employees")
     public ModelAndView getUsers()
@@ -56,8 +55,6 @@ public class UserController {
             outlet.put(getOutlet.getId(), getOutlet.getName());
         }
 
-//        System.out.println("OBJECT 1" + mstOutlets);
-//        System.out.println("OBJECT 2" + outlet);
 
 //        mv.addObject("outlets", mstOutletRepository.findAll());
         mv.addObject("outlets", outlet);
@@ -80,58 +77,173 @@ public class UserController {
     @RequestMapping(value = "/employees", method = RequestMethod.POST)
     public ModelAndView saveUsers(String firstName, String lastName, String email, String title, String username,
                                   String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd,
-                                  @RequestParam(value = "checkbox", required = false) String checkboxValue)
+                                  @RequestParam(value = "checkbox", required = false) String checkboxValue, Long id, MstEmployee employee, MstUser userById)
     {
-
 
         MstEmployee mstEmployee = new MstEmployee();
         MstUser mstUser = new MstUser();
         AssEmployeeOutlet assEmployeeOutlet = new AssEmployeeOutlet();
 
+        if(id != null){
 
-        if (checkboxValue != null){
-            mstEmployee.setFirstName(firstName);
-            mstEmployee.setLastName(lastName);
-            mstEmployee.setEmail(email);
-            mstEmployee.setTitle(title);
-            mstEmployee.setActive(true);
-            mstEmployee.setHaveAccount(true);
-
-
-            mstUser.setUsername(username);
-            mstUser.setPassword(password);
-            mstUser.setActive(true);
-            mstUser.setEmployee(mstEmployee);
-            mstUser.setRole_id(userEmployeeOutletCmd.getMstUser().getRole_id());
-
-            assEmployeeOutlet.setEmployee(mstEmployee);
-            assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+            employee.setHaveAccount(true);
+//            mstEmployee.setFirstName(firstName);
+//            mstEmployee.setLastName(lastName);
+//            mstEmployee.setEmail(email);
+//            mstEmployee.setTitle(title);
+//            mstEmployee.setActive(true);
+//            mstEmployee.setHaveAccount(false);
+//            employee.setUser(users);
+//            System.out.println("COBAAAAAAAAAAAAAAAAAAAAAAAAA" + userById.getUsername());
 
 
-            mstEmployeeRepository.save(mstEmployee);
-            mstUserRepository.save(mstUser);
-            assEmployeeOutletRepository.save(assEmployeeOutlet);
+//            assEmployeeOutlet.setEmployee(employee);
+//            assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+            mstEmployeeRepository.save(employee);
+//            mstUserRepository.save(userById);
+//            assEmployeeOutletRepository.save(assEmployeeOutlet);
+        }else {
+            if (checkboxValue != null){
+                mstEmployee.setFirstName(firstName);
+                mstEmployee.setLastName(lastName);
+                mstEmployee.setEmail(email);
+                mstEmployee.setTitle(title);
+                mstEmployee.setActive(true);
+                mstEmployee.setHaveAccount(true);
+
+
+                mstUser.setUsername(username);
+                mstUser.setPassword(password);
+                mstUser.setActive(true);
+                mstUser.setEmployee(mstEmployee);
+                mstUser.setRole_id(userEmployeeOutletCmd.getMstUser().getRole_id());
+
+                assEmployeeOutlet.setEmployee(mstEmployee);
+                assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+
+                mstEmployeeRepository.save(mstEmployee);
+                mstUserRepository.save(mstUser);
+                assEmployeeOutletRepository.save(assEmployeeOutlet);
+            }
+            else{
+                mstEmployee.setFirstName(firstName);
+                mstEmployee.setLastName(lastName);
+                mstEmployee.setEmail(email);
+                mstEmployee.setTitle(title);
+                mstEmployee.setActive(true);
+                mstEmployee.setHaveAccount(false);
+
+                assEmployeeOutlet.setEmployee(mstEmployee);
+                assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+                mstEmployeeRepository.save(mstEmployee);
+                assEmployeeOutletRepository.save(assEmployeeOutlet);
+
+            }
         }
-        else{
-            mstEmployee.setFirstName(firstName);
-            mstEmployee.setLastName(lastName);
-            mstEmployee.setEmail(email);
-            mstEmployee.setTitle(title);
-            mstEmployee.setActive(true);
-            mstEmployee.setHaveAccount(false);
 
-            assEmployeeOutlet.setEmployee(mstEmployee);
-            assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
 
-            mstEmployeeRepository.save(mstEmployee);
-            assEmployeeOutletRepository.save(assEmployeeOutlet);
-
-        }
 
         return getUsers();
 
     }
 
 
+    @RequestMapping("/employees/edit/{id}")
+//    @PathVariable("id") Long id
+    public ModelAndView editUser(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView();
+
+        ModelMap modelMap = new ModelMap();
+
+        UserEmployeeOutletCmd userEmployeeOutletCmd = new UserEmployeeOutletCmd();
+
+
+        List<MstRole> mstRoles = mstRoleRepository.findAll();
+        Map<Long, String> role = new HashMap<>();
+        for (MstRole getRole : mstRoles){
+            role.put(getRole.getId(), getRole.getName());
+        }
+
+        List<MstOutlet> mstOutlets = mstOutletRepository.findAll();
+        Map<Long, String> outlet = new HashMap<>();
+        for (MstOutlet getOutlet : mstOutlets){
+            outlet.put(getOutlet.getId(), getOutlet.getName());
+        }
+
+        Optional<MstEmployee> employee = mstEmployeeRepository.findById(id);
+        Optional<MstUser> user = mstUserRepository.findById(employee.get().getUser().getId());
+
+
+
+        System.out.println("EMPLOYEEEEEEEEEEEEEEEEEEEEEEEEEEEEE  "+ employee);
+        System.out.println("USERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR  "+ user);
+
+        mv.addObject("users", user);
+        mv.addObject("employees", employee);
+        mv.addObject("outlets", outlet);
+        mv.addObject("roles", role);
+
+
+        modelMap.addAttribute("userOutlets", userEmployeeOutletCmd);
+        mv.addAllObjects(modelMap);
+
+        mv.setViewName("employeeEdit");
+
+
+        return mv;
+    }
+
+
+    @PutMapping("/employees")
+    public ModelAndView updateUser(String firstName, String lastName, String email, String title, String username,
+                                   String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd)
+    {
+        ModelAndView mv = new ModelAndView("employee");
+
+        MstEmployee mstEmployee = new MstEmployee();
+        MstUser mstUser = new MstUser();
+
+        mstEmployee.setFirstName(firstName);
+        mstEmployee.setLastName(lastName);
+        mstEmployee.setEmail(email);
+        mstEmployee.setTitle(title);
+        mstEmployee.setActive(true);
+        mstEmployee.setHaveAccount(true);
+
+
+        mstUser.setUsername(username);
+        mstUser.setPassword(password);
+        mstUser.setActive(true);
+        mstUser.setEmployee(mstEmployee);
+        mstUser.setRole_id(userEmployeeOutletCmd.getMstUser().getRole_id());
+
+//        assEmployeeOutlet.setEmployee(mstEmployee);
+//        assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+
+        mstEmployeeService.update(mstEmployee);
+//        mstUserRepository.save(mstUser);
+//        assEmployeeOutletRepository.save(assEmployeeOutlet);
+
+
+        return mv;
+    }
+
+
+
+    @RequestMapping("/employees/{id}")
+    public ModelAndView deleteUser(@PathVariable Long id)
+    {
+//        MstEmployee mstEmployee = new MstEmployee();
+
+        MstEmployee employee = mstEmployeeRepository.getOne(id);
+        mstEmployeeRepository.delete(employee);
+
+
+        return getUsers();
+    }
 
 }

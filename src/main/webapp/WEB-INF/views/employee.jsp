@@ -171,7 +171,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
 
-                <form:form method="POST" action="/employees" modelAttribute="userOutlets">
+                <form:form method="PATCH" action="/employees" modelAttribute="userOutlets">
                     <div class="row">
 
                         <div class="col-md-3">
@@ -315,15 +315,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${users}" var="user">
+                                <c:forEach items="${employees}" var="employee">
                                 <tr>
-                                    <td>${user.employee.firstName} ${user.employee.lastName}</td>
-                                    <td>${user.employee.email}</td>
-                                    <td>${user.employee.haveAccount}</td>
-                                    <td>${user.employee.employeeOutlet.outlet.name}</td>
-                                    <td>${user.role.name}</td>
-                                    <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Edit</button></td>
-                                    <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/createUser';">Delete</button></td>
+                                    <td>${employee.firstName} ${employee.lastName}</td>
+                                    <td>${employee.email}</td>
+                                    <td>${employee.haveAccount}</td>
+                                    <td>${employee.employeeOutlet.outlet.name}</td>
+                                    <td>${employee.user.role.name}</td>
+                                    <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/employees/edit/${employee.id}';">Edit</button></td>
+                                    <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/employees/${employee.id}';">Delete</button></td>
                                 </tr>
                                 </c:forEach>
 
