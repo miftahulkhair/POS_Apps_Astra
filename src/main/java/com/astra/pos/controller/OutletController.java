@@ -34,14 +34,6 @@ public class OutletController {
 //        return mv;
 //    }
 
-    //delete
-//    @RequestMapping(value="/deactivate/{id}", method = RequestMethod.GET)
-//    public String deactivateCategory(@PathVariable long id){
-//        MstOutlet mstOutlet = mstOutletService.findOne(id);
-//        mstOutlet.setActive(false);
-//        mstOutletService.update(mstOutlet);
-//        return "redirect:/outlet";
-//    }
 
     //update
 //    @RequestMapping(value="/edit/{id}")
@@ -64,12 +56,6 @@ public class OutletController {
         return "redirect:/viewoutlets";
     }
 
-    //save
-//    @RequestMapping(value="/save",method = RequestMethod.POST)
-//    public S tring save(@ModelAttribute("outlet") MstOutlet mstOutlet){
-//        mstOutletService.save(mstOutlet);
-//        return "redirect:/viewoutlets";
-//    }
 
     //indexing
     @RequestMapping(value = "/viewoutlets")

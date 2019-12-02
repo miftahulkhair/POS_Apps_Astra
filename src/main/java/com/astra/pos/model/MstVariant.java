@@ -15,6 +15,9 @@ public class MstVariant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Long item_id;
+
     @NotNull
     private String name;
 
@@ -38,13 +41,17 @@ public class MstVariant {
     @NotNull
     private boolean active;
 
-    @ManyToOne
-    @NotNull
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstItem.class)
+    @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstItem item;
 
-    @OneToOne(mappedBy = "variant")
-    private AssItemInventory itemInventory;
+    public Long getItem_id() {
+        return item_id;
+    }
 
+    public void setItem_id(Long item_id) {
+        this.item_id = item_id;
+    }
 
     public Long getId() {
         return id;
@@ -126,11 +133,4 @@ public class MstVariant {
         this.item = item;
     }
 
-    public AssItemInventory getItemInventory() {
-        return itemInventory;
-    }
-
-    public void setItemInventory(AssItemInventory itemInventory) {
-        this.itemInventory = itemInventory;
-    }
 }

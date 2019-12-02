@@ -65,8 +65,6 @@ public class MstOutlet {
     @JoinColumn(name = "district_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstDistrict district;
 
-    @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
-    private AssItemInventory itemInventory;
 
 
     public Long getId() {
@@ -181,13 +179,6 @@ public class MstOutlet {
         this.district = district;
     }
 
-    public AssItemInventory getItemInventory() {
-        return itemInventory;
-    }
-
-    public void setItemInventory(AssItemInventory itemInventory) {
-        this.itemInventory = itemInventory;
-    }
 
     public Long getProvince_id() {
         return province_id;

@@ -33,10 +33,6 @@ public class MstCategory
     @NotNull
     private boolean active;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<MstItem> item;
-
-
     public Long getId() {
         return id;
     }
@@ -93,11 +89,4 @@ public class MstCategory
         this.active = active;
     }
 
-    public List<MstItem> getItem() {
-        return item;
-    }
-
-    public void setItem(List<MstItem> item) {
-        this.item = item;
-    }
 }

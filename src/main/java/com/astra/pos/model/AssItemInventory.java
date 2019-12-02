@@ -15,24 +15,80 @@ public class AssItemInventory
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private int beginning;
+    @Column(nullable = false)
+    private Integer beginning;
 
-    private int purchaseQty;
+    private Integer purchaseQty;
 
-    private int salesOrderQty;
+    private Integer salesOrderQty;
 
-    private int transferStockQty;
+    private Integer transferStockQty;
 
-    private int adjustmentQty;
+    private Integer adjustmentQty;
 
-    @NotNull
-    private int endingQty;
+    private Long outlet_id;
 
-    @NotNull
-    private int alertAtQty;
+    @Column(nullable = false)
+    private Integer endingQty;
+
+    @Column(nullable = false)
+    private Integer alertAtQty;
 
     private Long createBy;
+
+    public Integer getPurchaseQty() {
+        return purchaseQty;
+    }
+
+    public void setPurchaseQty(Integer purchaseQty) {
+        this.purchaseQty = purchaseQty;
+    }
+
+    public Integer getSalesOrderQty() {
+        return salesOrderQty;
+    }
+
+    public void setSalesOrderQty(Integer salesOrderQty) {
+        this.salesOrderQty = salesOrderQty;
+    }
+
+    public Integer getTransferStockQty() {
+        return transferStockQty;
+    }
+
+    public void setTransferStockQty(Integer transferStockQty) {
+        this.transferStockQty = transferStockQty;
+    }
+
+    public Integer getAdjustmentQty() {
+        return adjustmentQty;
+    }
+
+    public void setAdjustmentQty(Integer adjustmentQty) {
+        this.adjustmentQty = adjustmentQty;
+    }
+
+    public int getEndingQty() {
+        return endingQty;
+    }
+
+
+    public int getAlertAtQty() {
+        return alertAtQty;
+    }
+
+
+    public void setBeginning(Integer beginning) {
+        this.beginning = beginning;
+    }
+
+    public void setEndingQty(Integer endingQty) {
+        this.endingQty = endingQty;
+    }
+
+    public void setAlertAtQty(Integer alertAtQty) {
+        this.alertAtQty = alertAtQty;
+    }
 
     @CreationTimestamp
     private Timestamp createOn;
@@ -42,12 +98,23 @@ public class AssItemInventory
     @UpdateTimestamp
     private Timestamp modifiedOn;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = MstVariant.class)
+    @JoinColumn(name = "variant_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstVariant variant;
 
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = MstOutlet.class)
+    @JoinColumn(name = "outlet_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstOutlet outlet;
+
+    public Long getOutlet_id() {
+        return outlet_id;
+    }
+
+    public void setOutlet_id(Long outlet_id) {
+        this.outlet_id = outlet_id;
+    }
 
 
     public Long getId() {
@@ -62,57 +129,6 @@ public class AssItemInventory
         return beginning;
     }
 
-    public void setBeginning(int beginning) {
-        this.beginning = beginning;
-    }
-
-    public int getPurchaseQty() {
-        return purchaseQty;
-    }
-
-    public void setPurchaseQty(int purchaseQty) {
-        this.purchaseQty = purchaseQty;
-    }
-
-    public int getSalesOrderQty() {
-        return salesOrderQty;
-    }
-
-    public void setSalesOrderQty(int salesOrderQty) {
-        this.salesOrderQty = salesOrderQty;
-    }
-
-    public int getTransferStockQty() {
-        return transferStockQty;
-    }
-
-    public void setTransferStockQty(int transferStockQty) {
-        this.transferStockQty = transferStockQty;
-    }
-
-    public int getAdjustmentQty() {
-        return adjustmentQty;
-    }
-
-    public void setAdjustmentQty(int adjustmentQty) {
-        this.adjustmentQty = adjustmentQty;
-    }
-
-    public int getEndingQty() {
-        return endingQty;
-    }
-
-    public void setEndingQty(int endingQty) {
-        this.endingQty = endingQty;
-    }
-
-    public int getAlertAtQty() {
-        return alertAtQty;
-    }
-
-    public void setAlertAtQty(int alertAtQty) {
-        this.alertAtQty = alertAtQty;
-    }
 
     public Long getCreateBy() {
         return createBy;
