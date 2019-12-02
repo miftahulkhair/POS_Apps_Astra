@@ -213,7 +213,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/" class="nav-link ">
+                                <a href="/Item/viewitem" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,6 +20,49 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.edit_item', function(){
+            var itemId = $(this).attr("id");
+            $.ajax({
+                url:"/Item/edit/"+ itemId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#category').val(data.category_id);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.save_item', function(){
+            $('#id').val("");
+            $('#name').val("");
+            $('#address').val("");
+            $('#province').val("0");
+            $('#region').val("0");
+            $('#district').val("0");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#postalCode').val("");
+        });
+    </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -369,29 +414,29 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="inventory" items="${allInventory}" >
-                                        <tr>
-                                            <td hidden>${inventory.id}</td>
-                                            <td>${inventory.mstItemVariant.itemId.name} - ${inventory.mstItemVariant.name}</td>
-                                            <td>${inventory.mstItemVariant.itemId.categoryId.name}</td>
-                                            <td>${inventory.mstItemVariant.price}</td>
-                                            <td>${inventory.endingQty}</td>
-                                            <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
-                                                <td>Low</td>
-                                            </c:if>
-                                            <c:if test="${inventory.endingQty > inventory.alertAtQty}">
-                                                <td>Normal</td>
-                                            </c:if>
-                                            <td align="center">
-                                                <button type="button" class="btn btn-block btn-info"
-                                                        onclick="href = '/edit_form?id=${inventory.id}';
-                                                                <c:set var="id" value="${inventory.id}"/>"
-                                                        data-toggle="modal" data-target="#modal-edit"
-                                                >Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach var="inventory" items="${inventories}" >
+                                    <tr>
+                                        <td hidden>${inventory.variant.item.id}</td>
+                                        <td>${inventory.variant.item.name} - ${inventory.variant.name}</td>
+                                        <td>${inventory.variant.item.category.name}</td>
+                                        <td>
+                                            <fmt:formatNumber type="currency" value = "${inventory.variant.price}" />
+                                        </td>
+                                        <td>${inventory.variant.sku}</td>
+                                        <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
+                                            <td>Low</td>
+                                        </c:if>
+                                        <c:if test="${inventory.endingQty > inventory.alertAtQty}">
+                                            <td>Normal</td>
+                                        </c:if>
+                                        <td align="center">
+                                            <button type="button" class="btn btn-block btn-info"
+                                                    data-toggle="modal" data-target="#modal-edit"
+                                            >Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -466,7 +511,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
+                            <form:form method="POST" action="/Item/saveUpdate-item" modelAttribute="supp">
                                 <div class="card-body">
                                     <%--                                    Image--%>
                                     <div class="form-group">
@@ -489,7 +534,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div align="right">
-                                            <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-addVariant">Add Variant</button>
+                                            <button type="button" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-addVariant">Add Variant</button>
                                         </div>
                                         <table id="example" class="table table-bordered table-hover">
                                             <thead>
@@ -534,7 +579,7 @@
                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-outline-light">Save</button>
                                 </div>
-                            </form>
+                            </form:form>
                         </div>
 
                     </div>
@@ -547,7 +592,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- form start -->
-                        <form role="form" method="POST" action="save_edit">
+                        <form:form method="POST" action="/Item/editSaveVariant" modelAttribute="">
                             <div class="modal-header">
                                 <h4 class="modal-title">Add Variant</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -556,12 +601,12 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="variantName" value="${supplier.name}">
+                                    <label>Variant Name</label>
+                                    <form:input disabled="true" type="text" class="form-control" id="name" path="name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="unitPrice" value="${supplier.name}">
+                                    <label>Unit Price</label>
+                                    <form:input disabled="true" type="text" class="form-control" id="unitPrice" path="price" />
                                 </div>
                                 <div class="form-group">
                                     <label for="sku">SKU</label>
@@ -583,7 +628,7 @@
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-                        </form>
+                        </form:form>
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -623,7 +668,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="editAlertAt" value="">
+                                    <input type="text" class="form-control" id="editAlertAt" value="${supplier.name}">
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -681,27 +726,26 @@
             "autoWidth": false,
         });
     });
-
     //edit
-    // $(document).on('click', '.edit_data', function () {
-    //     var idSupllier = $(this).attr("id");
-    //     $.ajax({
-    //         url: "/supplierJson/" + idSupllier,
-    //         method: "GET",
-    //         dataType: "json",
-    //         success: function (data) {
-    //             $('#id').val(data.id);
-    //             $('#name').val(data.name);
-    //             $('#address').val(data.address);
-    //             $('#province').val(data.provinceId);
-    //             $('#region').val(data.regionId);
-    //             $('#district').val(data.districtId);
-    //             $('#postal_code').val(data.postalCode);
-    //             $('#phone').val(data.phone);
-    //             $('#email').val(data.email);
-    //         }
-    //     });
-    // });
+    $(document).on('click', '.edit_data', function () {
+        var idSupllier = $(this).attr("id");
+        $.ajax({
+            url: "/supplierJson/" + idSupllier,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#id').val(data.id);
+                $('#name').val(data.name);
+                $('#address').val(data.address);
+                $('#province').val(data.provinceId);
+                $('#region').val(data.regionId);
+                $('#district').val(data.districtId);
+                $('#postal_code').val(data.postalCode);
+                $('#phone').val(data.phone);
+                $('#email').val(data.email);
+            }
+        });
+    });
 </script>
 </body>
 </html>

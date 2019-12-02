@@ -16,7 +16,7 @@ public class AssItemInventory
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer beginning;
 
     private Integer purchaseQty;
@@ -27,11 +27,13 @@ public class AssItemInventory
 
     private Integer adjustmentQty;
 
-    @NotNull
-    private int endingQty;
+    private Long outlet_id;
 
-    @NotNull
-    private int alertAtQty;
+    @Column(nullable = false)
+    private Integer endingQty;
+
+    @Column(nullable = false)
+    private Integer alertAtQty;
 
     private Long createBy;
 
@@ -43,10 +45,13 @@ public class AssItemInventory
     @UpdateTimestamp
     private Timestamp modifiedOn;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = MstVariant.class)
+    @JoinColumn(name = "variant_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstVariant variant;
 
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = MstOutlet.class)
+    @JoinColumn(name = "outlet_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstOutlet outlet;
 
@@ -98,19 +103,27 @@ public class AssItemInventory
         this.adjustmentQty = adjustmentQty;
     }
 
-    public int getEndingQty() {
+    public Long getOutlet_id() {
+        return outlet_id;
+    }
+
+    public void setOutlet_id(Long outlet_id) {
+        this.outlet_id = outlet_id;
+    }
+
+    public Integer getEndingQty() {
         return endingQty;
     }
 
-    public void setEndingQty(int endingQty) {
+    public void setEndingQty(Integer endingQty) {
         this.endingQty = endingQty;
     }
 
-    public int getAlertAtQty() {
+    public Integer getAlertAtQty() {
         return alertAtQty;
     }
 
-    public void setAlertAtQty(int alertAtQty) {
+    public void setAlertAtQty(Integer alertAtQty) {
         this.alertAtQty = alertAtQty;
     }
 

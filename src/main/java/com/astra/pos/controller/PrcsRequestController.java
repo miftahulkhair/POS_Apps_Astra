@@ -1,9 +1,6 @@
 package com.astra.pos.controller;
 
-import com.astra.pos.model.AssItemInventory;
-import com.astra.pos.model.MstSupplier;
 import com.astra.pos.model.TPr;
-import com.astra.pos.service.AssInventoryService;
 import com.astra.pos.service.PurchaseRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
