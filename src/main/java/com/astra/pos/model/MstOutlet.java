@@ -1,5 +1,6 @@
 package com.astra.pos.model;
 
+import com.sun.istack.internal.Nullable;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -42,28 +43,26 @@ public class MstOutlet {
     @NotNull
     private boolean active;
 
-    @NotNull
+    @Column(nullable = false)
     private Long  province_id;
 
-    @NotNull
+    @Column(nullable = false)
     private Long  region_id;
 
-    @NotNull
+    @Column(nullable = false)
     private Long  district_id;
 
     @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstProvince.class)
     @JoinColumn(name = "province_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @NotNull
     private MstProvince province;
 
     @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstRegion.class)
     @JoinColumn(name = "region_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @NotNull
     private MstRegion region;
+
 
     @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstDistrict.class)
     @JoinColumn(name = "district_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @NotNull
     private MstDistrict district;
 
     @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
