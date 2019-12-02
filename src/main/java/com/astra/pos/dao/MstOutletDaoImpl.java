@@ -1,7 +1,6 @@
 package com.astra.pos.dao;
 
-import com.astra.pos.model.MstSupplier;
-import com.astra.pos.model.TPr;
+import com.astra.pos.model.MstOutlet;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,40 +9,48 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class PurchaseRequestDaoImpl implements PurchaseRequestDao{
+public class MstOutletDaoImpl implements MstOutletDao{
+
     @Autowired
     EntityManager entityManager;
 
     @Override
-    public void save(TPr tPr) {
+    public void save(MstOutlet mstOutlet) {
         Session session = entityManager.unwrap(Session.class).getSession();
-        session.save(tPr);
+        session.save(mstOutlet);
         session.flush();
     }
 
     @Override
-    public void update(TPr tPr) {
+    public void delete(MstOutlet mstOutlet) {
         Session session = entityManager.unwrap(Session.class).getSession();
-        session.update(tPr);
+        session.delete(mstOutlet);
         session.flush();
     }
 
     @Override
-    public void saveUpdate(TPr tPr) {
+    public void update(MstOutlet mstOutlet) {
         Session session = entityManager.unwrap(Session.class).getSession();
-        session.saveOrUpdate(tPr);
+        session.update(mstOutlet);
         session.flush();
     }
 
     @Override
-    public TPr findOne(Long id) {
+    public void saveOrUpdate(MstOutlet mstOutlet) {
         Session session = entityManager.unwrap(Session.class).getSession();
-        return session.get(TPr.class, id);
+        session.saveOrUpdate(mstOutlet);
+        session.flush();
     }
 
     @Override
-    public List<TPr> findAll() {
+    public MstOutlet findOne(Long id) {
         Session session = entityManager.unwrap(Session.class).getSession();
-        return session.createCriteria(TPr.class).list();
+        return session.get(MstOutlet.class, id);
+    }
+
+    @Override
+    public List<MstOutlet> findAll() {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        return session.createCriteria(MstOutlet.class).list();
     }
 }

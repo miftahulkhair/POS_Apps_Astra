@@ -33,22 +33,13 @@ public class MstRegion {
     @NotNull
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = MstProvince.class)
+    @JoinColumn(name = "province_id", referencedColumnName = "id", insertable = false, updatable = false)
     @NotNull
     private MstProvince province;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
-    private List<MstDistrict> district;
-
-    @OneToMany(mappedBy = "region")
-    private List<MstCustomer> customer;
-
-    @OneToMany(mappedBy = "region")
-    private List<MstOutlet> outlet;
-
-    @OneToMany(mappedBy = "region")
-    private List<MstSupplier> supplier;
-
+    @NotNull
+    private Long province_id;
 
     public Long getId() {
         return id;
@@ -114,35 +105,11 @@ public class MstRegion {
         this.province = province;
     }
 
-    public List<MstDistrict> getDistrict() {
-        return district;
+    public Long getProvince_id() {
+        return province_id;
     }
 
-    public void setDistrict(List<MstDistrict> district) {
-        this.district = district;
-    }
-
-    public List<MstCustomer> getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(List<MstCustomer> customer) {
-        this.customer = customer;
-    }
-
-    public List<MstOutlet> getOutlet() {
-        return outlet;
-    }
-
-    public void setOutlet(List<MstOutlet> outlet) {
-        this.outlet = outlet;
-    }
-
-    public List<MstSupplier> getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(List<MstSupplier> supplier) {
-        this.supplier = supplier;
+    public void setProvince_id(Long province_id) {
+        this.province_id = province_id;
     }
 }

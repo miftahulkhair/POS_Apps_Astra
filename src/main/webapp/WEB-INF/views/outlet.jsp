@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,6 +21,55 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.edit_data', function(){
+            var outletId = $(this).attr("id");
+            console.log("Hello, " + outletId );
+            $.ajax({
+                url:"/Outlet/edit/"+ outletId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#address').val(data.address);
+                    $('#province').val(data.province_id);
+                    $('#region').val(data.region_id);
+                    $('#district').val(data.district_id);
+                    $('#phone').val(data.phone);
+                    $('#email').val(data.email);
+                    $('#postalCode').val(data.postalCode);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.save_data', function(){
+            $('#id').val("");
+            $('#name').val("");
+            $('#address').val("");
+            $('#province').val("0");
+            $('#region').val("0");
+            $('#district').val("0");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#postalCode').val("");
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -171,7 +222,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="Dashboard" class="nav-link">
+                        <a href="/Dashboard/" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -189,7 +240,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -201,19 +252,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="Supplier" class="nav-link active">
+                                <a href="/Supplier/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/jsgrid.html" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="Item" class="nav-link">
+                                <a href="/Item/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -230,13 +281,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="/PurchaseRequest/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Request</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -320,7 +371,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Supplier</h1>
+                        <h1>Outlet</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -341,51 +392,50 @@
                             <!-- SEARCH FORM -->
                             <form class="form-inline ml-3">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
+                                        <button class="btn btn-navbar bg-transparent border-transparent" type="submit">
+                                            <i class="fas fa-search bg-transparent"></i>
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="save_data btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
                             </div>
 
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="id">Id</label>
-                                        <input type="text" class="form-control" id="id" value="${supplier.id}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" value="${supplier.name}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input type="text" class="form-control" id="address" value="${supplier.address}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" value="${supplier.phone}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" value="${supplier.email}">
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div>
-                                    <button type="button" class="btn btn-primary">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th hidden>Id</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>#</th>
+                                </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                <c:forEach var="outlet" items="${outlets}">
+                                    <tr>
+                                        <td hidden>${outlet.id}</td>
+                                        <td>${outlet.name}</td>
+                                        <td>${outlet.address}</td>
+                                        <td>${outlet.phone}</td>
+                                        <td>${outlet.email}</td>
+                                        <td align="center">
+                                            <button type="button" class="edit_data btn btn-block btn-info" id="${outlet.id}"
+                                                    data-toggle="modal" data-target="#modal-create">Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -398,7 +448,86 @@
             <!-- /.row -->
         </section>
 
+        <section class="content">
+            <div class="modal fade" id="modal-create">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content bg-info">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Create Outlet</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- form start -->
+                            <%--                            <jsp:include page="outletform.jsp"/>--%>
+                            <div class="container-fluid">
+                                <form:form method="POST" action="/Outlet/editSave" modelAttribute="outlet">
+                                    <div class="card-body">
 
+                                        <div class="form-group">
+                                            <form:input type="hidden" class="form-control" id="id" path="id"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Name</label>
+                                            <form:input type="text" class="form-control" id="name" path="name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Address</label>
+                                            <form:input type="text" class="form-control" id="address" path="address"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Province</label>
+                                            <form:select id="province" path="province_id" class="form-control select2 " style="width: 100%;"  >
+                                                <form:option value="0" label="Select Province"/>
+                                                <form:options items="${province}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Region</label>
+                                            <form:select id="region" path="region_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select Region"/>
+                                                <form:options items="${region}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>District</label>
+                                            <form:select id="district" path="district_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select District"/>
+                                                <form:options items="${district}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Phone</label>
+                                            <form:input type="text" class="form-control" id="phone" path="phone"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Email</label>
+                                            <form:input type="text" class="form-control" id="email" path="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Postal Code</label>
+                                            <form:input type="text" class="form-control" id="postalCode" path="postalCode"/>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer justify-content-between">
+                                        <button type="button" class="btn btn-outline-light align-content-sm-start" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-outline-light align-content-sm-end">Save</button>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </form:form>
+                            </div>
+                        </div>
+                        <%--                        <div class="modal-footer justify-content-between">--%>
+                        <%--                            <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
+                        <%--                            <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
+                        <%--                        </div>--%>
+
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

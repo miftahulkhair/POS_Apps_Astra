@@ -29,7 +29,6 @@ public class MstSupplierController {
         List<MstSupplier> suppliers = mstSupplierService.getAllSupplier();
         mv.addObject("allSupplier", suppliers);
         mv.addObject("supp", new  MstSupplier());
-        mv.addObject("edit", new  MstSupplier());
 
         //location data
         List<MstProvince> provinces = locationService.findAllProvince();
@@ -64,23 +63,31 @@ public class MstSupplierController {
         return mv;
     }
 
-    @RequestMapping(value = "/edit_form", method = RequestMethod.GET)
-    public ModelAndView editForm(@RequestParam long id){
-        ModelAndView mv = new ModelAndView("mstSupplier");
+    @RequestMapping(value="/edit_form/{id}" , method = RequestMethod.GET)
+    public @ResponseBody
+        MstSupplier getSupplier(@PathVariable Long id) {
         MstSupplier supplier = mstSupplierService.getSupplier(id);
-        mv.addObject("editSupplier", supplier);
-        return mv;
+        System.out.println(supplier.getId());
+        return supplier;
     }
 
+//    @RequestMapping(value = "/edit_form", method = RequestMethod.GET)
+//    public ModelAndView editForm(@RequestParam long id){
+//        ModelAndView mv = new ModelAndView("mstSupplier");
+//        MstSupplier supplier = mstSupplierService.getSupplier(id);
+//        mv.addObject("editSupplier", supplier);
+//        return mv;
+//    }
+
     @RequestMapping(value = "/save-update", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("update") MstSupplier supplier){
+    public ModelAndView update(@ModelAttribute("supp") MstSupplier supplier){
         ModelAndView mv = new ModelAndView("redirect:/Supplier/");
         mstSupplierService.update(supplier);
         return mv;
     }
 
     @RequestMapping(value = "/saveUpdate-supplier", method = RequestMethod.POST)
-    public ModelAndView saveUpdate(@ModelAttribute("sup") MstSupplier supplier){
+    public ModelAndView saveUpdate(@ModelAttribute("supp") MstSupplier supplier){
         ModelAndView mv = new ModelAndView("redirect:/Supplier/");
         mstSupplierService.saveUpdate(supplier);
         return mv;

@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -109,4 +110,5 @@ public class MstItem {
     public void setVariant(List<MstVariant> variant) {
         this.variant = variant;
     }
+
 }

@@ -20,21 +20,35 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <script>
-        //edit
-        $(document).on('click', '.edit', function () {
-            var idSupplier = $(this).attr("id");
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.edit_data', function(){
+            var supplierId = $(this).attr("id");
+            console.log("Hello, " + supplierId );
             $.ajax({
-                url: "/edit_form?" + idSupplier,
-                method: "GET",
-                dataType: "json",
-                success: function (data) {
+                url:"/Supplier/edit_form/"+ supplierId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#address').val(data.address);
-                    $('#province').val(data.province);
-                    $('#region').val(data.region);
-                    $('#district').val(data.district);
+                    $('#province').val(data.province_id);
+                    $('#region').val(data.region_id);
+                    $('#district').val(data.district_id);
                     $('#phone').val(data.phone);
                     $('#email').val(data.email);
                     $('#postalCode').val(data.postalCode);
@@ -42,6 +56,7 @@
             });
         });
     </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -230,7 +245,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/jsgrid.html" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
@@ -259,7 +274,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -364,7 +379,7 @@
                             <!-- SEARCH FORM -->
                             <form class="form-inline ml-3">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
                                             <i class="fas fa-search"></i>
@@ -391,8 +406,7 @@
                                     <th>#</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody id="myTable">
                                 <c:forEach var="supplier" items="${allSupplier}">
                                     <tr>
                                         <td hidden>${supplier.id}</td>
@@ -401,11 +415,8 @@
                                         <td>${supplier.phone}</td>
                                         <td>${supplier.email}</td>
                                         <td align="center">
-                                            <button type="button" class="edit btn btn-block btn-info"
-                                                    onclick="href = '/Supplier/edit_form?id=${supplier.id}';"
-                                                    id="${supplier.id}"
-                                                    data-toggle="modal" data-target="#modal-edit-create"
-                                            >Edit
+                                            <button type="button" class="edit_data btn btn-block btn-info" id="${supplier.id}"
+                                                    data-toggle="modal" data-target="#modal-edit-create">Edit
                                             </button>
                                         </td>
                                     </tr>
@@ -424,79 +435,6 @@
 
         <section class="content">
             <!-- /.modal -->
-<%--            <div class="modal fade" id="modal-edit">--%>
-<%--                <div class="modal-dialog">--%>
-<%--                    <div class="modal-content bg-info">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h4 class="modal-title">Supplier</h4>--%>
-<%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                <span aria-hidden="true">&times;</span></button>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-body">--%>
-<%--                            <form:form method="POST" action="/Supplier/save-supplier" modelAttribute="supp">--%>
-<%--                                <div class="card-body">--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Supplier Id</label>--%>
-<%--                                        <form:input disabled="true" type="text" class="form-control" path="id" value = "${supplier.id}"/>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Supplier Name</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="name" value = "${editSupplier.name}"/>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Address</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="address" value = "${editSupplier.address}"/>--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Province</label>--%>
-<%--                                        <form:select path="province.id" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0" label="-SELECT PROVINCE-"/>--%>
-<%--                                            <form:options items="${province}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Region</label>--%>
-<%--                                        <form:select path="region.id" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0" label="-SELECT REGION-"/>--%>
-<%--                                            <form:options items="${region}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>District</label>--%>
-<%--                                        <form:select path="district.id" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0" label="-SELECT DISTRICT-"/>--%>
-<%--                                            <form:options items="${district}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Phone</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="phone" value = "${editSupplier.phone}"/>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Email</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="email" value = "${editSupplier.email}"/>--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Postal Code</label>--%>
-<%--                                        <form:input type="text" class="form-control" path="postalCode" value = "${editSupplier.postalCode}"/>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <!-- /.card-body -->--%>
-<%--                                <div class="modal-footer justify-content-between">--%>
-<%--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
-<%--                                    <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
-<%--                                </div>--%>
-<%--                            </form:form>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <!-- /.modal-content -->--%>
-<%--                </div>--%>
-<%--                <!-- /.modal-dialog -->--%>
-<%--            </div>--%>
-
             <div class="modal fade" id="modal-edit-create">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
@@ -518,26 +456,26 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <form:input type="text" class="form-control" id="adddress" path="address" />
+                                        <form:input type="text" class="form-control" id="address" path="address" />
                                     </div>
 
                                     <div class="form-group">
                                         <label>Province</label>
-                                        <form:select path="province.id" id="province" class="form-control select2" style="width: 100%;"  >
+                                        <form:select path="province_id" id="province" class="form-control select2" style="width: 100%;"  >
                                             <form:option value="0" label="-SELECT PROVINCE-"/>
                                             <form:options items="${province}"/>
                                         </form:select>
                                     </div>
                                     <div class="form-group">
                                         <label>Region</label>
-                                        <form:select path="region.id" id="region" class="form-control select2" style="width: 100%;"  >
+                                        <form:select path="region_id" id="region" class="form-control select2" style="width: 100%;"  >
                                             <form:option value="0"  label="-SELECT REGION-"/>
                                             <form:options items="${region}"/>
                                         </form:select>
                                     </div>
                                     <div class="form-group">
                                         <label>District</label>
-                                        <form:select path="district.id" id="district" class="form-control select2" style="width: 100%;"  >
+                                        <form:select path="district_id" id="district" class="form-control select2" style="width: 100%;"  >
                                             <form:option value="0" label="-SELECT DISTRICT-"/>
                                             <form:options items="${district}"/>
                                         </form:select>

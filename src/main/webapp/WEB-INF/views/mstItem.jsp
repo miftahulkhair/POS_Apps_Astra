@@ -206,7 +206,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/jsgrid.html" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
@@ -235,7 +235,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -371,12 +371,11 @@
                                 <tbody>
                                     <c:forEach var="inventory" items="${allInventory}" >
                                         <tr>
-                                            <td hidden>${inventory.variant.item.id}</td>
-
-                                            <td>${inventory.variant.item.name} - ${inventory.variant.name}</td>
-                                            <td>${inventory.variant.item.category.name}</td>
-                                            <td>${inventory.variant.price}</td>
-                                            <td>${inventory.variant.sku}</td>
+                                            <td hidden>${inventory.id}</td>
+                                            <td>${inventory.mstItemVariant.itemId.name} - ${inventory.mstItemVariant.name}</td>
+                                            <td>${inventory.mstItemVariant.itemId.categoryId.name}</td>
+                                            <td>${inventory.mstItemVariant.price}</td>
+                                            <td>${inventory.endingQty}</td>
                                             <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
                                                 <td>Low</td>
                                             </c:if>
@@ -385,8 +384,8 @@
                                             </c:if>
                                             <td align="center">
                                                 <button type="button" class="btn btn-block btn-info"
-                                                        onclick="href = '/edit_form?id=${inventory.variant.item.id}';
-                                                                <c:set var="id" value="${inventory.variant.item.id}"/>"
+                                                        onclick="href = '/edit_form?id=${inventory.id}';
+                                                                <c:set var="id" value="${inventory.id}"/>"
                                                         data-toggle="modal" data-target="#modal-edit"
                                                 >Edit
                                                 </button>
@@ -624,7 +623,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="editAlertAt" value="${supplier.name}">
+                                    <input type="text" class="form-control" id="editAlertAt" value="">
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -684,25 +683,25 @@
     });
 
     //edit
-    $(document).on('click', '.edit_data', function () {
-        var idSupllier = $(this).attr("id");
-        $.ajax({
-            url: "/supplierJson/" + idSupllier,
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                $('#id').val(data.id);
-                $('#name').val(data.name);
-                $('#address').val(data.address);
-                $('#province').val(data.provinceId);
-                $('#region').val(data.regionId);
-                $('#district').val(data.districtId);
-                $('#postal_code').val(data.postalCode);
-                $('#phone').val(data.phone);
-                $('#email').val(data.email);
-            }
-        });
-    });
+    // $(document).on('click', '.edit_data', function () {
+    //     var idSupllier = $(this).attr("id");
+    //     $.ajax({
+    //         url: "/supplierJson/" + idSupllier,
+    //         method: "GET",
+    //         dataType: "json",
+    //         success: function (data) {
+    //             $('#id').val(data.id);
+    //             $('#name').val(data.name);
+    //             $('#address').val(data.address);
+    //             $('#province').val(data.provinceId);
+    //             $('#region').val(data.regionId);
+    //             $('#district').val(data.districtId);
+    //             $('#postal_code').val(data.postalCode);
+    //             $('#phone').val(data.phone);
+    //             $('#email').val(data.email);
+    //         }
+    //     });
+    // });
 </script>
 </body>
 </html>

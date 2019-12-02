@@ -230,13 +230,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/PurchaseRequest/" class="nav-link active">
+                                <a href="/PurchaseRequest/" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Request</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/PurchaseOrder/" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -320,7 +320,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Purchase Request</h1>
+                        <h1>Purchase Order</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -339,13 +339,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="col-2 d-none d-sm-inline-block">
-                                <input type="text" class="form-control" id="cek" value="">
+                                <input type="text" class="form-control" value="">
                             </div>
                             <div class="col-2 d-none d-sm-inline-block">
                                 <select class="form-control select2" style="width: 100%;">
                                     <option selected="selected">Status</option>
-                                    <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
-                                        <option>${PrcsRequest.status}</option>
+                                    <c:forEach var="status" items="">
+                                        <option>${}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -362,7 +362,6 @@
                             </div>
                             <div align="right" class="col-5 d-none d-sm-inline-block">
                                 <button type="button" class="btn btn-primary">Export</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -372,28 +371,30 @@
                                 <tr>
                                     <th hidden>Id</th>
                                     <th>Create Date</th>
-                                    <th>PR No.</th>
-                                    <th>Note</th>
+                                    <th>Supplier</th>
+                                    <th>PO No.</th>
+                                    <th>Total</th>
                                     <th>Status</th>
                                     <th>#</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
+                                <c:forEach var="supplier" items="">
                                     <tr>
-                                        <td hidden>${PrcsRequest.id}</td>
-                                        <td>${PrcsRequest.createdOn}</td>
-                                        <td>${PrcsRequest.prNo}</td>
-                                        <td>${PrcsRequest.notes}</td>
-                                        <td>${PrcsRequest.status}</td>
+                                        <td hidden></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td align="center">
                                             <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/PurchaseRequest/edit_form?id=${PrcsRequest.id}';"
+                                                    onclick="href = '/Supplier/edit_form?id=';"
                                                     data-toggle="modal" data-target="#modal-edit"
                                             >Edit
                                             </button>
                                             <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/PurchaseRequest/edit_form?id=${PrcsRequest.id}';"
+                                                    onclick="href = '/Supplier/edit_form?id=';"
                                                     data-toggle="modal" data-target="#modal-view"
                                             >View
                                             </button>
@@ -416,95 +417,77 @@
 
         <section class="content">
             <!-- /.modal -->
-            <div class="modal fade" id="modal-create">
+            <div class="modal fade" id="modal-edit">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Purchase Request</h4>
+                            <h4 class="modal-title">Purchase Order</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <form:form method="POST" action="/PrcsRequest/saveUpdate-pr" modelAttribute="tpr">
+                            <form role="form" method="POST" action="save_edit">
                                 <div class="card-body">
+                                    <h4 class="modal-title">Edit New PO : "nama outlet login"</h4>
                                     <div class="form-group">
-                                        <label>Supplier Id</label>
-                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />
-                                    </div>
-                                    <h4 class="modal-title">Create New PR : "nama outlet login"</h4>
-                                    <div class="form-group">
-                                        <label for="datepicker">Target Waktu Item Ready</label>
+                                        <label>Choose Supplier</label>
                                         <!-- Date -->
                                         <div class="form-group">
-                                            <div class="input-group date">
-                                                <div >
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text" class="form-control pull-right" id="datepicker">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="notes">Notes</label>
-                                                <form:textarea rows="4" cols="50" type="text" class="form-control" id="notes" path="notes" />
-                                            </div>
+                                            <form:select path="supplier" id="province" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >
+                                                <form:option value="0" label="Supplier"/>
+                                                <form:options items=""/>
+                                            </form:select>
                                             <!-- /.input group -->
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notes">Notes</label>
+                                            <textarea rows="4" cols="50" type="text" class="form-control" id="notes" value=""></textarea>
+                                            <%--                                                <input type="text" class="form-control" id="notes" value="${supplier.name}">--%>
                                         </div>
                                     </div>
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Purchase Request</h4>
+                                        <h4 class="modal-title">Purchase Order</h4>
                                     </div>
                                     <div class="card-body">
-                                        <c:choose>
-                                            <c:when test="" >
-                                                <%--                                                test="${table =='NOT_NULL'}"--%>
-                                                <table id="example" class="table table-bordered table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th hidden>Id</th>
-                                                        <th>Item</th>
-                                                        <th>In Stock</th>
-                                                        <th>Request Qty</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <c:forEach var="inventory" items="">
-                                                        <tr>
-                                                            <td hidden></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td align="center">
-                                                                <button type="button" class="edit btn btn-block btn-info"
-                                                                        data-value=""
-                                                                >Delete
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                                <div align="center">
-                                                    <button type="button" class="btn w-100 btn-primary" data-toggle="modal" data-target="#modal-addItem">Add Item</button>
-                                                </div>
-                                            </c:when>
-                                            <c:when test="">
-                                                <%--                                                test="${table =='NULL'}"--%>
-                                                <div align="center">
-                                                    <button type="button" class="btn w-100 btn-primary" data-toggle="modal" data-target="#modal-addItem">Add Item</button>
-                                                </div>
-                                            </c:when>
-                                        </c:choose>
+                                        <table id="example" class="table table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th hidden>Id</th>
+                                                <th>Item</th>
+                                                <th>In Stock</th>
+                                                <th>Qty</th>
+                                                <th>Unit Cost</th>
+                                                <th>Sub Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach var="supplier" items="">
+                                                <tr>
+                                                    <td hidden></td>
+                                                    <td></td>
+                                                    <td disabled="true"></td>
+                                                    <td disabled="true"></td>
+                                                    <td></td>
+                                                    <td disabled="true"></td>
+                                                </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+                                        <div class="col-5 d-none d-sm-inline-block">
+                                            <h4 class="modal-title">TOTAL</h4>
+                                            <label></label>
+                                        </div>
                                     </div>
                                     <!-- /.form-group -->
                                 </div>
-
                                 <!-- /.card-body -->
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-outline-light">Save</button>
+                                    <button type="button" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                            </form:form>
+                            </form>
                         </div>
 
                     </div>
@@ -513,147 +496,11 @@
                 <!-- /.modal-dialog -->
             </div>
 
-<%--            <div class="modal fade" id="modal-edit">--%>
-<%--                <div class="modal-dialog">--%>
-<%--                    <div class="modal-content bg-info">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h4 class="modal-title">Edit Supplier</h4>--%>
-<%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                <span aria-hidden="true">&times;</span></button>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-body">--%>
-<%--                            <form:form method="POST" action="/PrcsRequest/saveUpdate-pr" modelAttribute="tpr">--%>
-<%--                                <div class="card-body">--%>
-<%--                                    <div class="card-body">--%>
-<%--                                        <div class="form-group">--%>
-<%--                                            <label>Supplier Id</label>--%>
-<%--                                            <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
-<%--                                        </div>--%>
-<%--                                        <div class="form-group">--%>
-<%--                                            <label for="name">Name</label>--%>
-<%--                                            <form:input disabled="true" type="text" class="form-control" id="name" path="name" />--%>
-<%--                                        </div>--%>
-<%--                                        <div class="form-group">--%>
-<%--                                            <label for="address">Address</label>--%>
-<%--                                            <input type="text" class="form-control" id="address" value="">--%>
-<%--                                        </div>--%>
-<%--                                        <div class="form-group">--%>
-<%--                                            <label for="phone">Phone</label>--%>
-<%--                                            <input type="text" class="form-control" id="phone" value="">--%>
-<%--                                        </div>--%>
-<%--                                        <div class="form-group">--%>
-<%--                                            <label for="email">Email</label>--%>
-<%--                                            <input type="email" class="form-control" id="email" value="">--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <!-- /.card-body -->--%>
-<%--                                    <div class="modal-footer justify-content-between">--%>
-<%--                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
-<%--                                        <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
-<%--                                    </div>--%>
-
-
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Supplier Id</label>--%>
-<%--                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Supplier Name</label>--%>
-<%--                                        <form:input type="text" class="form-control" id="name" path="name" />--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Address</label>--%>
-<%--                                        <form:input type="text" class="form-control" id="adddress" path="address" />--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Province</label>--%>
-<%--                                        <form:select path="province_id" id="province" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0" label="-SELECT PROVINCE-"/>--%>
-<%--                                            <form:options items="${province}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Region</label>--%>
-<%--                                        <form:select path="region_id" id="region" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0"  label="-SELECT REGION-"/>--%>
-<%--                                            <form:options items="${region}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>District</label>--%>
-<%--                                        <form:select path="district_id" id="district" class="form-control select2" style="width: 100%;"  >--%>
-<%--                                            <form:option value="0" label="-SELECT DISTRICT-"/>--%>
-<%--                                            <form:options items="${district}"/>--%>
-<%--                                        </form:select>--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Phone</label>--%>
-<%--                                        <form:input type="text" class="form-control" id="phone" path="phone" />--%>
-<%--                                    </div>--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Email</label>--%>
-<%--                                        <form:input type="text" class="form-control" id="email" path="email" />--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="form-group">--%>
-<%--                                        <label>Postal Code</label>--%>
-<%--                                        <form:input type="text" class="form-control" id="postalCode" path="postalCode" />--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <!-- /.card-body -->--%>
-<%--                                <div class="modal-footer justify-content-between">--%>
-<%--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
-<%--                                    <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
-<%--                                </div>--%>
-<%--                            </form:form>--%>
-
-
-<%--                            <c:choose>--%>
-<%--                                <c:when test="">--%>
-<%--                                    <form role="form" method="POST" action="save_edit">--%>
-<%--                                        <div class="card-body">--%>
-<%--                                            <input type="hidden" name="id" value="${PrcsRequest.prNo}" />--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label for="name">Name</label>--%>
-<%--                                                <input type="text" class="form-control" id="name" value="">--%>
-<%--                                            </div>--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label for="address">Address</label>--%>
-<%--                                                <input type="text" class="form-control" id="address" value="">--%>
-<%--                                            </div>--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label for="phone">Phone</label>--%>
-<%--                                                <input type="text" class="form-control" id="phone" value="">--%>
-<%--                                            </div>--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label for="email">Email</label>--%>
-<%--                                                <input type="email" class="form-control" id="email" value="">--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <!-- /.card-body -->--%>
-<%--                                        <div class="modal-footer justify-content-between">--%>
-<%--                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
-<%--                                            <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
-<%--                                        </div>--%>
-<%--                                    </form>--%>
-<%--                                </c:when>--%>
-<%--                            </c:choose>--%>
-<%--                        </div>--%>
-
-<%--                    </div>--%>
-<%--                    <!-- /.modal-content -->--%>
-<%--                </div>--%>
-<%--                <!-- /.modal-dialog -->--%>
-<%--            </div>--%>
-
             <div class="modal fade" id="modal-view">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title col-5 d-none d-sm-inline-block">Purchase Request Detail</h4>
+                            <h4 class="modal-title col-5 d-none d-sm-inline-block">Purchase Order Detail</h4>
                             <form:select path="status_id" id="province" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >
                                 <form:option value="0" label="MORE"/>
                                 <form:options items=""/>
@@ -662,58 +509,62 @@
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="card-body">
-                                    <label for="name">PR Number : </label>
-                                    <label for="name">Create By : </label>
-                                    <label for="name">Target Waktu Item Ready : </label>
-                                    <label for="name">PR Status : </label>
-                                    <div class="form-group">
-                                        <label>Notes : </label>
-                                        <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>
-                                    </div>
-                                    <h4 class="modal-title">Status History</h4>
-                                    <%--                                            Kalo history kaya gimana ya? perlu di forEach ga?--%>
-                                    <label>On  -  is </label>
-                                    <h4 class="modal-title">Purchase Items</h4>
-                                    <div class="form-group">
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th hidden>Id</th>
-                                                <th>Item</th>
-                                                <th>In Stock</th>
-                                                <th>Request Qty</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach var="supplier" items="">
-                                                <tr>
-                                                    <td hidden></td>
-                                                    <td> - </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td align="center">
-                                                        <button type="button" class="delete btn btn-block btn-danger"
-                                                                onclick="edit()"
-                                                                data-value=""
-                                                                data-toggle="modal" data-target="#modal-edit-create"
-                                                        >X
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="submit" class="btn btn-outline-light" data-dismiss="modal">Done</button>
-                                </div>
-                            </form>
+                            <c:choose>
+                                <c:when test="">
+                                    <form role="form" method="POST" action="save_edit">
+                                        <div class="card-body">
+                                            <label >PR Number : </label>
+                                            <label >Create By : </label>
+                                            <label >Target Waktu Item Ready : </label>
+                                            <label >PR Status : </label>
+                                            <div class="form-group">
+                                                <label>Notes : </label>
+                                                <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>
+                                            </div>
+                                            <h4 class="modal-title">Status History</h4>
+                                                <%--                                            Kalo history kaya gimana ya? perlu di forEach ga?--%>
+                                            <label>On  -  is </label>
+                                            <h4 class="modal-title">Purchase Items</h4>
+                                            <div class="form-group">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th hidden>Id</th>
+                                                        <th>Item</th>
+                                                        <th>In Stock</th>
+                                                        <th>Qty. Order</th>
+                                                        <th>Unit Cost</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <c:forEach var="supplier" items="">
+                                                        <tr>
+                                                            <td hidden></td>
+                                                            <td> - </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-5 d-none d-sm-inline-block">
+                                                <h4 class="modal-title">TOTAL</h4>
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Done</button>
+                                        </div>
+                                    </form>
+                                </c:when>
+                            </c:choose>
                         </div>
+
                     </div>
                     <!-- /.modal-content -->
                 </div>

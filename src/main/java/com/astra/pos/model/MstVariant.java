@@ -5,6 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -133,4 +134,5 @@ public class MstVariant {
     public void setItemInventory(AssItemInventory itemInventory) {
         this.itemInventory = itemInventory;
     }
+
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "pos_item_inventory")
@@ -16,15 +17,15 @@ public class AssItemInventory
     private Long id;
 
     @NotNull
-    private int beginning;
+    private Integer beginning;
 
-    private int purchaseQty;
+    private Integer purchaseQty;
 
-    private int salesOrderQty;
+    private Integer salesOrderQty;
 
-    private int transferStockQty;
+    private Integer transferStockQty;
 
-    private int adjustmentQty;
+    private Integer adjustmentQty;
 
     @NotNull
     private int endingQty;
@@ -49,7 +50,6 @@ public class AssItemInventory
     @NotNull
     private MstOutlet outlet;
 
-
     public Long getId() {
         return id;
     }
@@ -58,43 +58,43 @@ public class AssItemInventory
         this.id = id;
     }
 
-    public int getBeginning() {
+    public Integer getBeginning() {
         return beginning;
     }
 
-    public void setBeginning(int beginning) {
+    public void setBeginning(Integer beginning) {
         this.beginning = beginning;
     }
 
-    public int getPurchaseQty() {
+    public Integer getPurchaseQty() {
         return purchaseQty;
     }
 
-    public void setPurchaseQty(int purchaseQty) {
+    public void setPurchaseQty(Integer purchaseQty) {
         this.purchaseQty = purchaseQty;
     }
 
-    public int getSalesOrderQty() {
+    public Integer getSalesOrderQty() {
         return salesOrderQty;
     }
 
-    public void setSalesOrderQty(int salesOrderQty) {
+    public void setSalesOrderQty(Integer salesOrderQty) {
         this.salesOrderQty = salesOrderQty;
     }
 
-    public int getTransferStockQty() {
+    public Integer getTransferStockQty() {
         return transferStockQty;
     }
 
-    public void setTransferStockQty(int transferStockQty) {
+    public void setTransferStockQty(Integer transferStockQty) {
         this.transferStockQty = transferStockQty;
     }
 
-    public int getAdjustmentQty() {
+    public Integer getAdjustmentQty() {
         return adjustmentQty;
     }
 
-    public void setAdjustmentQty(int adjustmentQty) {
+    public void setAdjustmentQty(Integer adjustmentQty) {
         this.adjustmentQty = adjustmentQty;
     }
 
