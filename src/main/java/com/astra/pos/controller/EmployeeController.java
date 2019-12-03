@@ -77,7 +77,10 @@ public class UserController {
     @RequestMapping(value = "/employees", method = RequestMethod.POST)
     public ModelAndView saveUsers(String firstName, String lastName, String email, String title, String username,
                                   String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd,
-                                  @RequestParam(value = "checkbox", required = false) String checkboxValue, Long id, MstEmployee employee, MstUser userById)
+                                  @RequestParam(value = "checkbox", required = false) String checkboxValue, Long id, MstEmployee employee,
+                                  @RequestParam(value = "checkbox2", required = false) String checkboxValue2,
+                                  @RequestParam(value = "user_id", required = false) Long user_id,
+                                  @RequestParam(value = "assEmployeeOutlet_id", required = false) Long assEmployeeOutlet_id)
     {
 
         MstEmployee mstEmployee = new MstEmployee();
@@ -85,11 +88,33 @@ public class UserController {
         AssEmployeeOutlet assEmployeeOutlet = new AssEmployeeOutlet();
 
         if(id != null){
+            if(checkboxValue2 == null) {
 
-            employee.setHaveAccount(true);
-            employee.setActive(true);
+                employee.setHaveAccount(true);
+                employee.setActive(true);
 
-            mstEmployeeRepository.save(employee);
+                mstEmployeeRepository.save(employee);
+            }else {
+
+                employee.setHaveAccount(true);
+                employee.setActive(true);
+
+                mstUser.setId(user_id);
+                mstUser.setUsername(username);
+                mstUser.setPassword(password);
+                mstUser.setActive(true);
+                mstUser.setEmployee(employee);
+                mstUser.setRole_id(userEmployeeOutletCmd.getMstUser().getRole_id());
+
+                assEmployeeOutlet.setId(assEmployeeOutlet_id);
+                assEmployeeOutlet.setEmployee(employee);
+                assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+                mstEmployeeRepository.save(employee);
+                mstUserRepository.save(mstUser);
+                assEmployeeOutletRepository.save(assEmployeeOutlet);
+
+            }
 
         }else {
             if (checkboxValue != null){
