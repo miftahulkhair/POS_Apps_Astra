@@ -60,7 +60,7 @@ public class UserController {
         mv.addObject("outlets", outlet);
         mv.addObject("users", mstUserRepository.findAll());
         mv.addObject("roles", role);
-        mv.addObject("employees", mstEmployeeRepository.findAll());
+        mv.addObject("employees", mstEmployeeRepository.findAllActiveEmployee());
 
 //        mv.addObject("userCommand", new MstUser());
 //        mv.addObject("outletEmployeeCommand", new AssEmployeeOutlet());
@@ -87,22 +87,10 @@ public class UserController {
         if(id != null){
 
             employee.setHaveAccount(true);
-//            mstEmployee.setFirstName(firstName);
-//            mstEmployee.setLastName(lastName);
-//            mstEmployee.setEmail(email);
-//            mstEmployee.setTitle(title);
-//            mstEmployee.setActive(true);
-//            mstEmployee.setHaveAccount(false);
-//            employee.setUser(users);
-//            System.out.println("COBAAAAAAAAAAAAAAAAAAAAAAAAA" + userById.getUsername());
-
-
-//            assEmployeeOutlet.setEmployee(employee);
-//            assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+            employee.setActive(true);
 
             mstEmployeeRepository.save(employee);
-//            mstUserRepository.save(userById);
-//            assEmployeeOutletRepository.save(assEmployeeOutlet);
+
         }else {
             if (checkboxValue != null){
                 mstEmployee.setFirstName(firstName);
@@ -197,11 +185,9 @@ public class UserController {
     @RequestMapping("/employees/{id}")
     public ModelAndView deleteUser(@PathVariable Long id)
     {
-//        MstEmployee mstEmployee = new MstEmployee();
-
         MstEmployee employee = mstEmployeeRepository.getOne(id);
-        mstEmployeeRepository.delete(employee);
-
+        employee.setActive(false);
+        mstEmployeeRepository.save(employee);
 
         return getUsers();
     }

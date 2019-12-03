@@ -208,11 +208,21 @@
                                     <option value="Miss">Miss</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input name="checkbox2" id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
+                                    <label for="showSecondary" class="custom-control-label">Edit Account?</label>
+                                </div>
+                            </div>
                             <!-- /.form-group -->
                         </div>
                         <!-- /.col -->
-
+                    </div>
                         <!-- /.col -->
+
+                    <fieldset id="secondary" style="display:none;">
+                        <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Outlet</label>
@@ -256,8 +266,10 @@
                             </div>
                             <!-- /.form-group -->
                         </div>
+                        </div>
+                    </fieldset>
                         <!-- /.col -->
-                    </div>
+
                     <!-- /.row -->
                     <hr>
 
@@ -306,6 +318,15 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/demo.js"></script>
 <!-- page script -->`
 
+<script>
+    function showSubMenu(){
+        if(document.getElementById('showSecondary').checked){
+            document.getElementById('secondary').style.display='block';
+        } else {
+            document.getElementById('secondary').style.display='none';
+        }
+    }
+</script>
 
 </body>
 </html>
