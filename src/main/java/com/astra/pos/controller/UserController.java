@@ -177,10 +177,6 @@ public class UserController {
         Optional<MstUser> user = mstUserRepository.findById(employee.get().getUser().getId());
 
 
-
-        System.out.println("EMPLOYEEEEEEEEEEEEEEEEEEEEEEEEEEEEE  "+ employee);
-        System.out.println("USERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR  "+ user);
-
         mv.addObject("users", user);
         mv.addObject("employees", employee);
         mv.addObject("outlets", outlet);
@@ -191,42 +187,6 @@ public class UserController {
         mv.addAllObjects(modelMap);
 
         mv.setViewName("employeeEdit");
-
-
-        return mv;
-    }
-
-
-    @PutMapping("/employees")
-    public ModelAndView updateUser(String firstName, String lastName, String email, String title, String username,
-                                   String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd)
-    {
-        ModelAndView mv = new ModelAndView("employee");
-
-        MstEmployee mstEmployee = new MstEmployee();
-        MstUser mstUser = new MstUser();
-
-        mstEmployee.setFirstName(firstName);
-        mstEmployee.setLastName(lastName);
-        mstEmployee.setEmail(email);
-        mstEmployee.setTitle(title);
-        mstEmployee.setActive(true);
-        mstEmployee.setHaveAccount(true);
-
-
-        mstUser.setUsername(username);
-        mstUser.setPassword(password);
-        mstUser.setActive(true);
-        mstUser.setEmployee(mstEmployee);
-        mstUser.setRole_id(userEmployeeOutletCmd.getMstUser().getRole_id());
-
-//        assEmployeeOutlet.setEmployee(mstEmployee);
-//        assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
-
-
-        mstEmployeeService.update(mstEmployee);
-//        mstUserRepository.save(mstUser);
-//        assEmployeeOutletRepository.save(assEmployeeOutlet);
 
 
         return mv;

@@ -172,7 +172,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
 
-                    <form:form method="PUT" action="/employees" modelAttribute="userOutlets">
+                    <form:form method="POST" action="/employees" modelAttribute="userOutlets">
                     <div class="row">
                         <div class="col-md-6">
                             <input type="hidden" name="id" value="${employees.get().id}">
