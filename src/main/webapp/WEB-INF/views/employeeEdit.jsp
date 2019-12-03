@@ -176,7 +176,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <input type="hidden" name="id" value="${employees.get().id}">
-                            <input type="hidden" name="users" value="${users}">
+                            <input type="hidden" name="user_id" value="${employees.get().user.id}">
+                            <input type="hidden" name="assEmployeeOutlet_id" value="${employees.get().employeeOutlet.id}">
 
                             <div class="form-group">
                                 <label>First Name</label>
@@ -188,6 +189,14 @@
                                 <label>Last Name</label>
                                 <input class="form-control" style="width: 100%;" value="${employees.get().lastName}" id="lastName" name="lastName"/>
                                 </input>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Outlet</label>
+                                <form:select path="assEmployeeOutlet.outlet_id" id="outlet_id" cssClass="custom-select">
+                                    <form:option value="${employees.get().employeeOutlet.outlet_id}" label="${employees.get().employeeOutlet.outlet.name}"/>
+                                    <form:options items="${outlets}"/>
+                                </form:select>
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -209,11 +218,14 @@
                                 </select>
                             </div>
 
+
+                            <div style="margin-top: 55px">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input name="checkbox2" id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
                                     <label for="showSecondary" class="custom-control-label">Edit Account?</label>
                                 </div>
+                            </div>
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -224,32 +236,22 @@
                     <fieldset id="secondary" style="display:none;">
                         <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Outlet</label>
-                                <form:select path="assEmployeeOutlet.outlet_id" id="outlet_id" cssClass="custom-select">
-                                    <form:option value="0" label="Choose Outlet..."/>
-                                    <form:options items="${outlets}"/>
-                                </form:select>
+<%--                            <div class="form-group">--%>
+<%--                                <label>Outlet</label>--%>
+<%--                                <form:select path="assEmployeeOutlet.outlet_id" id="outlet_id" cssClass="custom-select">--%>
+<%--                                    <form:option value="${employees.get().employeeOutlet.outlet_id}" label="${employees.get().employeeOutlet.outlet.name}"/>--%>
+<%--                                    <form:options items="${outlets}"/>--%>
+<%--                                </form:select>--%>
+<%--                            </div>--%>
 
-<%--                                <select class="custom-select" id="outlet" name="outlet">--%>
-<%--                                    <option value="${users.get().employee.employeeOutlet.outlet.name}" selected>${users.get().employee.employeeOutlet.outlet.name}</option>--%>
-<%--                                    <option value="Outlet1">Outlet1</option>--%>
-<%--                                    <option value="Outlet2">Outlet2</option>--%>
-<%--                                </select>--%>
-                            </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Roles</label>
                                 <form:select path="mstUser.role_id" id="role_id" cssClass="custom-select">
-                                    <form:option value="0" label="Choose Roles..."/>
+                                    <form:option value="${employees.get().user.role_id}" label="${employees.get().user.role.name}"/>
                                     <form:options items="${roles}"/>
                                 </form:select>
 
-<%--                                <select class="custom-select" id="roles" name="roles">--%>
-<%--                                    <option value="${users.get().role.name}">${users.get().role.name}</option>--%>
-<%--                                    <option value="Roles 2">Roles 2</option>--%>
-<%--                                    <option value="Roles 3">Roles 3</option>--%>
-<%--                                </select>--%>
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -257,12 +259,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>User Name</label>
-                                <input class="form-control" style="width: 100%;" value="${users.get().username}" id="username" name="userName"/>
+                                <input class="form-control" style="width: 100%;" value="${employees.get().user.username}" id="username" name="username"/>
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Password</label>
-                                <input class="form-control" style="width: 100%;" value="${users.get().password}" id="password" name="password"/>
+                                <input class="form-control" style="width: 100%;" value="${employees.get().user.password}" id="password" name="password"/>
                             </div>
                             <!-- /.form-group -->
                         </div>

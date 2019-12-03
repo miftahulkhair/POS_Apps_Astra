@@ -3,7 +3,6 @@ package com.astra.pos.controller;
 import com.astra.pos.UserEmployeeOutletCmd;
 import com.astra.pos.model.*;
 import com.astra.pos.repository.*;
-import com.astra.pos.service.MstEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
-public class UserController {
+public class EmployeeController {
 
     @Autowired
     MstUserRepository mstUserRepository;
@@ -30,12 +29,10 @@ public class UserController {
     @Autowired
     AssEmployeeOutletRepository assEmployeeOutletRepository;
 
-    @Autowired
-    MstEmployeeService mstEmployeeService;
 
 
     @GetMapping("/employees")
-    public ModelAndView getUsers()
+    public ModelAndView getEmployees()
     {
         ModelAndView mv = new ModelAndView();
         ModelMap modelMap = new ModelMap();
@@ -56,14 +53,11 @@ public class UserController {
         }
 
 
-//        mv.addObject("outlets", mstOutletRepository.findAll());
         mv.addObject("outlets", outlet);
         mv.addObject("users", mstUserRepository.findAll());
         mv.addObject("roles", role);
         mv.addObject("employees", mstEmployeeRepository.findAllActiveEmployee());
 
-//        mv.addObject("userCommand", new MstUser());
-//        mv.addObject("outletEmployeeCommand", new AssEmployeeOutlet());
 
         modelMap.addAttribute("userOutlets", userEmployeeOutletCmd);
         mv.addAllObjects(modelMap);
@@ -75,12 +69,12 @@ public class UserController {
 
 
     @RequestMapping(value = "/employees", method = RequestMethod.POST)
-    public ModelAndView saveUsers(String firstName, String lastName, String email, String title, String username,
-                                  String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd,
-                                  @RequestParam(value = "checkbox", required = false) String checkboxValue, Long id, MstEmployee employee,
-                                  @RequestParam(value = "checkbox2", required = false) String checkboxValue2,
-                                  @RequestParam(value = "user_id", required = false) Long user_id,
-                                  @RequestParam(value = "assEmployeeOutlet_id", required = false) Long assEmployeeOutlet_id)
+    public ModelAndView saveEmployee(String firstName, String lastName, String email, String title, String username,
+                                     String password, @ModelAttribute("userOutlets") UserEmployeeOutletCmd userEmployeeOutletCmd,
+                                     @RequestParam(value = "checkbox", required = false) String checkboxValue, Long id, MstEmployee employee,
+                                     @RequestParam(value = "checkbox2", required = false) String checkboxValue2,
+                                     @RequestParam(value = "user_id", required = false) Long user_id,
+                                     @RequestParam(value = "assEmployeeOutlet_id", required = false) Long assEmployeeOutlet_id)
     {
 
         MstEmployee mstEmployee = new MstEmployee();
@@ -89,11 +83,18 @@ public class UserController {
 
         if(id != null){
             if(checkboxValue2 == null) {
-
-                employee.setHaveAccount(true);
+                if(user_id != null){
+                    employee.setHaveAccount(true);
+                }
                 employee.setActive(true);
 
+                assEmployeeOutlet.setId(assEmployeeOutlet_id);
+                assEmployeeOutlet.setEmployee(employee);
+                assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
                 mstEmployeeRepository.save(employee);
+                assEmployeeOutletRepository.save(assEmployeeOutlet);
+
             }else {
 
                 employee.setHaveAccount(true);
@@ -141,32 +142,40 @@ public class UserController {
                 assEmployeeOutletRepository.save(assEmployeeOutlet);
             }
             else{
-                mstEmployee.setFirstName(firstName);
-                mstEmployee.setLastName(lastName);
-                mstEmployee.setEmail(email);
-                mstEmployee.setTitle(title);
-                mstEmployee.setActive(true);
-                mstEmployee.setHaveAccount(false);
 
-                assEmployeeOutlet.setEmployee(mstEmployee);
-                assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+                if (userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id() == 0) {
+                    mstEmployee.setFirstName(firstName);
+                    mstEmployee.setLastName(lastName);
+                    mstEmployee.setEmail(email);
+                    mstEmployee.setTitle(title);
+                    mstEmployee.setActive(true);
+                    mstEmployee.setHaveAccount(false);
 
-                mstEmployeeRepository.save(mstEmployee);
-                assEmployeeOutletRepository.save(assEmployeeOutlet);
+                    mstEmployeeRepository.save(mstEmployee);
+                }else {
+                    mstEmployee.setFirstName(firstName);
+                    mstEmployee.setLastName(lastName);
+                    mstEmployee.setEmail(email);
+                    mstEmployee.setTitle(title);
+                    mstEmployee.setActive(true);
+                    mstEmployee.setHaveAccount(false);
 
+                    assEmployeeOutlet.setEmployee(mstEmployee);
+                    assEmployeeOutlet.setOutlet_id(userEmployeeOutletCmd.getAssEmployeeOutlet().getOutlet_id());
+
+                    mstEmployeeRepository.save(mstEmployee);
+                    assEmployeeOutletRepository.save(assEmployeeOutlet);
+                }
             }
         }
 
-
-
-        return getUsers();
+        return getEmployees();
 
     }
 
 
     @RequestMapping("/employees/edit/{id}")
-//    @PathVariable("id") Long id
-    public ModelAndView editUser(@PathVariable("id") Long id){
+    public ModelAndView editEmployee(@PathVariable("id") Long id){
         ModelAndView mv = new ModelAndView();
 
         ModelMap modelMap = new ModelMap();
@@ -187,10 +196,10 @@ public class UserController {
         }
 
         Optional<MstEmployee> employee = mstEmployeeRepository.findById(id);
-        Optional<MstUser> user = mstUserRepository.findById(employee.get().getUser().getId());
+//        Optional<MstUser> user = mstUserRepository.findById(employee.get().getUser().getId());
 
 
-        mv.addObject("users", user);
+//        mv.addObject("users", user);
         mv.addObject("employees", employee);
         mv.addObject("outlets", outlet);
         mv.addObject("roles", role);
@@ -201,20 +210,19 @@ public class UserController {
 
         mv.setViewName("employeeEdit");
 
-
         return mv;
     }
 
 
 
     @RequestMapping("/employees/{id}")
-    public ModelAndView deleteUser(@PathVariable Long id)
+    public ModelAndView deleteEmployee(@PathVariable Long id)
     {
         MstEmployee employee = mstEmployeeRepository.getOne(id);
         employee.setActive(false);
         mstEmployeeRepository.save(employee);
 
-        return getUsers();
+        return getEmployees();
     }
 
 }
