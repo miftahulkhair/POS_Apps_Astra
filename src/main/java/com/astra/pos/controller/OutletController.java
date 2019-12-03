@@ -50,6 +50,8 @@ public class OutletController {
         return outlet;
     }
 
+
+
     @RequestMapping(value="/editSave",method = RequestMethod.POST)
     public String edit(@ModelAttribute("outlet") MstOutlet mstOutlet){
         mstOutletService.saveOrUpdate(mstOutlet);

@@ -19,19 +19,27 @@ public class MstItemExtController {
     MstItemExtService mstItemExtService;
 
 //    delete
-    @RequestMapping(value="/deactivate/{id}", method = RequestMethod.GET)
-    public String deactivateCategory(@PathVariable long id){
+    @RequestMapping(value="/deactivate/{id}", method = RequestMethod.POST)
+    public String deactivateVariant(@PathVariable long id){
         MstVariant mstVariant = mstItemExtService.findOneVariant(id);
         mstVariant.setActive(false);
         mstItemExtService.saveOrUpdateVariant(mstVariant);
-        return "redirect:/outlet";
+        return "redirect:/mstItem";
     }
 
-    @RequestMapping(value="/editVariant/{id}" , method = RequestMethod.GET)
+    //buat ngetest
+//    @RequestMapping(value="/listVariant_item/{id}" , method = RequestMethod.GET)
+//    public @ResponseBody
+//    List<MstVariant> getVariant(@PathVariable Long id) {
+//        List<MstVariant> variant = mstItemExtService.findVariantByItem(id);
+//        return variant;
+//    }
+
+    @RequestMapping(value="/listInvent/{id}" , method = RequestMethod.GET)
     public @ResponseBody
-    MstVariant getVariant(@PathVariable Long id) {
-        MstVariant variant = mstItemExtService.findOneVariant(id);
-        return variant;
+    List<AssItemInventory> getInventID(@PathVariable Long id) {
+        List<AssItemInventory> invent = mstItemExtService.findInventByItem(id);
+        return invent;
     }
 
     @RequestMapping(value="/editItem/{id}" , method = RequestMethod.GET)
@@ -47,47 +55,37 @@ public class MstItemExtController {
         return "redirect:/viewoutlets";
     }
 
+    @RequestMapping(value="/editSaveItem",method = RequestMethod.POST)
+    public String saveUpdateItem(@ModelAttribute("item") MstItem mstItem){
+        mstItemExtService.saveOrUpdateItem(mstItem);
+        return "redirect:/viewoutlets";
+    }
+
 //    indexing
-//    @RequestMapping(value = "/viewitems")
-//    public String indexLocation (@ModelAttribute MstVariant mstVariant, Model model){
-//        //Item Variant data
-//        List<MstVariant> list = mstItemExtService.findAllVariant();
-//        model.addAttribute("variants", list );
-//        //Category
-//        List<MstCategory> categories = locationService.findAllProvince();
-//        Map<Long, String> province = new HashMap<>();
-//        for (MstProvince curProvince : provinces){
-//            province.put(curProvince.getId(), curProvince.getName());
-//        }
-//
-//        List<MstRegion> regions = locationService.findAllRegion();
-//        Map<Long, String> region = new HashMap<>();
-//        for (MstRegion curRegion : regions){
-//            region.put(curRegion.getId(), curRegion.getName());
-//        }
-//
-//        List<MstDistrict> districts = locationService.findAllDistrict();
-//        Map<Long, String> district = new HashMap<>();
-//        for (MstDistrict curDistrict : districts){
-//            district.put(curDistrict.getId(), curDistrict.getName());
-//        }
-//
-//        model.addAttribute("outlet", new MstOutlet());
-//        model.addAttribute("province", province);
-//        model.addAttribute("region", region);
-//        model.addAttribute("district",district);
-//        return "mstItem";
-//
-//
-//
-//
-//    }
-    @RequestMapping("/viewitem")
-    public ModelAndView getInventories()
+    @RequestMapping(value = "/viewitems")
+    public String indexItem (@ModelAttribute AssItemInventory assItemInventory, MstItem mstItem,Model model){
+        //Item Inventory data
+        List<AssItemInventory> list = mstItemExtService.findAllInvent();
+        model.addAttribute("inventories", list );
+        //Category
+        List<MstCategory> categories = mstItemExtService.findAllCategory();
+        Map<Long, String> category = new HashMap<>();
+        for (MstCategory curCategory : categories){
+            category.put(curCategory.getId(), curCategory.getName());
+        }
+        model.addAttribute("item", new MstItem());
+        model.addAttribute("inventory", new AssItemInventory());
+        model.addAttribute("category", category);
+
+        return "mstItem";
+
+    }
+    @RequestMapping("/viewinvetoryitem")
+    public ModelAndView getInventories(Long id)
     {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("inventories", mstItemExtService.findAllInvent());
-        mv.setViewName("mstItem");
+        mv.addObject("inventoryitems", mstItemExtService.findInventByItem(id));
+        mv.setViewName("tabelmodal");
         return mv;
     }
 }

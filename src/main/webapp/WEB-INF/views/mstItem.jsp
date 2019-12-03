@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -36,14 +38,13 @@
         $(document).on('click', '.edit_item', function(){
             var itemId = $(this).attr("id");
             $.ajax({
-                url:"/edit/"+ itemId,
+                url:"/editItem/"+ itemId,
                 method:"GET",
                 dataType:"json",
                 success:function(data){
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#category').val(data.category_id);
-
                 }
             });
         });
@@ -52,15 +53,89 @@
         $(document).on('click', '.save_item', function(){
             $('#id').val("");
             $('#name').val("");
-            $('#address').val("");
-            $('#province').val("0");
-            $('#region').val("0");
-            $('#district').val("0");
-            $('#phone').val("");
-            $('#email').val("");
-            $('#postalCode').val("");
+            $('#category').val("0");
         });
     </script>
+<%--    <script>--%>
+<%--        $(function() {--%>
+<%--            $("#example").DataTable();--%>
+<%--            $('.loadData').click(function() {--%>
+<%--                loadData();--%>
+<%--            });--%>
+
+<%--            function loadData() {--%>
+<%--                var itemId = $(this).attr("id");--%>
+<%--                $.ajax({--%>
+<%--                    type: 'GET',--%>
+<%--                    url: "/listInvent/"+itemId,--%>
+<%--                    dataType: 'json',--%>
+<%--                    success: function (data) {--%>
+<%--                        myJsonData = data;--%>
+<%--                        populateDataTable(myJsonData);--%>
+<%--                    },--%>
+<%--                    error: function (e) {--%>
+<%--                        console.log("There was an error with your request...");--%>
+<%--                        console.log("error: " + JSON.stringify(e));--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            }--%>
+
+<%--            // populate the data table with JSON data--%>
+<%--            function populateDataTable(data) {--%>
+<%--                console.log("populating data table...");--%>
+<%--                // clear the table before populating it with more data--%>
+<%--                $("#example").DataTable().clear();--%>
+<%--                var length = Object.keys(data.inventory.variant).length;--%>
+<%--                for(var i = 1; i < length+1; i++) {--%>
+<%--                    var inventory = data.inventory['inventory'+i];--%>
+
+<%--                    // You could also use an ajax property on the data table initialization--%>
+<%--                    $('#example').dataTable().fnAddData( [--%>
+<%--                        inventory.beginning,--%>
+<%--                        inventory.variant.id,--%>
+<%--                        inventory.variant.name,--%>
+<%--                        inventory.variant.price,--%>
+<%--                        inventory.variant.sku--%>
+<%--                    ]);--%>
+<%--                }--%>
+<%--            }--%>
+<%--        })();--%>
+<%--    </script>--%>
+<%--    <script>--%>
+<%--        $(function () {--%>
+<%--            $("#variant").on("click", function () {--%>
+<%--                var itemId = $(this).attr("id");--%>
+<%--                $.ajax({--%>
+<%--                    url: '/listInvent/' +itemId,--%>
+<%--                    type: "GET",--%>
+<%--                    dataType: "json",--%>
+<%--                    contentType: "application/json; charset=utf-8",--%>
+<%--                    success: function (data) {--%>
+<%--                        var json = JSON.parse(data.d);--%>
+<%--                        $(json).each(function (index, item) {--%>
+<%--                            var beginning = json[index].beginning;--%>
+<%--                            for (var option = 0; option < json[index].variant.length; option++) {--%>
+<%--                                var name = json[index].variant[option].name;--%>
+<%--                                var price = json[index].variant[option].price;--%>
+<%--                                var sku = json[index].variant[option].sku;--%>
+<%--                                $('tbody#item').append(--%>
+<%--                                    '<tr><td>'--%>
+<%--                                    + name--%>
+<%--                                    + '</td><td>'--%>
+<%--                                    + price--%>
+<%--                                    + '</td><td>'--%>
+<%--                                    + sku--%>
+<%--                                    + '</td><td>'--%>
+<%--                                    + beginning--%>
+<%--                                    + '</td></tr>')--%>
+<%--                            }--%>
+<%--                        });--%>
+<%--                    },--%>
+<%--                    error: function (data) { alert(data.responseText); }--%>
+<%--                });--%>
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -250,13 +325,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/jsgrid.html" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/" class="nav-link active">
+                                <a href="/Item/viewitem" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -279,7 +354,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -394,13 +469,13 @@
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="save_item btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create-edit">Create</button>
                             </div>
 
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th hidden>Id</th>
@@ -413,27 +488,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="inventory" items="${inventories}" >
-                                        <tr>
-                                            <td hidden>${inventory.variant.item.id}</td>
-                                            <td>${inventory.variant.item.name} - ${inventory.variant.name}</td>
-                                            <td>${inventory.variant.item.category.name}</td>
-                                            <td>${inventory.variant.price}</td>
-                                            <td>${inventory.variant.sku}</td>
-                                            <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
-                                                <td>Low</td>
-                                            </c:if>
-                                            <c:if test="${inventory.endingQty > inventory.alertAtQty}">
-                                                <td>Normal</td>
-                                            </c:if>
-                                            <td align="center">
-                                                <button type="button" class="btn btn-block btn-info"
-                                                        data-toggle="modal" data-target="#modal-edit"
-                                                >Edit
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach var="inventory" items="${inventories}" >
+                                    <tr>
+                                        <td hidden>${inventory.variant.item.id}</td>
+                                        <td>${inventory.variant.item.name} - ${inventory.variant.name}</td>
+                                        <td>${inventory.variant.item.category.name}</td>
+                                        <td>
+                                            <fmt:formatNumber type="currency" value = "${inventory.variant.price}" />
+                                        </td>
+                                        <td>${inventory.variant.sku}</td>
+                                        <c:if test="${inventory.endingQty <= inventory.alertAtQty}">
+                                            <td>Low</td>
+                                        </c:if>
+                                        <c:if test="${inventory.endingQty > inventory.alertAtQty}">
+                                            <td>Normal</td>
+                                        </c:if>
+                                        <td align="center">
+                                            <button type="button" class="edit_item loadData btn btn-block btn-info"
+                                                    id="${inventory.variant.item_id}"
+                                                    href = "/listInvent?id=${inventory.variant.item_id}"
+                                                    data-toggle="modal" data-target="#modal-create-edit">Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -448,57 +526,7 @@
 
         <section class="content">
             <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <c:choose>
-                                <c:when test="${mode=='MODE_UPDATE'}">
-                                    <form role="form" method="POST" action="save_edit">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="id">Id</label>
-                                                <input disabled type="text" id="id" value=${id} />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" value="${supplier.name}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address">Address</label>
-                                                <input type="text" class="form-control" id="address" value="${supplier.address}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" id="phone" value="${supplier.phone}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="${supplier.email}">
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-outline-light">Save changes</button>
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-create">
+            <div class="modal fade" id="modal-create-edit">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
@@ -508,21 +536,19 @@
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
+                            <form:form method="POST" action="/editSaveItem" modelAttribute="item">
                                 <div class="card-body">
-                                    <%--                                    Image--%>
+                                        <%--                                    Image--%>
                                     <div class="form-group">
-                                        <label for="supplierName">Item Name</label>
-                                        <input type="text" class="form-control" id="supplierName" value="${supplier.name}">
+                                        <label>Item Name</label>
+                                        <form:input type="text" class="form-control" id="name" path="name"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Select Category ..</option>
-                                            <c:forEach var="province" items="${allProvince}">
-                                                <option>${province.name}</option>
-                                            </c:forEach>
-                                        </select>
+                                        <form:select id="category" path="category_id" class="form-control select2" style="width: 100%;"  >
+                                            <form:option value="0" label="Select Category"/>
+                                            <form:options items="${category}"/>
+                                        </form:select>
                                     </div>
                                     <div class="form-group">
                                         <div class="modal-header">
@@ -531,9 +557,10 @@
                                     </div>
                                     <div class="card-body">
                                         <div align="right">
-                                            <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-addVariant">Add Variant</button>
+                                            <button type="submit" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-add-editVariant" action="/">Add Variant</button>
                                         </div>
-                                        <table id="example" class="table table-bordered table-hover">
+<%--                                        <jsp:include page="/listInvent/${}"/>--%>
+                                        <table id="example2" class="table table-bordered table-hover">
                                             <thead>
                                             <tr>
                                                 <th hidden>Id</th>
@@ -545,24 +572,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach var="supplier" items="${allSupplier}">
+                                            <c:forEach var="inventory" items="${inventories}" >
                                                 <tr>
-                                                    <td hidden>${supplier.id}</td>
-                                                    <td>${supplier.name}</td>
-                                                    <td>${supplier.address}</td>
-                                                    <td>${supplier.phone}</td>
-                                                    <td>${supplier.email}</td>
+                                                    <td hidden>${inventory.variant.id}</td>
+                                                    <td>${inventory.variant.name}</td>
+                                                    <td>
+                                                        <fmt:formatNumber type="currency" value = "${inventory.variant.price}" />
+                                                    </td>
+                                                    <td>${inventory.variant.sku}</td>
+                                                    <td>${inventory.beginning}</td>
                                                     <td align="center">
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                        </a>
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Delete
-                                                        </a>
+                                                        <button type="button" class="btn btn-block btn-info"
+                                                                data-toggle="modal" data-target="#modal-create-edit">Edit
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-danger"
+                                                                data-toggle="modal" data-target="#modal-create-edit">X
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -573,10 +598,10 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                    <button type="reset" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-outline-light">Save</button>
                                 </div>
-                            </form>
+                            </form:form>
                         </div>
 
                     </div>
@@ -585,95 +610,50 @@
                 <!-- /.modal-dialog -->
             </div>
 
-            <div class="modal fade" id="modal-addVariant">
+            <div class="modal fade" id="modal-add-editVaria
+            nt">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- form start -->
-                        <form role="form" method="POST" action="save_edit">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Variant</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="variantName" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="unitPrice" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sku">SKU</label>
-                                    <input type="text" class="form-control" id="sku" value="${supplier.name}">
-                                </div>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Set Beginning Stock</h4>
-                                </div>
-                                <div class="form-group">
-                                    <label for="beginningStock">Beginning Stock</label>
-                                    <input type="text" class="form-control" id="beginningStock" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="alertAt" value="${supplier.name}">
-                                </div>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
+<%--                        <form:form method="POST" action="/Item/editSaveVariant" modelAttribute="inventories">--%>
+<%--                            <div class="modal-header">--%>
+<%--                                <h4 class="modal-title">Ad--%>
+<%--                                    d Variant</h4>--%>
+<%--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                                    <span aria-hidden="true">&times;</span>--%>
+<%--                                </button>--%>
+<%--                            </div>--%>
+<%--                            <div class="modal-body">--%>
+<%--                                <div class="form-group">--%>
+<%--                                    <label>Variant Name</label>--%>
+<%--                                    <form:input disabled="true" type="text" class="form-control" id="name" path="name" />--%>
+<%--                                </div>--%>
+<%--                                <div class="form-group">--%>
+<%--                                    <label>Unit Price</label>--%>
+<%--                                    <form:input disabled="true" type="text" class="form-control" id="unitPrice" path="price" />--%>
+<%--                                </div>--%>
+<%--                                <div class="form-group">--%>
+<%--                                    <label for="sku">SKU</label>--%>
+<%--                                    <input type="text" class="form-control" id="sku" value="${supplier.name}">--%>
+<%--                                </div>--%>
+<%--                                <div class="modal-header">--%>
+<%--                                    <h4 class="modal-title">Set Beginning Stock</h4>--%>
+<%--                                </div>--%>
+<%--                                <div class="form-group">--%>
+<%--                                    <label for="beginningStock">Beginning Stock</label>--%>
+<%--                                    <input type="text" class="form-control" id="beginningStock" value="${supplier.name}">--%>
+<%--                                </div>--%>
+<%--                                <div class="form-group">--%>
+<%--                                    <label for="alertAt">Alert At</label>--%>
+<%--                                    <input type="text" class="form-control" id="alertAt" value="${supplier.name}">--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="modal-footer justify-content-between">--%>
+<%--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+<%--                                <button type="submit" class="btn btn-primary">Add</button>--%>
+<%--                            </div>--%>
+<%--                        </form:form>--%>
                     </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-editVariant">
-                <div class="modal-dialog">
-                    <form class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Variant</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="editVariantName" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="editUnitPrice" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sku">SKU</label>
-                                    <input type="text" class="form-control" id="editSku" value="${supplier.name}">
-                                </div>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Set Beginning Stock</h4>
-                                </div>
-                                <div class="form-group">
-                                    <label for="beginningStock">Beginning Stock</label>
-                                    <input type="text" class="form-control" id="editBeginningStock" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="editAlertAt" value="${supplier.name}">
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </form>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
@@ -682,6 +662,7 @@
         </section>
         <!-- /.content -->
     </div>
+
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
@@ -723,7 +704,6 @@
             "autoWidth": false,
         });
     });
-
     //edit
     $(document).on('click', '.edit_data', function () {
         var idSupllier = $(this).attr("id");
