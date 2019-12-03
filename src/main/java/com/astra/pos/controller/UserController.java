@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
+@RequestMapping("User")
 public class UserController {
 
     @Autowired
