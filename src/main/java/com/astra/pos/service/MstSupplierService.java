@@ -18,13 +18,13 @@ public class MstSupplierService {
         this.mstSupplierDao.saveUpdate(mstSupplier);
     }
 
-    public void save(MstSupplier mstSupplier) {
-        this.mstSupplierDao.save(mstSupplier);
-    }
-
-    public void update(MstSupplier mstSupplier) {
-        this.mstSupplierDao.update(mstSupplier);
-    }
+//    public void save(MstSupplier mstSupplier) {
+//        this.mstSupplierDao.save(mstSupplier);
+//    }
+//
+//    public void update(MstSupplier mstSupplier) {
+//        this.mstSupplierDao.update(mstSupplier);
+//    }
 
     public MstSupplier getSupplier(long id) {
         return mstSupplierDao.findOne(id);
@@ -34,7 +34,7 @@ public class MstSupplierService {
         return mstSupplierDao.findAll();
     }
 
-    public List<MstSupplier> getSearch(String searchField) {
-        return mstSupplierDao.search(searchField);
-    }
+//    public List<MstSupplier> getSearch(String searchField) {
+//        return mstSupplierDao.search(searchField);
+//    }
 }

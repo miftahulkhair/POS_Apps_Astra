@@ -6,7 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name = "pos_mst_outlet")
@@ -59,7 +58,6 @@ public class MstOutlet {
     @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstRegion.class)
     @JoinColumn(name = "region_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstRegion region;
-
 
     @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstDistrict.class)
     @JoinColumn(name = "district_id", referencedColumnName = "id", insertable = false, updatable = false)

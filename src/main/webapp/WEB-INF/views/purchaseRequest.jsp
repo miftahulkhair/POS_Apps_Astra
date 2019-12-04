@@ -664,10 +664,10 @@
                         <div class="modal-body">
                             <form role="form" method="POST" action="save_edit">
                                 <div class="card-body">
-                                    <label for="name">PR Number : </label>
-                                    <label for="name">Create By : </label>
-                                    <label for="name">Target Waktu Item Ready : </label>
-                                    <label for="name">PR Status : </label>
+                                    <label>PR Number : </label>
+                                    <label>Create By : </label>
+                                    <label>Target Waktu Item Ready : </label>
+                                    <label>PR Status : </label>
                                     <div class="form-group">
                                         <label>Notes : </label>
                                         <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>

@@ -20,7 +20,7 @@
 
     <!-- Add support for component scanning -->
     <context:component-scan base-package="com.astra.pos" />
-    <!-- Add support for conversion, formatting and validation support -->
+    <!-- Add support for conversion, formatting and com.astra.pos.validation support -->
     <mvc:annotation-driven/>
 
     <jpa:repositories base-package="com.astra.pos.repository" entity-manager-factory-ref="entityManagerFactory"/>

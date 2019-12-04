@@ -239,7 +239,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/Category/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>
@@ -257,7 +257,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/" class="nav-link active">
+                                <a href="/Item/viewitem" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -395,7 +395,7 @@
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create-edit">Create</button>
                             </div>
 
                         </div>
@@ -431,8 +431,7 @@
                                         </c:if>
                                         <td align="center">
                                             <button type="button" class="btn btn-block btn-info"
-                                                    data-toggle="modal" data-target="#modal-edit"
-                                            >Edit
+                                                    data-toggle="modal" data-target="#modal-create-edit">Edit
                                             </button>
                                         </td>
                                     </tr>
@@ -451,57 +450,7 @@
 
         <section class="content">
             <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <c:choose>
-                                <c:when test="${mode=='MODE_UPDATE'}">
-                                    <form role="form" method="POST" action="save_edit">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="id">Id</label>
-                                                <input disabled type="text" id="id" value=${id} />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" value="${supplier.name}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address">Address</label>
-                                                <input type="text" class="form-control" id="address" value="${supplier.address}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" class="form-control" id="phone" value="${supplier.phone}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="${supplier.email}">
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-outline-light">Save changes</button>
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-create">
+            <div class="modal fade" id="modal-create-edit">
                 <div class="modal-dialog">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
@@ -511,7 +460,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <form:form method="POST" action="/Item/saveUpdate-item" modelAttribute="supp">
+                            <form role="form" method="POST" action="save_edit">
                                 <div class="card-body">
                                     <%--                                    Image--%>
                                     <div class="form-group">
@@ -534,7 +483,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div align="right">
-                                            <button type="button" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-addVariant">Add Variant</button>
+                                            <button type="button" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-add-editVariant">Add Variant</button>
                                         </div>
                                         <table id="example" class="table table-bordered table-hover">
                                             <thead>
@@ -556,16 +505,12 @@
                                                     <td>${supplier.phone}</td>
                                                     <td>${supplier.email}</td>
                                                     <td align="center">
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                        </a>
-                                                        <a href="/edit_form?id=${supplier.id}" class="btn btn-app btn-info"
-                                                            <%--                                               data-toggle="modal" data-target="#modal-edit--%>
-                                                        ">
-                                                        <i class="fas fa-edit"></i> Delete
-                                                        </a>
+                                                        <button type="button" class="btn btn-block btn-info"
+                                                                data-toggle="modal" data-target="#modal-create-edit">Edit
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-danger"
+                                                                data-toggle="modal" data-target="#modal-create-edit">X
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -579,7 +524,7 @@
                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-outline-light">Save</button>
                                 </div>
-                            </form:form>
+                            </form>
                         </div>
 
                     </div>
@@ -588,11 +533,11 @@
                 <!-- /.modal-dialog -->
             </div>
 
-            <div class="modal fade" id="modal-addVariant">
+            <div class="modal fade" id="modal-add-editVariant">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- form start -->
-                        <form:form method="POST" action="/Item/editSaveVariant" modelAttribute="">
+                        <form role="form" method="POST" action="save_edit">
                             <div class="modal-header">
                                 <h4 class="modal-title">Add Variant</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -602,11 +547,11 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Variant Name</label>
-                                    <form:input disabled="true" type="text" class="form-control" id="name" path="name" />
+                                    <input disabled="true" type="text" class="form-control" id="name" />
                                 </div>
                                 <div class="form-group">
                                     <label>Unit Price</label>
-                                    <form:input disabled="true" type="text" class="form-control" id="unitPrice" path="price" />
+                                    <input disabled="true" type="text" class="form-control" id="unitPrice" />
                                 </div>
                                 <div class="form-group">
                                     <label for="sku">SKU</label>
@@ -628,55 +573,8 @@
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-                        </form:form>
+                        </form>
                     </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-editVariant">
-                <div class="modal-dialog">
-                    <form class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Variant</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="form-group">
-                                    <label for="variantName">Variant Name</label>
-                                    <input type="text" class="form-control" id="editVariantName" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="unitPrice">Unit Price</label>
-                                    <input type="text" class="form-control" id="editUnitPrice" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sku">SKU</label>
-                                    <input type="text" class="form-control" id="editSku" value="${supplier.name}">
-                                </div>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Set Beginning Stock</h4>
-                                </div>
-                                <div class="form-group">
-                                    <label for="beginningStock">Beginning Stock</label>
-                                    <input type="text" class="form-control" id="editBeginningStock" value="${supplier.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alertAt">Alert At</label>
-                                    <input type="text" class="form-control" id="editAlertAt" value="${supplier.name}">
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </form>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
@@ -685,6 +583,7 @@
         </section>
         <!-- /.content -->
     </div>
+
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">

@@ -55,13 +55,13 @@ public class MstSupplierController {
         return mv;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView search(@RequestParam String searchField){
-        ModelAndView mv = new ModelAndView("mstSupplier");
-        List<MstSupplier> list = mstSupplierService.getSearch(searchField);
-        mv.addObject("searchField", list);
-        return mv;
-    }
+//    @RequestMapping(value = "/search", method = RequestMethod.POST)
+//    public ModelAndView search(@RequestParam String searchField){
+//        ModelAndView mv = new ModelAndView("mstSupplier");
+//        List<MstSupplier> list = mstSupplierService.getSearch(searchField);
+//        mv.addObject("searchField", list);
+//        return mv;
+//    }
 
     @RequestMapping(value="/edit_form/{id}" , method = RequestMethod.GET)
     public @ResponseBody
@@ -71,20 +71,12 @@ public class MstSupplierController {
         return supplier;
     }
 
-//    @RequestMapping(value = "/edit_form", method = RequestMethod.GET)
-//    public ModelAndView editForm(@RequestParam long id){
-//        ModelAndView mv = new ModelAndView("mstSupplier");
-//        MstSupplier supplier = mstSupplierService.getSupplier(id);
-//        mv.addObject("editSupplier", supplier);
+//    @RequestMapping(value = "/save-update", method = RequestMethod.POST)
+//    public ModelAndView update(@ModelAttribute("supp") MstSupplier supplier){
+//        ModelAndView mv = new ModelAndView("redirect:/Supplier/");
+//        mstSupplierService.update(supplier);
 //        return mv;
 //    }
-
-    @RequestMapping(value = "/save-update", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("supp") MstSupplier supplier){
-        ModelAndView mv = new ModelAndView("redirect:/Supplier/");
-        mstSupplierService.update(supplier);
-        return mv;
-    }
 
     @RequestMapping(value = "/saveUpdate-supplier", method = RequestMethod.POST)
     public ModelAndView saveUpdate(@ModelAttribute("supp") MstSupplier supplier){

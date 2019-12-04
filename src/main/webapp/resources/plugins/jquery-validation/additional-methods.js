@@ -290,7 +290,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
 
 /*
  * Brazillian CNH number (Carteira Nacional de Habilitacao) is the License Driver number.
- * CNH numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
+ * CNH numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for com.astra.pos.validation.
  */
 $.validator.addMethod( "cnhBR", function( value ) {
 
@@ -340,7 +340,7 @@ $.validator.addMethod( "cnhBR", function( value ) {
 
 /*
  * Brazillian value number (Cadastrado de Pessoas Juridica).
- * value numbers have 14 digits in total: 12 numbers followed by 2 check numbers that are being used for validation.
+ * value numbers have 14 digits in total: 12 numbers followed by 2 check numbers that are being used for com.astra.pos.validation.
  */
 $.validator.addMethod( "cnpjBR", function( value, element ) {
 	"use strict";
@@ -415,7 +415,7 @@ $.validator.addMethod( "cnpjBR", function( value, element ) {
 
 /*
  * Brazillian CPF number (Cadastrado de Pessoas Físicas) is the equivalent of a Brazilian tax registration number.
- * CPF numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
+ * CPF numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for com.astra.pos.validation.
  */
 $.validator.addMethod( "cpfBR", function( value, element ) {
 	"use strict";
@@ -595,7 +595,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
  * Symbols can be optional or required. Symbols required by default
  *
  * Usage examples:
- *  currency: ["£", false] - Use false for soft currency validation
+ *  currency: ["£", false] - Use false for soft currency com.astra.pos.validation
  *  currency: ["$", false]
  *  currency: ["RM", false] - also works with text based symbols such as "RM" - Malaysia Ringgit etc
  *
@@ -823,7 +823,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 	// future, we only check if the countrycode is known.
 	// This prevents false negatives, while almost all
 	// false positives introduced by this, will be caught
-	// by the checksum validation below anyway.
+	// by the checksum com.astra.pos.validation below anyway.
 	// Strict checking should return FALSE for unknown
 	// countries.
 	if ( typeof bbanpattern !== "undefined" ) {
@@ -1077,10 +1077,10 @@ $.validator.addMethod( "nipPL", function( value ) {
 }, "Please specify a valid NIP number." );
 
 /**
- * Created for project jquery-validation.
+ * Created for project jquery-com.astra.pos.validation.
  * @Description Brazillian PIS or NIS number (Número de Identificação Social Pis ou Pasep) is the equivalent of a
  * Brazilian tax registration number NIS of PIS numbers have 11 digits in total: 10 numbers followed by 1 check numbers
- * that are being used for validation.
+ * that are being used for com.astra.pos.validation.
  * @copyright (c) 21/08/2018 13:14, Cleiton da Silva Mendonça
  * @author Cleiton da Silva Mendonça <cleiton.mendonca@gmail.com>
  * @link http://gitlab.com/csmendonca Gitlab of Cleiton da Silva Mendonça
@@ -1315,10 +1315,10 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
 			return validator.elementValue( this );
 		} ).length >= options[ 0 ];
 
-	// Store the cloned validator for future validation
+	// Store the cloned validator for future com.astra.pos.validation
 	$fieldsFirst.data( "valid_req_grp", validator );
 
-	// If element isn't being validated, run each require_from_group field's validation rules
+	// If element isn't being validated, run each require_from_group field's com.astra.pos.validation rules
 	if ( !$( element ).data( "being_validated" ) ) {
 		$fields.data( "being_validated", true );
 		$fields.each( function() {
@@ -1359,10 +1359,10 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
 		} ).length,
 		isValid = numberFilled === 0 || numberFilled >= options[ 0 ];
 
-	// Store the cloned validator for future validation
+	// Store the cloned validator for future com.astra.pos.validation
 	$fieldsFirst.data( "valid_skip", validator );
 
-	// If element isn't being validated, run each skip_or_fill_minimum field's validation rules
+	// If element isn't being validated, run each skip_or_fill_minimum field's com.astra.pos.validation rules
 	if ( !$( element ).data( "being_validated" ) ) {
 		$fields.data( "being_validated", true );
 		$fields.each( function() {

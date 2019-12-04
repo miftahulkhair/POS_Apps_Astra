@@ -5,7 +5,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class MstCategory
     @NotNull
     private boolean active;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<MstItem> item;
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+//    private List<MstItem> item;
 
 
     public Long getId() {
@@ -94,11 +93,15 @@ public class MstCategory
         this.active = active;
     }
 
-    public List<MstItem> getItem() {
-        return item;
+    public boolean getActive() {
+        return active;
     }
 
-    public void setItem(List<MstItem> item) {
-        this.item = item;
-    }
+    //    public List<MstItem> getItem() {
+//        return item;
+//    }
+//
+//    public void setItem(List<MstItem> item) {
+//        this.item = item;
+//    }
 }

@@ -6,7 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "pos_mst_province")

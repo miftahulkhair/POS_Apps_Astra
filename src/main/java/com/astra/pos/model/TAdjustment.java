@@ -8,9 +8,9 @@ import java.util.Date;
 public class TAdjustment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @ManyToOne(targetEntity = MstOutlet.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = MstOutlet.class, fetch = FetchType.EAGER)
     @JoinColumn(name="outlet_id", referencedColumnName = "id", nullable = false)
     private  MstOutlet mstOutlet;
 
@@ -32,11 +32,11 @@ public class TAdjustment {
     @Column(name = "modified_on")
     private Date modifiedOn;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

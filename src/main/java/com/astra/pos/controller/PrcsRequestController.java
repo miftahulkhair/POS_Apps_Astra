@@ -1,6 +1,7 @@
 package com.astra.pos.controller;
 
-import com.astra.pos.model.TPr;
+import com.astra.pos.model.TPrcsRequest;
+import com.astra.pos.service.MstItemExtService;
 import com.astra.pos.service.PurchaseRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,40 +20,38 @@ public class PrcsRequestController {
     PurchaseRequestService purchaseRequestService;
 
     @Autowired
-    AssInventoryService assInventoryService;
+    MstItemExtService mstItemExtService;
 
     @RequestMapping("/")
     public ModelAndView getAllPrcsRequest() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("purchaseRequest");
-        List<TPr> prcsRequest = purchaseRequestService.getAllPurchaseRequest();
-        mv.addObject("tpr", new TPr());
+        List<TPrcsRequest> prcsRequest = purchaseRequestService.getAllPurchaseRequest();
+        mv.addObject("tpr", new TPrcsRequest());
         mv.addObject("allPrcsRequest", prcsRequest);
 
-//        List<AssItemInventory> inventories = assInventoryService.getAllInventory();
-//        mv.addObject("allInventory", inventories);
         return mv;
     }
 
     @RequestMapping(value = "/edit_form", method = RequestMethod.GET)
     public ModelAndView editForm(@RequestParam long id){
         ModelAndView mv = new ModelAndView("purchaseRequest");
-        TPr supplier = purchaseRequestService.getPurchaseRequest(id);
+        TPrcsRequest supplier = purchaseRequestService.getPurchaseRequest(id);
         mv.addObject("editSupplier", supplier);
         return mv;
     }
 
     @RequestMapping(value = "/save-update", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("update") TPr tPr){
+    public ModelAndView update(@ModelAttribute("update") TPrcsRequest tPrcsRequest){
         ModelAndView mv = new ModelAndView("redirect:/PurchaseRequest/");
-        purchaseRequestService.update(tPr);
+        purchaseRequestService.update(tPrcsRequest);
         return mv;
     }
 
     @RequestMapping(value = "/saveUpdate-pr", method = RequestMethod.POST)
-    public ModelAndView saveUpdate(@ModelAttribute("sup") TPr tPr){
+    public ModelAndView saveUpdate(@ModelAttribute("sup") TPrcsRequest tPrcsRequest){
         ModelAndView mv = new ModelAndView("redirect:/PurchaseRequest/");
-        purchaseRequestService.saveUpdate(tPr);
+        purchaseRequestService.saveUpdate(tPrcsRequest);
         return mv;
     }
 }

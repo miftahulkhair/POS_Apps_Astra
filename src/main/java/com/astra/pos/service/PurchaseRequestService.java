@@ -1,8 +1,7 @@
 package com.astra.pos.service;
 
 import com.astra.pos.dao.PurchaseRequestDao;
-import com.astra.pos.model.MstSupplier;
-import com.astra.pos.model.TPr;
+import com.astra.pos.model.TPrcsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,23 +14,23 @@ public class PurchaseRequestService {
     @Autowired
     PurchaseRequestDao purchaseRequestDao;
 
-    public void saveUpdate(TPr mstSupplier) {
-        this.purchaseRequestDao.saveUpdate(mstSupplier);
+    public void saveUpdate(TPrcsRequest tPrcsRequest) {
+        this.purchaseRequestDao.saveUpdate(tPrcsRequest);
     }
 
-    public void save(TPr mstSupplier) {
-        this.purchaseRequestDao.save(mstSupplier);
+    public void save(TPrcsRequest tPrcsRequest) {
+        this.purchaseRequestDao.save(tPrcsRequest);
     }
 
-    public void update(TPr mstSupplier) {
-        this.purchaseRequestDao.update(mstSupplier);
+    public void update(TPrcsRequest tPrcsRequest) {
+        this.purchaseRequestDao.update(tPrcsRequest);
     }
 
-    public TPr getPurchaseRequest(long id) {
+    public TPrcsRequest getPurchaseRequest(long id) {
         return purchaseRequestDao.findOne(id);
     }
 
-    public List<TPr> getAllPurchaseRequest() {
+    public List<TPrcsRequest> getAllPurchaseRequest() {
         return purchaseRequestDao.findAll();
     }
 }

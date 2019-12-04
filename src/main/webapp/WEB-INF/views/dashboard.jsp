@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,13 @@
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="/logout" class="nav-link">Logout</a>
+<%--                <c:url value="/logout" var="logoutUrl" />--%>
+<%--                <form id="logout" action="${logoutUrl}" method="post" >--%>
+<%--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+<%--                </form>--%>
+<%--                <c:if test="${pageContext.request.userPrincipal.name != null}">--%>
+<%--                    <a href="javascript:document.getElementById('logout').submit()">Logout</a>--%>
+<%--                </c:if>--%>
             </li>
         </ul>
     </nav>
@@ -118,7 +126,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/Category/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>

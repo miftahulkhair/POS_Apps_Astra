@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,7 +25,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
@@ -56,7 +57,19 @@
             });
         });
     </script>
-
+    <script>
+        $(document).on('click', '.save_data', function(){
+            $('#id').val("");
+            $('#name').val("");
+            $('#address').val("");
+            $('#province').val("0");
+            $('#region').val("0");
+            $('#district').val("0");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#postalCode').val("");
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -227,13 +240,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/Category/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>
@@ -245,7 +258,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Outlet/viewoutlets" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
@@ -381,15 +394,15 @@
                                 <div class="input-group input-group-sm">
                                     <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
+                                        <button class="btn btn-navbar bg-transparent border-transparent" type="submit">
+                                            <i class="fas fa-search bg-transparent"></i>
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-edit-create">Create</button>
+                                <button type="button" class="save_data btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
                             </div>
 
                         </div>
@@ -416,7 +429,7 @@
                                         <td>${supplier.email}</td>
                                         <td align="center">
                                             <button type="button" class="edit_data btn btn-block btn-info" id="${supplier.id}"
-                                                    data-toggle="modal" data-target="#modal-edit-create">Edit
+                                                    data-toggle="modal" data-target="#modal-create">Edit
                                             </button>
                                         </td>
                                     </tr>
@@ -427,6 +440,8 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+
+                    <!-- /.card -->
                 </div>
                 <!-- /.col -->
             </div>
@@ -434,74 +449,75 @@
         </section>
 
         <section class="content">
-            <!-- /.modal -->
-            <div class="modal fade" id="modal-edit-create">
-                <div class="modal-dialog">
+            <div class="modal fade" id="modal-create">
+                <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Supplier</h4>
+                            <h4 class="modal-title">Create Outlet</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form:form method="POST" action="/Supplier/saveUpdate-supplier" modelAttribute="supp">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Supplier Id</label>
-                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Supplier Name</label>
-                                        <form:input type="text" class="form-control" id="name" path="name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <form:input type="text" class="form-control" id="address" path="address" />
-                                    </div>
+                            <!-- form start -->
+                            <%--                            <jsp:include page="outletform.jsp"/>--%>
+                            <div class="container-fluid">
+                                <form:form method="POST" action="/Supplier/saveUpdate-supplier" modelAttribute="supp">
+                                    <div class="card-body">
 
-                                    <div class="form-group">
-                                        <label>Province</label>
-                                        <form:select path="province_id" id="province" class="form-control select2" style="width: 100%;"  >
-                                            <form:option value="0" label="-SELECT PROVINCE-"/>
-                                            <form:options items="${province}"/>
-                                        </form:select>
+                                        <div class="form-group">
+                                            <form:input type="hidden" class="form-control" id="id" path="id"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Name</label>
+                                            <form:input type="text" class="form-control" id="name" path="name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Address</label>
+                                            <form:input type="text" class="form-control" id="address" path="address"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Province</label>
+                                            <form:select id="province" path="province_id" class="form-control select2 " style="width: 100%;"  >
+                                                <form:option value="0" label="Select Province"/>
+                                                <form:options items="${province}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Region</label>
+                                            <form:select id="region" path="region_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select Region"/>
+                                                <form:options items="${region}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>District</label>
+                                            <form:select id="district" path="district_id" class="form-control select2" style="width: 100%;"  >
+                                                <form:option value="0" label="Select District"/>
+                                                <form:options items="${district}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Phone</label>
+                                            <form:input type="text" class="form-control" id="phone" path="phone"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Email</label>
+                                            <form:input type="text" class="form-control" id="email" path="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Outlet Postal Code</label>
+                                            <form:input type="text" class="form-control" id="postalCode" path="postalCode"/>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Region</label>
-                                        <form:select path="region_id" id="region" class="form-control select2" style="width: 100%;"  >
-                                            <form:option value="0"  label="-SELECT REGION-"/>
-                                            <form:options items="${region}"/>
-                                        </form:select>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-outline-light">Save</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label>District</label>
-                                        <form:select path="district_id" id="district" class="form-control select2" style="width: 100%;"  >
-                                            <form:option value="0" label="-SELECT DISTRICT-"/>
-                                            <form:options items="${district}"/>
-                                        </form:select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <form:input type="text" class="form-control" id="phone" path="phone" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <form:input type="text" class="form-control" id="email" path="email" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Postal Code</label>
-                                        <form:input type="text" class="form-control" id="postalCode" path="postalCode" />
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>
-                                    <button type="submit" class="btn btn-outline-light" value="save">Save</button>
-                                </div>
-                            </form:form>
+                                    <!-- /.card-body -->
+                                </form:form>
+                            </div>
                         </div>
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -540,7 +556,6 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/demo.js"></script>
 <!-- page script -->`
 <script>
-
     $(function () {
         $("#example1").DataTable();
         $('#example2').DataTable({
@@ -552,8 +567,6 @@
             "autoWidth": false,
         });
     });
-
-
 </script>
 </body>
 </html>

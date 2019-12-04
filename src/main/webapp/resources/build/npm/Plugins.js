@@ -386,8 +386,8 @@ const Plugins = [
   },
   // jQuery Validate
   {
-    from: 'node_modules/jquery-validation/dist/',
-    to  : 'plugins/jquery-validation'
+    from: 'node_modules/jquery-com.astra.pos.validation/dist/',
+    to  : 'plugins/jquery-com.astra.pos.validation'
   },
 ]
 
