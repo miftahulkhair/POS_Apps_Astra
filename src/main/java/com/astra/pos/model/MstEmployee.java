@@ -43,7 +43,7 @@ public class MstEmployee {
     @NotNull
     private boolean active;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private MstUser user;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)

@@ -1,6 +1,16 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: agrmuham9561
+  Date: 12/4/2019
+  Time: 11:25 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,6 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -180,7 +191,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link ">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Master
@@ -189,7 +200,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/employees" class="nav-link">
+                                <a href="/employees" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -201,19 +212,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Supplier/" class="nav-link ">
+                                <a href="/Supplier/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Outlet/viewoutlets" class="nav-link">
+                                <a href="/Outlet/viewoutlets" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link ">
+                                <a href="/Item/viewitem" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -221,7 +232,7 @@
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Purchase
@@ -230,13 +241,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/PurchaseRequest/" class="nav-link ">
+                                <a href="/PurchaseRequest/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Request</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/PurchaseOrder/" class="nav-link active">
+                                <a href="/PurchaseOrder/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -320,7 +331,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Purchase Order</h1>
+                        <h1>Employee</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -334,245 +345,242 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="col-2 d-none d-sm-inline-block">
-                                <input type="text" class="form-control" value="">
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Add Employee</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+
+                    <form:form method="PATCH" action="/employees" modelAttribute="userOutlets">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                        <%--                                <form:input path="employee.firstName" cssClass="form-control" type="text" placeholder="First Name"/>--%>
+                                    <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName" name="firstName"/>
+                                    </input>
+                                </div>
+                                <!-- /.form-group -->
                             </div>
-                            <div class="col-2 d-none d-sm-inline-block">
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">Status</option>
-                                    <c:forEach var="status" items="">
-                                        <option>${}</option>
-                                    </c:forEach>
-                                </select>
+                            <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName" name="lastName"/>
+                                    </input>
+                                </div>
                             </div>
-                            <!-- SEARCH FORM -->
-                            <div class="col-2 d-none d-sm-inline-block">
-                                <div class="input-group">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
+                            <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input class="form-control" style="width: 100%;" placeholder="Email" id="email" name="email" type="email"/>
+                                    </input>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="custom-select" id="title" name="title">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss">Miss</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+
+
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="row">
+
+                            <div class="col-md-3 mb-3">
+                                    <%--                            <select name="outlet" id="outlet" class="custom-select">--%>
+                                    <%--                                <c:forEach items="${outlets}" var="outlet">--%>
+                                    <%--                                    <option value="${outlet.id}">${outlet.name}</option>--%>
+                                    <%--                                </c:forEach>--%>
+                                    <%--                            </select>--%>
+
+                                <form:select path="assEmployeeOutlet.outlet_id" id="outlet_id" cssClass="custom-select">
+                                    <form:option value="0" label="Choose Outlet..."/>
+                                    <form:options items="${outlets}"/>
+                                </form:select>
+
+                            </div>
+
+                            <!-- /.col -->
+                                <%--                        <div class="col-12 col-sm-3">--%>
+                                <%--                            <div class="form-group">--%>
+                                <%--                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Assign Outlet</button>--%>
+                                <%--                            </div>--%>
+                                <%--                        </div>--%>
+
+                            <!-- checkbox -->
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input name="checkbox" id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
+                                        <label for="showSecondary" class="custom-control-label">Create Account?</label>
                                     </div>
                                 </div>
                             </div>
-                            <div align="right" class="col-5 d-none d-sm-inline-block">
-                                <button type="button" class="btn btn-primary">Export</button>
+                            <!-- /.col -->
+                        </div>
+
+                        <hr>
+
+                        <fieldset id="secondary" style="display:none;">
+                            <div class="form-row">
+                                <div class="col-md-3 mb-3">
+                                        <%--                                <select class="custom-select" id="role">--%>
+                                    <form:select path="mstUser.role_id" id="role_id" cssClass="custom-select">
+                                        <form:option value="0" label="Choose Roles..."/>
+                                        <form:options items="${roles}"/>
+                                    </form:select>
+                                        <%--                                </select>--%>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input name="username" type="text" class="form-control" id="validationUsername" placeholder="Username" aria-describedby="inputGroupPrepend">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input name="password" type="password" class="form-control" id="validationPassword" placeholder="Password" aria-describedby="inputGroupPrepend">
+                                    <div class="valid-feedback">
+                                    </div>
+                                </div>
                             </div>
+                        </fieldset>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <button type="reset" class="btn btn-block btn-info" onclick="this.form.reset();">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <input type="submit" name="submit" value="Save" class="btn btn-block btn-info">
+                                        <%--                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/employees';">Save</button>--%>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+
+                    </form:form>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">DataTable Employee</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th hidden>Id</th>
-                                    <th>Create Date</th>
-                                    <th>Supplier</th>
-                                    <th>PO No.</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Have Account?</th>
+                                    <th>Outlet Access</th>
+                                    <th>Role</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="supplier" items="">
-                                    <tr>
-                                        <td hidden></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td align="center">
-                                            <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/Supplier/edit_form?id=';"
-                                                    data-toggle="modal" data-target="#modal-edit"
-                                            >Edit
-                                            </button>
-                                            <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/Supplier/edit_form?id=';"
-                                                    data-toggle="modal" data-target="#modal-view"
-                                            >View
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <c:forEach items="${employees}" var="employee">
+                                <tr>
+                                    <td>${employee.firstName} ${employee.lastName}</td>
+                                    <td>${employee.email}</td>
+                                    <td>${employee.haveAccount}</td>
+                                    <td>${employee.employeeOutlet.outlet.name}</td>
+                                    <td>${employee.user.role.name}</td>
+                                    <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/employees/edit/${employee.id}';">Edit</button></td>
+                                    <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/employees/${employee.id}';">Delete</button></td>
+                                </tr>
                                 </c:forEach>
-                                </tbody>
+
+                                </tfoot>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
+                <%--
+        --%>
             </div>
+
+
+
+            <%--            <h1>Register User</h1>--%>
+            <%--            <form:form method="POST" action="/employees" modelAttribute="userCommand">--%>
+            <%--&lt;%&ndash;            <form action="/employees" method="POST">&ndash;%&gt;--%>
+            <%--                <table>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>firstname :</td>--%>
+            <%--                        <td><input type="text" name="firstName"></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>lastname :</td>--%>
+            <%--                        <td><input type="text" name="lastName" value=""></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>email :</td>--%>
+            <%--                        <td><input type="email" name="email"></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>title :</td>--%>
+            <%--                        <td><input type="text" name="title"></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>username :</td>--%>
+            <%--                        <td><input type="text" name="username"></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td>password :</td>--%>
+            <%--                        <td><input type="text" name="password"></td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+
+            <%--&lt;%&ndash;                        <td><select name="role" id="roles">&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                            <c:forEach items="${roles}" var="role">&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                                <option value="${role.id}">${role.name}</option>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                            </c:forEach>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                        </select>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                        </td>&ndash;%&gt;--%>
+
+
+            <%--                        <td>--%>
+            <%--                        <form:select path="role_id" id="role_id">--%>
+            <%--                            <form:option value="0" label="-select-"/>--%>
+            <%--                            <form:options items="${roles}"/>--%>
+            <%--                        </form:select>--%>
+            <%--                        </td>--%>
+            <%--                    </tr>--%>
+            <%--                    <tr>--%>
+            <%--                        <td><input type="submit" name="submit" value="submit"></td>--%>
+            <%--                    </tr>--%>
+            <%--                </table>--%>
+            <%--&lt;%&ndash;            </form>&ndash;%&gt;--%>
+            <%--            </form:form>--%>
+
+
+
             <!-- /.row -->
-        </section>
-
-        <section class="content">
-            <!-- /.modal -->
-            <div class="modal fade" id="modal-edit">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Purchase Order</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- form start -->
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="card-body">
-                                    <h4 class="modal-title">Edit New PO : "nama outlet login"</h4>
-                                    <div class="form-group">
-                                        <label>Choose Supplier</label>
-                                        <!-- Date -->
-                                        <div class="form-group">
-                                            <form:select path="supplier" id="province" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >
-                                                <form:option value="0" label="Supplier"/>
-                                                <form:options items=""/>
-                                            </form:select>
-                                            <!-- /.input group -->
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="notes">Notes</label>
-                                            <textarea rows="4" cols="50" type="text" class="form-control" id="notes" value=""></textarea>
-                                            <%--                                                <input type="text" class="form-control" id="notes" value="${supplier.name}">--%>
-                                        </div>
-                                    </div>
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Purchase Order</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <table id="example" class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th hidden>Id</th>
-                                                <th>Item</th>
-                                                <th>In Stock</th>
-                                                <th>Qty</th>
-                                                <th>Unit Cost</th>
-                                                <th>Sub Total</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach var="supplier" items="">
-                                                <tr>
-                                                    <td hidden></td>
-                                                    <td></td>
-                                                    <td disabled="true"></td>
-                                                    <td disabled="true"></td>
-                                                    <td></td>
-                                                    <td disabled="true"></td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                        <div class="col-5 d-none d-sm-inline-block">
-                                            <h4 class="modal-title">TOTAL</h4>
-                                            <label></label>
-                                        </div>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-success">Submit</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-            <div class="modal fade" id="modal-view">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title col-5 d-none d-sm-inline-block">Purchase Order Detail</h4>
-                            <form:select path="status_id" id="province" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >
-                                <form:option value="0" label="MORE"/>
-                                <form:options items=""/>
-                            </form:select>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <c:choose>
-                                <c:when test="">
-                                    <form role="form" method="POST" action="save_edit">
-                                        <div class="card-body">
-                                            <label >PR Number : </label>
-                                            <label >Create By : </label>
-                                            <label >Target Waktu Item Ready : </label>
-                                            <label >PR Status : </label>
-                                            <div class="form-group">
-                                                <label>Notes : </label>
-                                                <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>
-                                            </div>
-                                            <h4 class="modal-title">Status History</h4>
-                                                <%--                                            Kalo history kaya gimana ya? perlu di forEach ga?--%>
-                                            <label>On  -  is </label>
-                                            <h4 class="modal-title">Purchase Items</h4>
-                                            <div class="form-group">
-                                                <table class="table table-bordered table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th hidden>Id</th>
-                                                        <th>Item</th>
-                                                        <th>In Stock</th>
-                                                        <th>Qty. Order</th>
-                                                        <th>Unit Cost</th>
-                                                        <th>Total</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <c:forEach var="supplier" items="">
-                                                        <tr>
-                                                            <td hidden></td>
-                                                            <td> - </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-5 d-none d-sm-inline-block">
-                                                <h4 class="modal-title">TOTAL</h4>
-                                                <label></label>
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Done</button>
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-
-            <!-- /.modal -->
         </section>
         <!-- /.content -->
     </div>
@@ -600,9 +608,6 @@
 <!-- DataTables -->
 <script src="${pageContext.request.contextPath}/resources/plugins/datatables/jquery.dataTables.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="${pageContext.request.contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -620,11 +625,16 @@
             "autoWidth": false,
         });
     });
+</script>
 
-    //Date picker
-    $('#datepicker').datepicker({
-        autoclose: true
-    })
+<script>
+    function showSubMenu(){
+        if(document.getElementById('showSecondary').checked){
+            document.getElementById('secondary').style.display='block';
+        } else {
+            document.getElementById('secondary').style.display='none';
+        }
+    }
 </script>
 </body>
 </html>
