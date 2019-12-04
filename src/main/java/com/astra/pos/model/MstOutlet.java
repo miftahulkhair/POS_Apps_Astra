@@ -78,8 +78,8 @@ public class MstOutlet {
     private MstDistrict district;
 
 
-    @OneToMany(mappedBy = "outlet")
-    private List<AssEmployeeOutlet> employeeOutlet;
+//    @OneToMany(mappedBy = "outlet")
+//    private List<AssEmployeeOutlet> employeeOutlet;
 
 //    @OneToOne(mappedBy = "outlet", cascade = CascadeType.ALL)
 //    private AssItemInventory itemInventory;
@@ -221,12 +221,5 @@ public class MstOutlet {
         this.district = district;
     }
 
-    public List<AssEmployeeOutlet> getEmployeeOutlet() {
-        return employeeOutlet;
-    }
-
-    public void setEmployeeOutlet(List<AssEmployeeOutlet> employeeOutlet) {
-        this.employeeOutlet = employeeOutlet;
-    }
 
 }
