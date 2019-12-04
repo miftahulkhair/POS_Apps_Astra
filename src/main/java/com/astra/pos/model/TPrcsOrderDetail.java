@@ -8,16 +8,16 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "pos_t_adjustment_dtl")
-public class TAdjustmentDetail {
+@Table(name = "pos_t_purchase_order_detail")
+public class TPrcsOrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @ManyToOne(targetEntity = TAdjustment.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "adjustment_id", referencedColumnName = "id", nullable = false)
-    private TAdjustment tAdjustment;
+    @OneToOne(targetEntity = TPrcsRequest.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "po_id", referencedColumnName = "id", nullable = false)
+    private TPrcsRequest poId;
 
     @NotNull
     @ManyToOne(targetEntity = AssItemInventory.class, fetch = FetchType.EAGER)
@@ -25,10 +25,11 @@ public class TAdjustmentDetail {
     private AssItemInventory assItemInventory;
 
     @NotNull
-    private int inStock;
+    private int request_qty;
 
-    @NotNull
-    private int actualStock;
+    private double unit_cost;
+
+    private double sub_total;
 
     private Long createBy;
 
@@ -48,12 +49,12 @@ public class TAdjustmentDetail {
         this.id = id;
     }
 
-    public TAdjustment gettAdjustment() {
-        return tAdjustment;
+    public TPrcsRequest getPoId() {
+        return poId;
     }
 
-    public void settAdjustment(TAdjustment tAdjustment) {
-        this.tAdjustment = tAdjustment;
+    public void setPoId(TPrcsRequest poId) {
+        this.poId = poId;
     }
 
     public AssItemInventory getAssItemInventory() {
@@ -64,20 +65,28 @@ public class TAdjustmentDetail {
         this.assItemInventory = assItemInventory;
     }
 
-    public int getInStock() {
-        return inStock;
+    public int getRequest_qty() {
+        return request_qty;
     }
 
-    public void setInStock(int inStock) {
-        this.inStock = inStock;
+    public void setRequest_qty(int request_qty) {
+        this.request_qty = request_qty;
     }
 
-    public int getActualStock() {
-        return actualStock;
+    public double getUnit_cost() {
+        return unit_cost;
     }
 
-    public void setActualStock(int actualStock) {
-        this.actualStock = actualStock;
+    public void setUnit_cost(double unit_cost) {
+        this.unit_cost = unit_cost;
+    }
+
+    public double getSub_total() {
+        return sub_total;
+    }
+
+    public void setSub_total(double sub_total) {
+        this.sub_total = sub_total;
     }
 
     public Long getCreateBy() {

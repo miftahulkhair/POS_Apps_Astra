@@ -258,7 +258,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link">
+                                <a href="/Item/viewitems" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -411,8 +411,10 @@
                                     <th>#</th>
                                 </tr>
                                 </thead>
+
                                 <tbody id="myTable">
                                 <c:forEach var="category" items="${allCategory}">
+                                    <c:if test="${category.active == true}">
                                     <tr>
                                         <td hidden>${category.id}</td>
                                         <td>${category.name}</td>
@@ -423,6 +425,7 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    </c:if>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -443,33 +446,31 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Create Outlet</h4>
+                            <h4 class="modal-title">Create Category</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <%--                            <jsp:include page="outletform.jsp"/>--%>
                             <div class="container-fluid">
                                 <form:form method="POST" action="/Category/save" modelAttribute="cat">
                                     <div class="card-body">
-
-                                        <div class="form-group">
-                                            <form:input type="hidden" class="form-control" id="id" path="id"/>
+                                        <div hidden class="form-group">
+                                            <form:input class="form-control" id="id" path="id"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Name</label>
+                                            <label>Category Name</label>
                                             <form:input type="text" class="form-control" id="name" path="name"/>
                                         </div>
-
                                     </div>
                                     <div class="modal-footer justify-content-between">
+
                                         <form:form method="POST" action="/Category/active" modelAttribute="catt">
-                                            <div class="form-group">
-                                                <form:input type="hidden" class="form-control" id="idC" path="id"/>
+                                            <div hidden class="form-group">
+                                                <form:input class="form-control" id="idC" path="id"/>
                                             </div>
 
-                                            <button href="/deactive?id=${cat.id}" type="submit" class="btn btn-danger" data-dismiss="modal">X</button>
+                                            <button action="/Category/deactive/?id=${catt.id}" type="submit" class="btn btn-danger" data-dismiss="modal">X</button>
                                         </form:form>
                                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-outline-light">Save</button>

@@ -264,7 +264,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link">
+                                <a href="/Item/viewitems" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -453,13 +453,12 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content bg-info">
                         <div class="modal-header">
-                            <h4 class="modal-title">Create Outlet</h4>
+                            <h4 class="modal-title">Create Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <!-- form start -->
-                            <%--                            <jsp:include page="outletform.jsp"/>--%>
                             <div class="container-fluid">
                                 <form:form method="POST" action="/Supplier/saveUpdate-supplier" modelAttribute="supp">
                                     <div class="card-body">
@@ -468,11 +467,11 @@
                                             <form:input type="hidden" class="form-control" id="id" path="id"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Name</label>
+                                            <label>Supplier Name</label>
                                             <form:input type="text" class="form-control" id="name" path="name"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Address</label>
+                                            <label>Supplier Address</label>
                                             <form:input type="text" class="form-control" id="address" path="address"/>
                                         </div>
                                         <div class="form-group">
@@ -497,15 +496,15 @@
                                             </form:select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Phone</label>
+                                            <label>Supplier Phone</label>
                                             <form:input type="text" class="form-control" id="phone" path="phone"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Email</label>
+                                            <label>Supplier Email</label>
                                             <form:input type="text" class="form-control" id="email" path="email"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Outlet Postal Code</label>
+                                            <label>Supplier Postal Code</label>
                                             <form:input type="text" class="form-control" id="postalCode" path="postalCode"/>
                                         </div>
                                     </div>

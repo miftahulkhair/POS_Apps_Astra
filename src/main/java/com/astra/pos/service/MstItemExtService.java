@@ -2,6 +2,7 @@ package com.astra.pos.service;
 
 import com.astra.pos.dao.MstItemExtDao;
 import com.astra.pos.model.AssItemInventory;
+import com.astra.pos.model.MstCategory;
 import com.astra.pos.model.MstItem;
 import com.astra.pos.model.MstVariant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ public class MstItemExtService {
     MstItemExtDao mstItemExtDao;
 
     public void saveOrUpdateVariant(MstVariant mstVariant){
-        mstItemExtDao.saveOrUpdateItem(mstVariant);
+        mstItemExtDao.saveOrUpdateVariant(mstVariant);
     }
     public void saveOrUpdateItem(MstItem mstItem){
-        mstItemExtDao.saveOrUpdateVariant(mstItem);
+        mstItemExtDao.saveOrUpdateItem(mstItem);
     }
     public void saveOrUpdateInvent(AssItemInventory assItemInventory){
         mstItemExtDao.saveOrUpdateInvent(assItemInventory);
@@ -37,5 +38,17 @@ public class MstItemExtService {
 
     public List<AssItemInventory> findAllInvent(){
         return mstItemExtDao.findAllInvent();
+    }
+
+    public List<MstCategory> findAllCategory(){
+        return mstItemExtDao.findAllCategory();
+    }
+
+    public List<MstVariant> findVariantByItem(Long id){
+        return mstItemExtDao.findVariantByItem(id);
+    }
+
+    public List<AssItemInventory> findInventByItem(Long id){
+        return mstItemExtDao.findInventByItem(id);
     }
 }

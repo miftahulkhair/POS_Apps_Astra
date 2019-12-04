@@ -38,12 +38,15 @@ public class MstVariant {
     @NotNull
     private boolean active;
 
-    @ManyToOne
-    @NotNull
+    @Column(nullable = false)
+    private Long item_id;
+
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstItem.class)
+    @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstItem item;
 
-    @OneToOne(mappedBy = "variant")
-    private AssItemInventory itemInventory;
+//    @OneToOne(mappedBy = "variant")
+//    private AssItemInventory itemInventory;
 
 
     public Long getId() {
@@ -126,12 +129,11 @@ public class MstVariant {
         this.item = item;
     }
 
-    public AssItemInventory getItemInventory() {
-        return itemInventory;
+    public Long getItem_id() {
+        return item_id;
     }
 
-    public void setItemInventory(AssItemInventory itemInventory) {
-        this.itemInventory = itemInventory;
+    public void setItem_id(Long item_id) {
+        this.item_id = item_id;
     }
-
 }

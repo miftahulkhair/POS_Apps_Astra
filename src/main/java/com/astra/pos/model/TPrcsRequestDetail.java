@@ -6,20 +6,26 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-@Table(name = "pos_mst_item")
-public class MstItem {
-
+@Table(name = "pos_t_purchase_request_detail")
+public class TPrcsRequestDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long category_id;
+    @NotNull
+    @OneToOne(targetEntity = TPrcsRequest.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pr_id", referencedColumnName = "id", nullable = false)
+    private TPrcsRequest prId;
 
-    private String name;
+    @NotNull
+    @ManyToOne(targetEntity = AssItemInventory.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id", nullable = false)
+    private AssItemInventory assItemInventory;
+
+    @NotNull
+    private int request_qty;
 
     private Long createBy;
 
@@ -31,13 +37,6 @@ public class MstItem {
     @UpdateTimestamp
     private Timestamp modifiedOn;
 
-    @NotNull
-    private boolean active;
-
-    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstCategory.class)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private MstCategory category;
-
     public Long getId() {
         return id;
     }
@@ -46,20 +45,28 @@ public class MstItem {
         this.id = id;
     }
 
-    public Long getCategory_id() {
-        return category_id;
+    public TPrcsRequest getPrId() {
+        return prId;
     }
 
-    public void setCategory_id(Long category_id) {
-        this.category_id = category_id;
+    public void setPrId(TPrcsRequest prId) {
+        this.prId = prId;
     }
 
-    public String getName() {
-        return name;
+    public AssItemInventory getAssItemInventory() {
+        return assItemInventory;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAssItemInventory(AssItemInventory assItemInventory) {
+        this.assItemInventory = assItemInventory;
+    }
+
+    public int getRequest_qty() {
+        return request_qty;
+    }
+
+    public void setRequest_qty(int request_qty) {
+        this.request_qty = request_qty;
     }
 
     public Long getCreateBy() {
@@ -92,21 +99,5 @@ public class MstItem {
 
     public void setModifiedOn(Timestamp modifiedOn) {
         this.modifiedOn = modifiedOn;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public MstCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(MstCategory category) {
-        this.category = category;
     }
 }

@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -213,7 +219,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link ">
+                                <a href="/Item/viewitems" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -434,14 +440,14 @@
                                     </div>
                                     <h4 class="modal-title">Create New PR : "nama outlet login"</h4>
                                     <div class="form-group">
-                                        <label for="datepicker">Target Waktu Item Ready</label>
+                                        <label>Target Waktu Item Ready</label>
                                         <!-- Date -->
                                         <div class="form-group">
                                             <div class="input-group date">
                                                 <div >
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input type="text" class="form-control pull-right" id="datepicker">
+                                                <input type="text" name="batasWaktu" class="form-control pull-right">
                                             </div>
                                             <div class="form-group">
                                                 <label for="notes">Notes</label>
@@ -752,6 +758,7 @@
 
 <script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -771,9 +778,17 @@
     });
 
     //Date picker
-    $('#datepicker').datepicker({
-        autoclose: true
-    })
+    $(function() {
+        $('input[name="batasWaktu"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'),10)
+        }, function(start, end, label) {
+            var years = moment().diff(start, 'years');
+            alert("You are " + years + " years old!");
+        });
+    });
 </script>
 </body>
 </html>

@@ -26,8 +26,17 @@ public class TPrcsOrder {
     @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
     private MstSupplier supplierId;
 
+//    @Column(nullable = false)
+//    private Long  supplier_id;
+//
+//    @Column(nullable = false)
+//    private Long  outlet_id;
+//
+//    @Column(nullable = false)
+//    private Long  pr_id;
+
     @NotNull
-    private String prNo;
+    private String poNo;
 
     private String notes;
 
@@ -79,12 +88,12 @@ public class TPrcsOrder {
         this.supplierId = supplierId;
     }
 
-    public String getPrNo() {
-        return prNo;
+    public String getPoNo() {
+        return poNo;
     }
 
-    public void setPrNo(String prNo) {
-        this.prNo = prNo;
+    public void setPoNo(String prNo) {
+        this.poNo = prNo;
     }
 
     public String getNotes() {
@@ -142,4 +151,28 @@ public class TPrcsOrder {
     public void setModifiedOn(Timestamp modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
+
+//    public Long getSupplier_id() {
+//        return supplier_id;
+//    }
+
+//    public void setSupplier_id(Long supplier_id) {
+//        this.supplier_id = supplier_id;
+//    }
+//
+//    public Long getOutlet_id() {
+//        return outlet_id;
+//    }
+//
+//    public void setOutlet_id(Long outlet_id) {
+//        this.outlet_id = outlet_id;
+//    }
+//
+//    public Long getPr_id() {
+//        return pr_id;
+//    }
+//
+//    public void setPr_id(Long pr_id) {
+//        this.pr_id = pr_id;
+//    }
 }

@@ -1,6 +1,8 @@
 package com.astra.pos.controller;
 
 import com.astra.pos.model.*;
+import com.astra.pos.service.MstItemExtService;
+import com.astra.pos.service.MstSupplierService;
 import com.astra.pos.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,28 @@ public class PrcsOrderController {
     @Autowired
     PurchaseOrderService purchaseOrderService;
 
+    @Autowired
+    MstSupplierService mstSupplierService;
+
+    @Autowired
+    MstItemExtService mstItemExtService;
+
     @RequestMapping("/")
     public ModelAndView getAllPrcsOrder(@ModelAttribute TPrcsOrder tPrcsOrder) {
         ModelAndView mv = new ModelAndView("purchaseOrder");
         List<TPrcsOrder> po = purchaseOrderService.getAllPO();
+
+        List<MstSupplier> suppliers = mstSupplierService.getAllSupplier();
+        Map<Long, String> supplier = new HashMap<>();
+        for (MstSupplier curSupplier : suppliers){
+            supplier.put(curSupplier.getId(), curSupplier.getName());
+        }
+
+        mv.addObject("poDetail", purchaseOrderService.getAllPODetail());
+        mv.addObject("inventories", mstItemExtService.findAllInvent());
+        mv.addObject("PO", new TPrcsOrder());
+        mv.addObject("supplier", supplier);
         mv.addObject("allPO", po);
-        mv.addObject("PO", new  MstSupplier());
         return mv;
     }
 
