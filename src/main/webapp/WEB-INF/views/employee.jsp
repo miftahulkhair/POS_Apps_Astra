@@ -274,7 +274,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-3">
                             <div class="form-group">
-                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Cancel</button>
+                                <button type="reset" class="btn btn-block btn-info" onclick="this.form.reset();">Cancel</button>
                             </div>
                         </div>
                         <div class="col-12 col-sm-3">

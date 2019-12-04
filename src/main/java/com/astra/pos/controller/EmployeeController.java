@@ -29,8 +29,7 @@ public class EmployeeController {
     @Autowired
     AssEmployeeOutletRepository assEmployeeOutletRepository;
 
-
-
+    
     @GetMapping("/employees")
     public ModelAndView getEmployees()
     {
@@ -38,7 +37,6 @@ public class EmployeeController {
         ModelMap modelMap = new ModelMap();
 
         UserEmployeeOutletCmd userEmployeeOutletCmd = new UserEmployeeOutletCmd();
-
 
         List<MstRole> mstRoles = mstRoleRepository.findAll();
         Map<Long, String> role = new HashMap<>();
@@ -52,12 +50,10 @@ public class EmployeeController {
             outlet.put(getOutlet.getId(), getOutlet.getName());
         }
 
-
         mv.addObject("outlets", outlet);
         mv.addObject("users", mstUserRepository.findAll());
         mv.addObject("roles", role);
         mv.addObject("employees", mstEmployeeRepository.findAllActiveEmployee());
-
 
         modelMap.addAttribute("userOutlets", userEmployeeOutletCmd);
         mv.addAllObjects(modelMap);
@@ -126,7 +122,6 @@ public class EmployeeController {
                 mstEmployee.setActive(true);
                 mstEmployee.setHaveAccount(true);
 
-
                 mstUser.setUsername(username);
                 mstUser.setPassword(password);
                 mstUser.setActive(true);
@@ -182,7 +177,6 @@ public class EmployeeController {
 
         UserEmployeeOutletCmd userEmployeeOutletCmd = new UserEmployeeOutletCmd();
 
-
         List<MstRole> mstRoles = mstRoleRepository.findAll();
         Map<Long, String> role = new HashMap<>();
         for (MstRole getRole : mstRoles){
@@ -196,14 +190,10 @@ public class EmployeeController {
         }
 
         Optional<MstEmployee> employee = mstEmployeeRepository.findById(id);
-//        Optional<MstUser> user = mstUserRepository.findById(employee.get().getUser().getId());
 
-
-//        mv.addObject("users", user);
         mv.addObject("employees", employee);
         mv.addObject("outlets", outlet);
         mv.addObject("roles", role);
-
 
         modelMap.addAttribute("userOutlets", userEmployeeOutletCmd);
         mv.addAllObjects(modelMap);
