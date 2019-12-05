@@ -63,7 +63,12 @@
             <!-- Messages Dropdown Menu -->
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/logout" class="nav-link">Logout</a>
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <h4 class="m-0 text-white"><span>Hello, ${pageContext.request.userPrincipal.name}</span></h4>
+                    <h5 class="m-0 text-white"><sec:authentication property="principal.authorities"/></h5>
+                    <span><a id="logout" href="${pageContext.servletContext.contextPath}/logout">Logout</a></span>
+                </c:if>
+<%--                <a href="/logout" class="nav-link">Logout</a>--%>
 <%--                <c:url value="/logout" var="logoutUrl" />--%>
 <%--                <form id="logout" action="${logoutUrl}" method="post" >--%>
 <%--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>

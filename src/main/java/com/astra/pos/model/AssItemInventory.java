@@ -1,7 +1,9 @@
 package com.astra.pos.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

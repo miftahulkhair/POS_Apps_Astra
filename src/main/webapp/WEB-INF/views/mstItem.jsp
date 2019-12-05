@@ -613,7 +613,7 @@
 
             <div class="modal fade" id="modal-add-editVariant">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div style="width: 120%" class="modal-content">
                         <!-- form start -->
                         <%--                        <form:form method="POST" action="/Item/editSaveVariant" modelAttribute="inventories">--%>
                         <%--                            <div class="modal-header">--%>

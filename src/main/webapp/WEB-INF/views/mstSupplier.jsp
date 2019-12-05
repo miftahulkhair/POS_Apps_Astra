@@ -451,7 +451,7 @@
         <section class="content">
             <div class="modal fade" id="modal-create">
                 <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content bg-info">
+                    <div style="width: 120%" class="modal-content bg-info">
                         <div class="modal-header">
                             <h4 class="modal-title">Create Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

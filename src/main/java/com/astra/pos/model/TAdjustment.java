@@ -1,6 +1,10 @@
 package com.astra.pos.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -20,17 +24,15 @@ public class TAdjustment {
     @Column(name = "status", nullable = false, length = 20)
     private String status;
 
-    @Column(name="created_by")
-    private String createdBy;
+    private Long createdBy;
 
-    @Column(name = "created_on")
-    private Date createdOn;
+    @CreationTimestamp
+    private Timestamp createOn;
 
-    @Column(name="modifiedBy")
-    private String modifiedBy;
+    private Long modifiedBy;
 
-    @Column(name = "modified_on")
-    private Date modifiedOn;
+    @UpdateTimestamp
+    private Timestamp modifiedOn;
 
     public Long getId() {
         return id;
@@ -64,35 +66,35 @@ public class TAdjustment {
         this.status = status;
     }
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Timestamp getCreateOn() {
+        return createOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreateOn(Timestamp createOn) {
+        this.createOn = createOn;
     }
 
-    public String getModifiedBy() {
+    public Long getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(String modifiedBy) {
+    public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
-    public Date getModifiedOn() {
+    public Timestamp getModifiedOn() {
         return modifiedOn;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
+    public void setModifiedOn(Timestamp modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
 }

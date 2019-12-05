@@ -14,22 +14,26 @@ public class TPrcsOrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @OneToOne(targetEntity = TPrcsRequest.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "po_id", referencedColumnName = "id", nullable = false)
-    private TPrcsRequest poId;
+    @OneToOne(targetEntity = TPrcsOrder.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "po_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private TPrcsOrder poId;
 
-    @NotNull
     @ManyToOne(targetEntity = AssItemInventory.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "inventory_id", referencedColumnName = "id", nullable = false)
-    private AssItemInventory assItemInventory;
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private AssItemInventory inventory;
+
+    @Column(nullable = false)
+    private Long  po_id;
+
+//    @Column(nullable = false)
+//    private Long  inventory_id;
 
     @NotNull
     private int request_qty;
 
-    private double unit_cost;
+    private Double unit_cost;
 
-    private double sub_total;
+    private Double sub_total;
 
     private Long createBy;
 
@@ -49,21 +53,37 @@ public class TPrcsOrderDetail {
         this.id = id;
     }
 
-    public TPrcsRequest getPoId() {
+    public TPrcsOrder getPoId() {
         return poId;
     }
 
-    public void setPoId(TPrcsRequest poId) {
+    public void setPoId(TPrcsOrder poId) {
         this.poId = poId;
     }
 
-    public AssItemInventory getAssItemInventory() {
-        return assItemInventory;
+    public AssItemInventory getInventory() {
+        return inventory;
     }
 
-    public void setAssItemInventory(AssItemInventory assItemInventory) {
-        this.assItemInventory = assItemInventory;
+    public void setInventory(AssItemInventory inventory) {
+        this.inventory = inventory;
     }
+
+    public Long getPo_id() {
+        return po_id;
+    }
+
+    public void setPo_id(Long po_id) {
+        this.po_id = po_id;
+    }
+
+//    public Long getInventory_id() {
+//        return inventory_id;
+//    }
+//
+//    public void setInventory_id(Long inventory_id) {
+//        this.inventory_id = inventory_id;
+//    }
 
     public int getRequest_qty() {
         return request_qty;
@@ -73,19 +93,19 @@ public class TPrcsOrderDetail {
         this.request_qty = request_qty;
     }
 
-    public double getUnit_cost() {
+    public Double getUnit_cost() {
         return unit_cost;
     }
 
-    public void setUnit_cost(double unit_cost) {
+    public void setUnit_cost(Double unit_cost) {
         this.unit_cost = unit_cost;
     }
 
-    public double getSub_total() {
+    public Double getSub_total() {
         return sub_total;
     }
 
-    public void setSub_total(double sub_total) {
+    public void setSub_total(Double sub_total) {
         this.sub_total = sub_total;
     }
 

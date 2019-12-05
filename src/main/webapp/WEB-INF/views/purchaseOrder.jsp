@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -51,14 +52,26 @@
                 dataType:"json",
                 success:function(data){
                     $('#id').val(data.id);
-                    $('#name').val(data.name);
-                    $('#address').val(data.address);
-                    $('#province').val(data.province_id);
-                    $('#region').val(data.region_id);
-                    $('#district').val(data.district_id);
-                    $('#phone').val(data.phone);
-                    $('#email').val(data.email);
-                    $('#postalCode').val(data.postalCode);
+                    $('#poNo').val(data.poNo);
+                    $('#status').val(data.status);
+                    $('#grandTotal').val(data.grandTotal);
+                    $('#outletId').val(data.outlet_id);
+                    $('#supplier').val(data.supplier_id);
+                    $('#notes').val(data.notes);
+                }
+            });
+            $.ajax({
+                url:"/PurchaseOrder/edit_formDetail/"+ poId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    $('#id').val(data.id);
+                    $('#poNo').val(data.poNo);
+                    $('#status').val(data.status);
+                    $('#grandTotal').val(data.grandTotal);
+                    $('#outletId').val(data.outlet_id);
+                    $('#supplier').val(data.supplier_id);
+                    $('#notes').val(data.notes);
                 }
             });
         });
@@ -76,6 +89,7 @@
             $('#postalCode').val("");
         });
     </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -236,7 +250,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li class="nav-item has-treeview">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -264,7 +278,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Outlet/viewoutlets" class="nav-link active">
+                                <a href="/Outlet/viewoutlets" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Outlet</p>
                                 </a>
@@ -277,7 +291,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -293,7 +307,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/PurchaseOrder/" class="nav-link">
+                                <a href="/PurchaseOrder/" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Order</p>
                                 </a>
@@ -401,14 +415,14 @@
 
                                 <select class="form-control select2" style="width: 15%">
                                     <option selected="selected">Status</option>
-                                    <c:forEach var="PrcsOrder" items="${allPO}">
-                                        <option>${PrcsOrder.status}</option>
+                                    <c:forEach var="po" items="${allPO}">
+                                        <option id="optionInput">${po.status}</option>
                                     </c:forEach>
                                 </select>
 
                                 <!-- SEARCH FORM -->
                                 <div class="input-group">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
                                             <i class="fas fa-search"></i>
@@ -436,19 +450,21 @@
                                 <c:forEach var="po" items="${allPO}">
                                     <tr>
                                         <td hidden>${po.id}</td>
-                                        <td>${po.createOn}</td>
+                                        <td>
+                                            <fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${po.createOn}"/>
+                                        </td>
                                         <td>${po.supplierId.name}</td>
                                         <td>${po.poNo}</td>
-                                        <td>${po.grandTotal}</td>
+                                        <td>
+                                            <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${po.grandTotal}" />
+                                        </td>
                                         <td>${po.status}</td>
                                         <td align="center">
                                             <button type="button" class="edit_data btn btn-block btn-info" id="${po.id}"
-                                                    data-toggle="modal" data-target="#modal-edit"
-                                            >Edit
+                                                    data-toggle="modal" data-target="#modal-edit">Edit
                                             </button>
                                             <button type="button" class="btn btn-block btn-info"
-                                                    data-toggle="modal" data-target="#modal-view"
-                                            >View
+                                                    data-toggle="modal" data-target="#modal-view">View
                                             </button>
                                         </td>
                                     </tr>
@@ -468,18 +484,127 @@
         </section>
 
         <section class="content">
-<%--            <div class="modal fade" id="modal-edit">--%>
+            <div class="modal fade" id="modal-edit">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div style="width: 120%" class="modal-content bg-info">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Purchase Order</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- form start -->
+                            <div class="container-fluid">
+                                <form:form method="POST" action="/PurchaseOrder/update-po" modelAttribute="PO">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <h4 class="modal-title">Edit New PO : "nama outlet login"</h4>
+                                        </div>
+                                        <div hidden class="form-group">
+                                            <form:input class="form-control" id="id" path="id"/>
+                                            <form:input class="form-control" id="poNo" path="poNo"/>
+                                            <form:input class="form-control" id="status" path="status"/>
+                                            <form:input class="form-control" id="grandTotal" path="grandTotal"/>
+                                            <form:input class="form-control" id="outletId" path="outlet_id"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Choose Supplier</label>
+                                            <form:select id="supplier" path="supplier_id" class="form-control select2 " style="width: 100%;"  >
+                                                <form:option value="0" label="Select Supplier"/>
+                                                <form:options items="${supplier}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notes">Notes</label>
+                                            <form:textarea type="text" class="form-control" id="notes" path="notes"/>
+                                        </div>
+
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Purchase Order</h4>
+                                        </div>
+                                        <div class="form-group">
+                                            <table id="example" class="table table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th hidden>Id</th>
+                                                    <th>Item</th>
+                                                    <th>In Stock</th>
+                                                    <th>Qty</th>
+                                                    <th>Unit Cost</th>
+                                                    <th>Sub Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach var="poDetail" items="${poDetail}">
+                                                    <tr>
+                                                        <td hidden>${poDetail.inventory.variant.item.id}</td>
+                                                        <td hidden>${poDetail.po_id}</td>
+                                                        <td>${poDetail.inventory.variant.item.name} - ${poDetail.inventory.variant.name}</td>
+                                                        <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
+                                                        <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
+                                                        <td>
+<%--                                                            <form:form method="POST" action="/PurchaseOrder/update-po" modelAttribute="PODetail">--%>
+<%--                                                                <form:input id="unitCost" path="unit_cost"/>--%>
+                                                                <input style="background: transparent; border: none; color: white;" class="form-control"
+                                                                       id="unitCost" value="${poDetail.unit_cost}"/>
+
+<%--                                                                <button type="submit" class="btn btn-success">O</button>--%>
+<%--                                                            </form:form>--%>
+                                                        </td>
+                                                        <td disabled="true">
+                                                            <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${poDetail.sub_total}" />
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="form-inline justify-content-between" style="width: 100%">
+                                            <h4 class="modal-title">TOTAL</h4>
+                                            <label>
+                                                <c:set var="total" value="${0}"/>
+                                                <c:forEach var="poDetail" items="${poDetail}">
+                                                    <c:set var="total" value="${total + poDetail.sub_total}"/>
+                                                </c:forEach>
+                                                <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${total}" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                        <button formaction="/PurchaseOrder/update-po-dtl" type="submit" class="btn btn-outline-light">Save</button>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+<%--            <div class="modal fade" id="modal-view">--%>
 <%--                <div class="modal-dialog modal-dialog-scrollable">--%>
-<%--                    <div class="modal-content bg-info">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h4 class="modal-title">Purchase Order</h4>--%>
+<%--                    <div style="width: 120%" class="modal-content bg-info">--%>
+<%--                        <div class="modal-header form-inline justify-content-between">--%>
+<%--                            <h4 class="modal-title">Purchase Order Detail</h4>--%>
+<%--                            <form:select id="supplier" path="supplier_id" class="form-control select2 " style="width: 100%;"  >--%>
+<%--                                <form:option value="0" label="More"/>--%>
+<%--                                <form:options items="${supplier}"/>--%>
+<%--                            </form:select>--%>
 <%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
 <%--                                <span aria-hidden="true">&times;</span></button>--%>
 <%--                        </div>--%>
 <%--                        <div class="modal-body">--%>
 <%--                            <!-- form start -->--%>
 <%--                            <div class="container-fluid">--%>
-<%--                                <form:form method="POST" action="/PurchaseOrder/update-po" modelAttribute="PO">--%>
+<%--                                <form:form method="GET" action="/PurchaseOrder/update-po" modelAttribute="poDetail">--%>
+<%--                                    <label></label>--%>
+
+
+
 <%--                                    <div class="card-body">--%>
 <%--                                        <div class="form-group">--%>
 <%--                                            <h4 class="modal-title">Edit New PO : "nama outlet login"</h4>--%>
@@ -489,7 +614,7 @@
 <%--                                        </div>--%>
 <%--                                        <div class="form-group">--%>
 <%--                                            <label>Choose Supplier</label>--%>
-<%--                                            <form:select id="supplier" path="supplierId" class="form-control select2 " style="width: 100%;"  >--%>
+<%--                                            <form:select id="supplier" path="supplier_id" class="form-control select2 " style="width: 100%;"  >--%>
 <%--                                                <form:option value="0" label="Select Supplier"/>--%>
 <%--                                                <form:options items="${supplier}"/>--%>
 <%--                                            </form:select>--%>
@@ -517,27 +642,30 @@
 <%--                                                <tbody>--%>
 <%--                                                <c:forEach var="poDetail" items="${poDetail}">--%>
 <%--                                                    <tr>--%>
-<%--                                                        <td hidden>${poDetail.id}</td>--%>
-<%--                                                        <td>${poDetail.assItemInventory.variant.item.name} - ${poDetail.assItemInventory.variant.name}</td>--%>
-<%--                                                        <td disabled="true">${poDetail.assItemInventory.adjustmentQty}</td>--%>
-<%--                                                        <td disabled="true">${poDetail.assItemInventory.adjustmentQty}</td>--%>
-<%--                                                        <td>${poDetail.unit_cost}</td>--%>
-<%--                                                        <td disabled="true">${poDetail.sub_total}</td>--%>
+<%--                                                        <td hidden>${poDetail.inventory.variant.item.id}</td>--%>
+<%--                                                        <td>${poDetail.inventory.variant.item.name} - ${poDetail.inventory.variant.name}</td>--%>
+<%--                                                        <td disabled="true">${poDetail.inventory.adjustmentQty}</td>--%>
+<%--                                                        <td disabled="true">${poDetail.inventory.adjustmentQty}</td>--%>
+<%--                                                        <td>--%>
+<%--                                                            <input style="background: transparent; border: none; color: white;" class="form-control"--%>
+<%--                                                                   id="unitCost" value="${poDetail.unit_cost}"/>--%>
+<%--                                                        </td>--%>
+<%--                                                        <td disabled="true">--%>
+<%--                                                            <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${poDetail.sub_total}" />--%>
+<%--                                                        </td>--%>
 <%--                                                    </tr>--%>
 <%--                                                </c:forEach>--%>
 <%--                                                </tbody>--%>
 <%--                                            </table>--%>
 <%--                                        </div>--%>
-<%--                                        <div class="col-5 d-none d-sm-inline-block">--%>
+<%--                                        <div class="form-inline justify-content-between" style="width: 100%">--%>
 <%--                                            <h4 class="modal-title">TOTAL</h4>--%>
 <%--                                            <label>--%>
 <%--                                                <c:set var="total" value="${0}"/>--%>
-<%--                                                <c:if test="${poDetail.sub_total} != null">--%>
-<%--                                                    <c:forEach var="poDetail" items="${poDetail}">--%>
-<%--                                                        <c:set value="${total + poDetail.sub_total}" />--%>
-<%--                                                    </c:forEach>--%>
-<%--                                                </c:if>--%>
-<%--                                                <c:out value="${total}"/>--%>
+<%--                                                <c:forEach var="poDetail" items="${poDetail}">--%>
+<%--                                                    <c:set var="total" value="${total + poDetail.sub_total}"/>--%>
+<%--                                                </c:forEach>--%>
+<%--                                                <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${total}" />--%>
 <%--                                            </label>--%>
 <%--                                        </div>--%>
 <%--                                    </div>--%>

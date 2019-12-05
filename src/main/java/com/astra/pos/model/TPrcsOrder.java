@@ -15,25 +15,25 @@ public class TPrcsOrder {
     private Long id;
 
     @OneToOne(targetEntity = TPrcsRequest.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pr_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pr_id", referencedColumnName = "id", insertable = false, updatable = false)
     private TPrcsRequest prId;
 
     @ManyToOne(targetEntity = MstOutlet.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "outlet_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "outlet_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstOutlet outletId;
 
     @ManyToOne(targetEntity = MstSupplier.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstSupplier supplierId;
 
-//    @Column(nullable = false)
-//    private Long  supplier_id;
-//
-//    @Column(nullable = false)
-//    private Long  outlet_id;
-//
-//    @Column(nullable = false)
-//    private Long  pr_id;
+    @Column(nullable = false)
+    private Long  supplier_id;
+
+    @Column(nullable = false)
+    private Long  outlet_id;
+
+    @Column(nullable = false)
+    private Long  pr_id;
 
     @NotNull
     private String poNo;
@@ -41,7 +41,7 @@ public class TPrcsOrder {
     private String notes;
 
     @NotNull
-    private double grandTotal;
+    private Double grandTotal;
 
     @NotNull
     private String status;
@@ -104,11 +104,11 @@ public class TPrcsOrder {
         this.notes = notes;
     }
 
-    public double getGrandTotal() {
+    public Double getGrandTotal() {
         return grandTotal;
     }
 
-    public void setGrandTotal(double grandTotal) {
+    public void setGrandTotal(Double grandTotal) {
         this.grandTotal = grandTotal;
     }
 
@@ -152,27 +152,27 @@ public class TPrcsOrder {
         this.modifiedOn = modifiedOn;
     }
 
-//    public Long getSupplier_id() {
-//        return supplier_id;
-//    }
+    public Long getSupplier_id() {
+        return supplier_id;
+    }
 
-//    public void setSupplier_id(Long supplier_id) {
-//        this.supplier_id = supplier_id;
-//    }
-//
-//    public Long getOutlet_id() {
-//        return outlet_id;
-//    }
-//
-//    public void setOutlet_id(Long outlet_id) {
-//        this.outlet_id = outlet_id;
-//    }
-//
-//    public Long getPr_id() {
-//        return pr_id;
-//    }
-//
-//    public void setPr_id(Long pr_id) {
-//        this.pr_id = pr_id;
-//    }
+    public void setSupplier_id(Long supplier_id) {
+        this.supplier_id = supplier_id;
+    }
+
+    public Long getOutlet_id() {
+        return outlet_id;
+    }
+
+    public void setOutlet_id(Long outlet_id) {
+        this.outlet_id = outlet_id;
+    }
+
+    public Long getPr_id() {
+        return pr_id;
+    }
+
+    public void setPr_id(Long pr_id) {
+        this.pr_id = pr_id;
+    }
 }

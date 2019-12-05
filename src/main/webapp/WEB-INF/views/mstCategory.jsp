@@ -38,7 +38,6 @@
     <script>
         $(document).on('click', '.edit_data', function(){
             var supplierId = $(this).attr("id");
-            console.log("Hello, " + supplierId );
             $.ajax({
                 url:"/Category/edit_form/"+ supplierId,
                 method:"GET",
@@ -46,24 +45,26 @@
                 success:function(data){
                     $('#id').val(data.id);
                     $('#name').val(data.name);
-                    $('#idC').val(data.id);
+                    $('#active').val(data.active);
+                    $('#idc').val(data.id);
+                    $('#namec').val(data.name);
+                    $('#activec').val(data.active);
                 }
             });
         });
     </script>
-    <script>
-        $(document).on('click', '.save_data', function(){
-            $('#id').val("");
-            $('#name').val("");
-            $('#address').val("");
-            $('#province').val("0");
-            $('#region').val("0");
-            $('#district').val("0");
-            $('#phone').val("");
-            $('#email').val("");
-            $('#postalCode').val("");
-        });
-    </script>
+    <%--    <script>--%>
+    <%--        $(document).on('click', '.save_data', function(){--%>
+    <%--            $('#id').val("");--%>
+    <%--            $('#name').val("");--%>
+    <%--            $('#active').val("");--%>
+
+    <%--            $('#idc').val("");--%>
+    <%--            $('#namec').val("");--%>
+    <%--            $('#activec').val("");--%>
+
+    <%--        });--%>
+    <%--    </script>--%>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -396,7 +397,7 @@
                             </form>
                             <div align="right">
                                 <button type="button" class="btn w-25 btn-primary">Export</button>
-                                <button type="button" class="save_data btn w-25 btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="btn w-25 btn-primary" data-toggle="modal" data-target="#modal-createe">Create</button>
                             </div>
 
                         </div>
@@ -415,16 +416,16 @@
                                 <tbody id="myTable">
                                 <c:forEach var="category" items="${allCategory}">
                                     <c:if test="${category.active == true}">
-                                    <tr>
-                                        <td hidden>${category.id}</td>
-                                        <td>${category.name}</td>
-                                        <td>${category.id}</td>
-                                        <td align="center">
-                                            <button type="button" class="edit_data btn btn-block btn-info" id="${category.id}"
-                                                    data-toggle="modal" data-target="#modal-create">Edit
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td hidden>${category.id}</td>
+                                            <td>${category.name}</td>
+                                            <td>${category.id}</td>
+                                            <td align="center">
+                                                <button type="button" class="edit_data btn btn-block btn-info" id="${category.id}"
+                                                        data-toggle="modal" data-target="#modal-create">Edit
+                                                </button>
+                                            </td>
+                                        </tr>
                                     </c:if>
                                 </c:forEach>
                                 </tbody>
@@ -462,21 +463,31 @@
                                             <label>Category Name</label>
                                             <form:input type="text" class="form-control" id="name" path="name"/>
                                         </div>
+                                        <div hidden class="form-group">
+                                            <label>Category Name</label>
+                                            <form:input type="text" class="form-control" id="active" path="active"/>
+                                        </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
 
-                                        <form:form method="POST" action="/Category/active" modelAttribute="catt">
-                                            <div hidden class="form-group">
-                                                <form:input class="form-control" id="idC" path="id"/>
-                                            </div>
-
-                                            <button action="/Category/deactive/?id=${catt.id}" type="submit" class="btn btn-danger" data-dismiss="modal">X</button>
-                                        </form:form>
                                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-outline-light">Save</button>
                                     </div>
-                                    <!-- /.card-body -->
                                 </form:form>
+                                <form:form method="POST" action="/Category/delete" modelAttribute="catt">
+                                    <div hidden class="form-group">
+                                        <form:input class="form-control" id="idc" path="id"/>
+                                        <form:input class="form-control" id="namec" path="name"/>
+                                        <form:input class="form-control" id="activec" path="active"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger" >X</button>
+                                    </div>
+                                </form:form>
+
+
+                                <!-- /.card-body -->
+
                             </div>
                         </div>
 
@@ -484,7 +495,49 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
+
+            </div><div class="modal fade" id="modal-createe">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content bg-info">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create Category</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- form start -->
+                        <div class="container-fluid">
+                            <form:form method="POST" action="/Category/save" modelAttribute="cat">
+                                <div class="card-body">
+                                    <div hidden class="form-group">
+                                        <form:input class="form-control" path="id"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Category Name</label>
+                                        <form:input type="text" class="form-control" path="name"/>
+                                    </div>
+                                    <div hidden class="form-group">
+                                        <label>Category Name</label>
+                                        <form:input type="text" class="form-control" path="active"/>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-outline-light">Save</button>
+                                </div>
+                            </form:form>
+                            <!-- /.card-body -->
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
+        </div>
+
         </section>
         <!-- /.content -->
     </div>

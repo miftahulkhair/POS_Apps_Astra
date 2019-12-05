@@ -185,7 +185,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li class="nav-item has-treeview">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -226,7 +226,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -424,7 +424,7 @@
             <!-- /.modal -->
             <div class="modal fade" id="modal-create">
                 <div class="modal-dialog">
-                    <div class="modal-content bg-info">
+                    <div style="width: 120%" class="modal-content bg-info">
                         <div class="modal-header">
                             <h4 class="modal-title">Purchase Request</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

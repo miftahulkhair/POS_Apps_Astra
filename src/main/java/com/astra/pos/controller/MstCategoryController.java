@@ -59,11 +59,20 @@ public class MstCategoryController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveUpdate(@ModelAttribute("cat") MstCategory mstCategory){
+    public String saveUpdate(@ModelAttribute("cat") MstCategory mstCategory) {
         mstCategory.setActive(true);
         mstCategoryService.saveUpdate(mstCategory);
         return "redirect:/Category/";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String updateDel(@ModelAttribute("cat") MstCategory mstCategory) {
+        mstCategory.setActive(false);
+        mstCategoryService.saveUpdate(mstCategory);
+        return "redirect:/Category/";
+    }
+
+
 
 //    @RequestMapping(value = "/active/{id}", method = RequestMethod.POST)
 //    public ModelAndView active(@ModelAttribute("cate") MstCategory mstCategory){
@@ -74,11 +83,11 @@ public class MstCategoryController {
 //        mstCategoryService.saveUpdate(mstCategory);
 //        return mv;
 //    }
-    @RequestMapping(value = "/deactive/{id}", method = RequestMethod.POST)
-    public String removeCategory(@PathVariable("id") Long id){
-        MstCategory category = this.mstCategoryService.getCategory(id);
-        category.setActive(false);
-        this.mstCategoryService.saveUpdate(category);
-        return "mstCategory";
-    }
+//    @RequestMapping(value = "/deactive/{id}", method = RequestMethod.POST)
+//    public String removeCategory(@PathVariable("id") Long id){
+//        MstCategory category = this.mstCategoryService.getCategory(id);
+//        category.setActive(false);
+//        this.mstCategoryService.saveUpdate(category);
+//        return "mstCategory";
+//    }
 }
