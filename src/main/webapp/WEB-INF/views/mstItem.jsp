@@ -56,86 +56,86 @@
             $('#category').val("0");
         });
     </script>
-    <%--    <script>--%>
-    <%--        $(function() {--%>
-    <%--            $("#example").DataTable();--%>
-    <%--            $('.loadData').click(function() {--%>
-    <%--                loadData();--%>
-    <%--            });--%>
+<%--        <script>--%>
+<%--            $(function() {--%>
+<%--                $("#example").DataTable();--%>
+<%--                $('.loadData').click(function() {--%>
+<%--                    loadData();--%>
+<%--                });--%>
 
-    <%--            function loadData() {--%>
-    <%--                var itemId = $(this).attr("id");--%>
-    <%--                $.ajax({--%>
-    <%--                    type: 'GET',--%>
-    <%--                    url: "/listInvent/"+itemId,--%>
-    <%--                    dataType: 'json',--%>
-    <%--                    success: function (data) {--%>
-    <%--                        myJsonData = data;--%>
-    <%--                        populateDataTable(myJsonData);--%>
-    <%--                    },--%>
-    <%--                    error: function (e) {--%>
-    <%--                        console.log("There was an error with your request...");--%>
-    <%--                        console.log("error: " + JSON.stringify(e));--%>
-    <%--                    }--%>
-    <%--                });--%>
-    <%--            }--%>
+<%--                function loadData() {--%>
+<%--                    var itemId = $(this).attr("id");--%>
+<%--                    $.ajax({--%>
+<%--                        type: 'GET',--%>
+<%--                        url: "/listInvent/"+itemId,--%>
+<%--                        dataType: 'json',--%>
+<%--                        success: function (data) {--%>
+<%--                            myJsonData = data;--%>
+<%--                            populateDataTable(myJsonData);--%>
+<%--                        },--%>
+<%--                        error: function (e) {--%>
+<%--                            console.log("There was an error with your request...");--%>
+<%--                            console.log("error: " + JSON.stringify(e));--%>
+<%--                        }--%>
+<%--                    });--%>
+<%--                }--%>
 
-    <%--            // populate the data table with JSON data--%>
-    <%--            function populateDataTable(data) {--%>
-    <%--                console.log("populating data table...");--%>
-    <%--                // clear the table before populating it with more data--%>
-    <%--                $("#example").DataTable().clear();--%>
-    <%--                var length = Object.keys(data.inventory.variant).length;--%>
-    <%--                for(var i = 1; i < length+1; i++) {--%>
-    <%--                    var inventory = data.inventory['inventory'+i];--%>
+<%--                // populate the data table with JSON data--%>
+<%--                function populateDataTable(data) {--%>
+<%--                    console.log("populating data table...");--%>
+<%--                    // clear the table before populating it with more data--%>
+<%--                    $("#example").DataTable().clear();--%>
+<%--                    var length = Object.keys(data.inventory.variant).length;--%>
+<%--                    for(var i = 1; i < length+1; i++) {--%>
+<%--                        var inventory = data.inventory['inventory'+i];--%>
 
-    <%--                    // You could also use an ajax property on the data table initialization--%>
-    <%--                    $('#example').dataTable().fnAddData( [--%>
-    <%--                        inventory.beginning,--%>
-    <%--                        inventory.variant.id,--%>
-    <%--                        inventory.variant.name,--%>
-    <%--                        inventory.variant.price,--%>
-    <%--                        inventory.variant.sku--%>
-    <%--                    ]);--%>
-    <%--                }--%>
-    <%--            }--%>
-    <%--        })();--%>
-    <%--    </script>--%>
-    <%--    <script>--%>
-    <%--        $(function () {--%>
-    <%--            $("#variant").on("click", function () {--%>
-    <%--                var itemId = $(this).attr("id");--%>
-    <%--                $.ajax({--%>
-    <%--                    url: '/listInvent/' +itemId,--%>
-    <%--                    type: "GET",--%>
-    <%--                    dataType: "json",--%>
-    <%--                    contentType: "application/json; charset=utf-8",--%>
-    <%--                    success: function (data) {--%>
-    <%--                        var json = JSON.parse(data.d);--%>
-    <%--                        $(json).each(function (index, item) {--%>
-    <%--                            var beginning = json[index].beginning;--%>
-    <%--                            for (var option = 0; option < json[index].variant.length; option++) {--%>
-    <%--                                var name = json[index].variant[option].name;--%>
-    <%--                                var price = json[index].variant[option].price;--%>
-    <%--                                var sku = json[index].variant[option].sku;--%>
-    <%--                                $('tbody#item').append(--%>
-    <%--                                    '<tr><td>'--%>
-    <%--                                    + name--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + price--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + sku--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + beginning--%>
-    <%--                                    + '</td></tr>')--%>
-    <%--                            }--%>
-    <%--                        });--%>
-    <%--                    },--%>
-    <%--                    error: function (data) { alert(data.responseText); }--%>
-    <%--                });--%>
-    <%--            });--%>
-    <%--        });--%>
-    <%--    </script>--%>
+<%--                        // You could also use an ajax property on the data table initialization--%>
+<%--                        $('#example').dataTable().fnAddData( [--%>
+<%--                            inventory.beginning,--%>
+<%--                            inventory.variant.id,--%>
+<%--                            inventory.variant.name,--%>
+<%--                            inventory.variant.price,--%>
+<%--                            inventory.variant.sku--%>
+<%--                        ]);--%>
+<%--                    }--%>
+<%--                }--%>
+<%--            })();--%>
+<%--        </script>--%>
+<%--        <script>--%>
+<%--            $(function () {--%>
+<%--                $("#variant").on("click", function () {--%>
+<%--                    var itemId = $(this).attr("id");--%>
+<%--                    $.ajax({--%>
+<%--                        url: '/listInvent/' +itemId,--%>
+<%--                        type: "GET",--%>
+<%--                        dataType: "json",--%>
+<%--                        contentType: "application/json; charset=utf-8",--%>
+<%--                        success: function (data) {--%>
+<%--                            var json = JSON.parse(data.d);--%>
+<%--                            $(json).each(function (index, item) {--%>
+<%--                                var beginning = json[index].beginning;--%>
+<%--                                for (var option = 0; option < json[index].variant.length; option++) {--%>
+<%--                                    var name = json[index].variant[option].name;--%>
+<%--                                    var price = json[index].variant[option].price;--%>
+<%--                                    var sku = json[index].variant[option].sku;--%>
+<%--                                    $('tbody#item').append(--%>
+<%--                                        '<tr><td>'--%>
+<%--                                        + name--%>
+<%--                                        + '</td><td>'--%>
+<%--                                        + price--%>
+<%--                                        + '</td><td>'--%>
+<%--                                        + sku--%>
+<%--                                        + '</td><td>'--%>
+<%--                                        + beginning--%>
+<%--                                        + '</td></tr>')--%>
+<%--                                }--%>
+<%--                            });--%>
+<%--                        },--%>
+<%--                        error: function (data) { alert(data.responseText); }--%>
+<%--                    });--%>
+<%--                });--%>
+<%--            });--%>
+<%--        </script>--%>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -504,10 +504,14 @@
                                             <td>Normal</td>
                                         </c:if>
                                         <td align="center">
-                                            <button type="button" class="edit_item loadData btn btn-block btn-info"
+                                            <button type="button" class="edit_item btn btn-block btn-info"
+                                                    id="${inventory.variant.item_id}"
+                                                    data-toggle="modal" data-target="#modal-create-edit">Edit
+                                            </button>
+                                            <button type="button" class="loadData btn btn-block btn-info"
                                                     id="${inventory.variant.item_id}"
                                                     href = "/listInvent?id=${inventory.variant.item_id}"
-                                                    data-toggle="modal" data-target="#modal-create-edit">Edit
+                                                    data-toggle="modal" data-target="#modal-variant-data">View Variant
                                             </button>
                                         </td>
                                     </tr>
@@ -550,52 +554,6 @@
                                             <form:options items="${category}"/>
                                         </form:select>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Variant</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div align="right">
-                                            <button type="submit" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-add-editVariant" action="/">Add Variant</button>
-                                        </div>
-                                            <%--                                        <jsp:include page="/listInvent/${}"/>--%>
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th hidden>Id</th>
-                                                <th>Variant Name</th>
-                                                <th>Unit Price</th>
-                                                <th>SKU</th>
-                                                <th>Beginning Stock</th>
-                                                <th>#</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach var="inventory" items="${inventories}" >
-                                                <tr>
-                                                    <td hidden>${inventory.variant.id}</td>
-                                                    <td>${inventory.variant.name}</td>
-                                                    <td>
-                                                        <fmt:formatNumber type="currency" value = "${inventory.variant.price}" />
-                                                    </td>
-                                                    <td>${inventory.variant.sku}</td>
-                                                    <td>${inventory.beginning}</td>
-                                                    <td align="center">
-                                                        <button type="button" class="btn btn-block btn-info"
-                                                                data-toggle="modal" data-target="#modal-create-edit">Edit
-                                                        </button>
-                                                        <button type="button" class="btn btn-block btn-danger"
-                                                                data-toggle="modal" data-target="#modal-create-edit">X
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
                                 <!-- /.card-body -->
                                 <div class="modal-footer justify-content-between">
                                     <button type="reset" class="btn btn-outline-light" data-dismiss="modal">Back</button>
@@ -611,48 +569,56 @@
                 <!-- /.modal-dialog -->
             </div>
 
-            <div class="modal fade" id="modal-add-editVariant">
+            <div class="modal fade" id="modal-variant-data">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- form start -->
-                        <%--                        <form:form method="POST" action="/Item/editSaveVariant" modelAttribute="inventories">--%>
-                        <%--                            <div class="modal-header">--%>
-                        <%--                                <h4 class="modal-title">Ad--%>
-                        <%--                                    d Variant</h4>--%>
-                        <%--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-                        <%--                                    <span aria-hidden="true">&times;</span>--%>
-                        <%--                                </button>--%>
-                        <%--                            </div>--%>
-                        <%--                            <div class="modal-body">--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label>Variant Name</label>--%>
-                        <%--                                    <form:input disabled="true" type="text" class="form-control" id="name" path="name" />--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label>Unit Price</label>--%>
-                        <%--                                    <form:input disabled="true" type="text" class="form-control" id="unitPrice" path="price" />--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label for="sku">SKU</label>--%>
-                        <%--                                    <input type="text" class="form-control" id="sku" value="${supplier.name}">--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="modal-header">--%>
-                        <%--                                    <h4 class="modal-title">Set Beginning Stock</h4>--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label for="beginningStock">Beginning Stock</label>--%>
-                        <%--                                    <input type="text" class="form-control" id="beginningStock" value="${supplier.name}">--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label for="alertAt">Alert At</label>--%>
-                        <%--                                    <input type="text" class="form-control" id="alertAt" value="${supplier.name}">--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                            <div class="modal-footer justify-content-between">--%>
-                        <%--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
-                        <%--                                <button type="submit" class="btn btn-primary">Add</button>--%>
-                        <%--                            </div>--%>
-                        <%--                        </form:form>--%>
+                        <div class="form-group">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Variant</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div align="right">
+                                <button type="subit" class="btn w-50 btn-primary" data-toggle="modal" data-target="#modal-add-editVariant" action="/">Add Variant</button>
+                            </div>
+                            <%--                                        <jsp:include page="/listInvent/${}"/>--%>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th hidden>Id</th>
+                                    <th>Variant Name</th>
+                                    <th>Unit Price</th>
+                                    <th>SKU</th>
+                                    <th>Beginning Stock</th>
+                                    <th>#</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="inventory" items="${inventories}" >
+                                    <tr>
+                                        <td hidden>${inventory.variant.id}</td>
+                                        <td>${inventory.variant.name}</td>
+                                        <td>
+                                            <fmt:formatNumber type="currency" value = "${inventory.variant.price}" />
+                                        </td>
+                                        <td>${inventory.variant.sku}</td>
+                                        <td>${inventory.beginning}</td>
+                                        <td align="center">
+                                            <button type="button" class="btn btn-block btn-info"
+                                                    data-toggle="modal" data-target="#modal-create-edit">Edit
+                                            </button>
+                                            <button type="button" class="btn btn-block btn-danger"
+                                                    data-toggle="modal" data-target="#modal-create-edit">X
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
                     </div>
                     <!-- /.modal-content -->
                 </div>
