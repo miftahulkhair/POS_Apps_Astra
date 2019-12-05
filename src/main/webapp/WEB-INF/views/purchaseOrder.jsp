@@ -60,20 +60,20 @@
                     $('#notes').val(data.notes);
                 }
             });
-            $.ajax({
-                url:"/PurchaseOrder/edit_formDetail/"+ poId,
-                method:"GET",
-                dataType:"json",
-                success:function(data){
-                    $('#id').val(data.id);
-                    $('#poNo').val(data.poNo);
-                    $('#status').val(data.status);
-                    $('#grandTotal').val(data.grandTotal);
-                    $('#outletId').val(data.outlet_id);
-                    $('#supplier').val(data.supplier_id);
-                    $('#notes').val(data.notes);
-                }
-            });
+            // $.ajax({
+            //     url:"/PurchaseOrder/edit_formDetail/"+ poId,
+            //     method:"GET",
+            //     dataType:"json",
+            //     success:function(data){
+            //         $('#id').val(data.id);
+            //         $('#poNo').val(data.poNo);
+            //         $('#status').val(data.status);
+            //         $('#grandTotal').val(data.grandTotal);
+            //         $('#outletId').val(data.outlet_id);
+            //         $('#supplier').val(data.supplier_id);
+            //         $('#notes').val(data.notes);
+            //     }
+            // });
         });
     </script>
     <script>
@@ -538,7 +538,6 @@
                                                 <c:forEach var="poDetail" items="${poDetail}">
                                                     <tr>
                                                         <td hidden>${poDetail.inventory.variant.item.id}</td>
-                                                        <td hidden>${poDetail.po_id}</td>
                                                         <td>${poDetail.inventory.variant.item.name} - ${poDetail.inventory.variant.name}</td>
                                                         <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
                                                         <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
@@ -573,7 +572,7 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="submit" class="btn btn-success">Submit</button>
                                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                        <button formaction="/PurchaseOrder/update-po-dtl" type="submit" class="btn btn-outline-light">Save</button>
+                                        <button type="submit" class="btn btn-outline-light">Save</button>
                                     </div>
                                     <!-- /.card-body -->
                                 </form:form>
