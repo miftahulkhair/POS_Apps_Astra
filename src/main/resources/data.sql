@@ -59,6 +59,20 @@ INSERT INTO pos_mst_supplier (active, address, email, name, phone, postalCode, p
 INSERT INTO pos_mst_supplier (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (true, 'tangerang', 'supplier2@gmail.com', 'Supplier 2', '08162686211', '15135', 2, 2, 2);
 INSERT INTO pos_mst_supplier (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (true, 'bandung', 'supplier3@gmail.com', 'Supplier 3', '081626862455', '18373', 3, 3, 3);
 
+INSERT INTO pos_t_transfer_stock (fromOutlet, toOutlet, notes, status, modifiedOn) VALUES (1, 2, 'Kirim Gan', 'Created', '2019-12-05');
+INSERT INTO pos_t_transfer_stock (fromOutlet, toOutlet, notes, status, modifiedOn) VALUES (3, 1, 'Kirim Gan', 'Approved', '2019-12-05');
+INSERT INTO pos_t_transfer_stock (fromOutlet, toOutlet, notes, status, modifiedOn) VALUES (2, 3, 'Kirim Gan', 'Created', '2019-12-05');
+
+INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, variant_id) VALUES (50, 20, 1, 1);
+INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, variant_id) VALUES (80, 50, 1, 2);
+INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, variant_id) VALUES (100, 30, 2, 2);
+INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, variant_id) VALUES (70, 50, 3, 3);
+
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 1, '2019-12-05');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Approved', 1, '2019-12-05');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 2, '2019-12-05');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 3, '2019-12-05');
+
 
 
 

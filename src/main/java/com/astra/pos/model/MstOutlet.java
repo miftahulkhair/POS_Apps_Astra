@@ -78,6 +78,7 @@ public class MstOutlet {
     private MstDistrict district;
 
 
+
 //    @OneToMany(mappedBy = "outlet")
 //    private List<AssEmployeeOutlet> employeeOutlet;
 
