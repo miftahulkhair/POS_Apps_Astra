@@ -364,7 +364,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                         <%--                                <form:input path="employee.firstName" cssClass="form-control" type="text" placeholder="First Name"/>--%>
-                                    <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName" name="firstName"/>
+                                    <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName" name="firstName" required="required"/>
                                     </input>
                                 </div>
                                 <!-- /.form-group -->
@@ -372,7 +372,7 @@
                             <!-- /.col -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName" name="lastName"/>
+                                    <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName" name="lastName" required="required"/>
                                     </input>
                                 </div>
                             </div>
