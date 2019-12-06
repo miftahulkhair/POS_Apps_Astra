@@ -240,7 +240,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/employees" class="nav-link">
+                                <a href="employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -264,7 +264,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link">
+                                <a href="/Item/viewitems" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -451,7 +451,7 @@
         <section class="content">
             <div class="modal fade" id="modal-create">
                 <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content bg-info">
+                    <div style="width: 120%" class="modal-content bg-info">
                         <div class="modal-header">
                             <h4 class="modal-title">Create Outlet</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

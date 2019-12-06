@@ -16,6 +16,9 @@ public class MstItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Long category_id;
+
     private String name;
 
     private Long createBy;
@@ -31,12 +34,9 @@ public class MstItem {
     @NotNull
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstCategory.class)
+    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstCategory category;
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<MstVariant> variant;
-
 
     public Long getId() {
         return id;
@@ -44,6 +44,14 @@ public class MstItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Long category_id) {
+        this.category_id = category_id;
     }
 
     public String getName() {
@@ -102,12 +110,5 @@ public class MstItem {
         this.category = category;
     }
 
-    public List<MstVariant> getVariant() {
-        return variant;
-    }
-
-    public void setVariant(List<MstVariant> variant) {
-        this.variant = variant;
-    }
 
 }

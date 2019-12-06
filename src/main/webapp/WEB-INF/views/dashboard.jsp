@@ -63,14 +63,19 @@
             <!-- Messages Dropdown Menu -->
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/logout" class="nav-link">Logout</a>
-<%--                <c:url value="/logout" var="logoutUrl" />--%>
-<%--                <form id="logout" action="${logoutUrl}" method="post" >--%>
-<%--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
-<%--                </form>--%>
-<%--                <c:if test="${pageContext.request.userPrincipal.name != null}">--%>
-<%--                    <a href="javascript:document.getElementById('logout').submit()">Logout</a>--%>
-<%--                </c:if>--%>
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <h4 class="m-0 text-white"><span>Hello, ${pageContext.request.userPrincipal.name}</span></h4>
+                    <h5 class="m-0 text-white"><sec:authentication property="principal.authorities"/></h5>
+                    <span><a id="logout" href="${pageContext.servletContext.contextPath}/logout">Logout</a></span>
+                </c:if>
+                <%--                <a href="/logout" class="nav-link">Logout</a>--%>
+                <%--                <c:url value="/logout" var="logoutUrl" />--%>
+                <%--                <form id="logout" action="${logoutUrl}" method="post" >--%>
+                <%--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+                <%--                </form>--%>
+                <%--                <c:if test="${pageContext.request.userPrincipal.name != null}">--%>
+                <%--                    <a href="javascript:document.getElementById('logout').submit()">Logout</a>--%>
+                <%--                </c:if>--%>
             </li>
         </ul>
     </nav>
@@ -120,7 +125,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/employees" class="nav-link">
+                                <a href="employee.jsp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -144,7 +149,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitem" class="nav-link">
+                                <a href="/Item/viewitems" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>

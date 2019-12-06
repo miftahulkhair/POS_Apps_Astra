@@ -1,5 +1,8 @@
 package com.astra.pos.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -26,10 +29,12 @@ public class MstSupplier {
 
     private Long createBy;
 
+    @CreationTimestamp
     private Timestamp createOn;
 
     private Long modifiedBy;
 
+    @UpdateTimestamp
     private Timestamp modifiedOn;
 
     @NotNull

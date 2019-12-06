@@ -2,6 +2,7 @@ package com.astra.pos.dao;
 
 import com.astra.pos.model.MstSupplier;
 import com.astra.pos.model.TPrcsOrder;
+import com.astra.pos.model.TPrcsOrderDetail;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,26 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
         Session session = entityManager.unwrap(Session.class).getSession();
         return session.createCriteria(TPrcsOrder.class).list();
     }
+
+    @Override
+    public void updatePODetail(TPrcsOrderDetail tPrcsOrderDetail) {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        session.update(tPrcsOrderDetail);
+        session.flush();
+    }
+
+    @Override
+    public TPrcsOrderDetail findOnePODetail(Long id) {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        return session.get(TPrcsOrderDetail.class, id);
+    }
+
+    @Override
+    public List<TPrcsOrderDetail> findAllPODetail() {
+        Session session = entityManager.unwrap(Session.class).getSession();
+        return session.createCriteria(TPrcsOrderDetail.class).list();
+    }
+
+
 }
+
