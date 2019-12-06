@@ -12,4 +12,7 @@ import java.util.List;
 @Repository
 public interface TTransferStockRepository extends JpaRepository<TTransferStock, Long> {
 
+    @Query(value = "SELECT count(*) FROM pos_t_transfer_stock", nativeQuery = true)
+    int countTransferStock();
+
 }
