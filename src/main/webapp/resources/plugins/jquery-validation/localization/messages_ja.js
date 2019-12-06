@@ -9,7 +9,7 @@
 }(function( $ ) {
 
 /*
- * Translated default messages for the jQuery validation plugin.
+ * Translated default messages for the jQuery com.astra.pos.validation plugin.
  * Locale: JA (Japanese; 日本語)
  */
 $.extend( $.validator.messages, {

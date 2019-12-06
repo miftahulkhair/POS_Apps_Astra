@@ -16,8 +16,12 @@ public class AssEmployeeOutlet
     private MstEmployee employee;
 
     @ManyToOne
-    @NotNull
+    @JoinColumn(name = "outlet_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstOutlet outlet;
+
+    @Column(name = "outlet_id")
+    private Long outlet_id;
+
 
     public Long getId() {
         return id;
@@ -41,5 +45,13 @@ public class AssEmployeeOutlet
 
     public void setOutlet(MstOutlet outlet) {
         this.outlet = outlet;
+    }
+
+    public Long getOutlet_id() {
+        return outlet_id;
+    }
+
+    public void setOutlet_id(Long outlet_id) {
+        this.outlet_id = outlet_id;
     }
 }

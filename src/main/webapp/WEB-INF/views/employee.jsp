@@ -1,6 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: agrmuham9561
+  Date: 12/4/2019
+  Time: 11:25 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +29,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -32,7 +41,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="../../index3.html" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
@@ -54,9 +63,94 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-comments"></i>
+                    <span class="badge badge-danger navbar-badge">3</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    Brad Diesel
+                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">Call me whenever you can...</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
+                        </div>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    John Pierce
+                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">I got your message bro</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
+                        </div>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    Nora Silvester
+                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                </h3>
+                                <p class="text-sm">The subject goes here</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            </div>
+                        </div>
+                        <!-- Message End -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                </div>
+            </li>
             <!-- Notifications Dropdown Menu -->
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Logout</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge">15</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">15 Notifications</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i> 4 new messages
+                        <span class="float-right text-muted text-sm">3 mins</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-users mr-2"></i> 8 friend requests
+                        <span class="float-right text-muted text-sm">12 hours</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i> 3 new reports
+                        <span class="float-right text-muted text-sm">2 days</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+                    <i class="fas fa-th-large"></i>
+                </a>
             </li>
         </ul>
     </nav>
@@ -78,27 +172,124 @@
                 <div class="image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Nama Admin SYBOX</a>
+                    <a href="#" class="d-block">${principal}</a>
                 </div>
             </div>
 
-            <!-- Sidebar Menu -->
-            <!-- Sidebar Menu -->
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="/Dashboard/" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
-                                <i class="right fas fa-angle-left"></i>
+                                <%--<i class="right fas fa-angle-left"></i>--%>
                             </p>
                         </a>
                     </li>
-
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/employees" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Employee</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Category/" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Category</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Supplier/" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Supplier</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Outlet/viewoutlets" class="nav-link ">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Outlet</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Item/viewitem" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Item</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Purchase
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/PurchaseRequest/" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Purchase Request</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/PurchaseOrder/" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Purchase Order</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview ">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Adjustment
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="/transferStock" class="nav-link ">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Transfer Stock
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Sales Order
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Summary
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="/users" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>
@@ -109,7 +300,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/employees" class="nav-link active">
+                        <a href="/employees" class="nav-link">
                             <i class="nav-icon fas fa-suitcase"></i>
                             <p>
                                 Employee
@@ -128,7 +319,6 @@
                     </li>
                 </ul>
             </nav>
-
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
@@ -141,7 +331,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+                        <h1>Employee</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -152,8 +342,6 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
-
 
         <!-- Main content -->
         <section class="content">
@@ -170,105 +358,121 @@
                 <!-- /.card-header -->
                 <div class="card-body">
 
-                    <form action="/employees" method="post">
-                    <div class="row">
+                    <form:form method="PATCH" action="/employees" modelAttribute="userOutlets">
+                        <div class="row">
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName">
-                                </input>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                        <%--                                <form:input path="employee.firstName" cssClass="form-control" type="text" placeholder="First Name"/>--%>
+                                    <input class="form-control" style="width: 100%;" placeholder="First Name" id="firstName" name="firstName"/>
+                                    </input>
+                                </div>
+                                <!-- /.form-group -->
                             </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName">
-                                </input>
+                            <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input class="form-control" style="width: 100%;" placeholder="Last Name" id="lastName" name="lastName"/>
+                                    </input>
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input class="form-control" style="width: 100%;" placeholder="Email" id="email">
-                                </input>
+                            <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input class="form-control" style="width: 100%;" placeholder="Email" id="email" name="email" type="email"/>
+                                    </input>
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.col -->
+                            <!-- /.col -->
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <select class="custom-select" id="title">
-                                    <option value="Mr.">Mr.</option>
-                                    <option value="Mrs.">Mrs.</option>
-                                    <option value="Miss">Miss</option>
-                                </select>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="custom-select" id="title" name="title">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss">Miss</option>
+                                    </select>
+                                </div>
                             </div>
+                            <!-- /.col -->
+
+
                         </div>
-                        <!-- /.col -->
+                        <!-- /.row -->
 
+                        <div class="row">
 
-                    </div>
-                    <!-- /.row -->
+                            <div class="col-md-3 mb-3">
+                                    <%--                            <select name="outlet" id="outlet" class="custom-select">--%>
+                                    <%--                                <c:forEach items="${outlets}" var="outlet">--%>
+                                    <%--                                    <option value="${outlet.id}">${outlet.name}</option>--%>
+                                    <%--                                </c:forEach>--%>
+                                    <%--                            </select>--%>
 
-                    <div class="row">
+                                <form:select path="assEmployeeOutlet.outlet_id" id="outlet_id" cssClass="custom-select">
+                                    <form:option value="0" label="Choose Outlet..."/>
+                                    <form:options items="${outlets}"/>
+                                </form:select>
 
-                        <!-- /.col -->
-                        <div class="col-12 col-sm-3">
-                            <div class="form-group">
-                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Assign Outlet</button>
                             </div>
+                            <!-- /.col -->
+                                <%--                        <div class="col-12 col-sm-3">--%>
+                                <%--                            <div class="form-group">--%>
+                                <%--                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Assign Outlet</button>--%>
+                                <%--                            </div>--%>
+                                <%--                        </div>--%>
+
+                            <!-- checkbox -->
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input name="checkbox" id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
+                                        <label for="showSecondary" class="custom-control-label">Create Account?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col -->
                         </div>
 
-                        <!-- checkbox -->
-                        <div class="col-12 col-sm-3">
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input id="showSecondary" class="custom-control-input" type="checkbox" onclick="showSubMenu()">
-                                    <label for="showSecondary" class="custom-control-label">Create Account?</label>
+                        <hr>
+
+                        <fieldset id="secondary" style="display:none;">
+                            <div class="form-row">
+                                <div class="col-md-3 mb-3">
+                                        <%--                                <select class="custom-select" id="role">--%>
+                                    <form:select path="mstUser.role_id" id="role_id" cssClass="custom-select">
+                                        <form:option value="0" label="Choose Roles..."/>
+                                        <form:options items="${roles}"/>
+                                    </form:select>
+                                        <%--                                </select>--%>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input name="username" type="text" class="form-control" id="validationUsername" placeholder="Username" aria-describedby="inputGroupPrepend">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input name="password" type="password" class="form-control" id="validationPassword" placeholder="Password" aria-describedby="inputGroupPrepend">
+                                    <div class="valid-feedback">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="row">
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <button type="reset" class="btn btn-block btn-info" onclick="this.form.reset();">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <div class="form-group">
+                                    <input type="submit" name="submit" value="Save" class="btn btn-block btn-info">
+                                        <%--                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/employees';">Save</button>--%>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.col -->
-                    </div>
+                        <!-- /.row -->
 
-                    <hr>
+                    </form:form>
 
-                    <fieldset id="secondary" style="display:none;">
-                        <div class="form-row">
-                            <div class="col-md-3 mb-3">
-                                <select class="custom-select" id="role">
-                                    <c:forEach items="${roles}" var="role">
-                                    <option value="${role.name}">${role.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <input type="text" class="form-control" id="validationUsername" placeholder="Username" aria-describedby="inputGroupPrepend">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <input type="password" class="form-control" id="validationPassword" placeholder="Password" aria-describedby="inputGroupPrepend">
-                                <div class="valid-feedback">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <div class="row">
-                        <div class="col-12 col-sm-3">
-                            <div class="form-group">
-                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <div class="form-group">
-                                <button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-
-                    </form>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -296,15 +500,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${users}" var="user">
+                                <c:forEach items="${employees}" var="employee">
                                 <tr>
-                                    <td>${user.employee.firstName} ${user.employee.lastName}</td>
-                                    <td>${user.employee.email}</td>
-                                    <td>${user.employee.haveAccount}</td>
-                                    <td>${user.employee.employeeOutlet.outlet.name}</td>
-                                    <td>${user.role.name}</td>
-                                    <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/createUser';">Edit</button></td>
-                                    <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/createUser';">Delete</button></td>
+                                    <td>${employee.firstName} ${employee.lastName}</td>
+                                    <td>${employee.email}</td>
+                                    <td>${employee.haveAccount}</td>
+                                    <td>${employee.employeeOutlet.outlet.name}</td>
+                                    <td>${employee.user.role.name}</td>
+                                    <td><button type="button" class="btn btn-block btn-info" onclick="window.location.href = '/employees/edit/${employee.id}';">Edit</button></td>
+                                    <td><button type="button" class="btn btn-block btn-danger" onclick="window.location.href = '/employees/${employee.id}';">Delete</button></td>
                                 </tr>
                                 </c:forEach>
 
@@ -317,59 +521,6 @@
                 <%--
         --%>
             </div>
-
-
-
-            <h1>Register User</h1>
-            <form action="/employees" method="POST">
-                <table>
-                    <tr>
-                        <td>firstname :</td>
-                        <td><input type="text" name="firstName"></td>
-                    </tr>
-                    <tr>
-                        <td>lastname :</td>
-                        <td><input type="text" name="lastName" value=""></td>
-                    </tr>
-                    <tr>
-                        <td>email :</td>
-                        <td><input type="email" name="email"></td>
-                    </tr>
-                    <tr>
-                        <td>title :</td>
-                        <td><input type="text" name="title"></td>
-                    </tr>
-                    <tr>
-                        <td>username :</td>
-                        <td><input type="text" name="username"></td>
-                    </tr>
-                    <tr>
-                        <td>password :</td>
-                        <td><input type="text" name="password"></td>
-                    </tr>
-                    <tr>
-
-                        <td><select name="role" id="roles">
-                            <c:forEach items="${roles}" var="role">
-                                <option value="${role.id}">${role.name}</option>
-                            </c:forEach>
-                        </select>
-                        </td>
-
-
-<%--                        <td>--%>
-<%--                            <form:select path="role" class="form-control">--%>
-<%--                                <form:option value="0" label="-SELECT ROLE-"/>--%>
-<%--                                <form:options items="${roles}"/>--%>
-<%--                            </form:select>--%>
-<%--                        </td>--%>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" name="submit" value="submit"></td>
-                    </tr>
-                </table>
-            </form>
-
 
 
             <!-- /.row -->
@@ -428,6 +579,5 @@
         }
     }
 </script>
-
 </body>
 </html>

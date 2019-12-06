@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "pos_mst_item_variant")
@@ -38,12 +39,16 @@ public class MstVariant {
     @NotNull
     private boolean active;
 
-    @ManyToOne
-    @NotNull
+    @Column(nullable = false)
+    private Long item_id;
+
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstItem.class)
+    @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstItem item;
 
-    @OneToOne(mappedBy = "variant")
-    private AssItemInventory itemInventory;
+
+    @OneToMany(mappedBy = "variant")
+    private List<TTransferStockDetail> transferDetail;
 
 
     public Long getId() {
@@ -126,11 +131,22 @@ public class MstVariant {
         this.item = item;
     }
 
-    public AssItemInventory getItemInventory() {
-        return itemInventory;
+
+    public List<TTransferStockDetail> getTransferDetail() {
+        return transferDetail;
     }
 
-    public void setItemInventory(AssItemInventory itemInventory) {
-        this.itemInventory = itemInventory;
+    public void setTransferDetail(List<TTransferStockDetail> transferDetail) {
+        this.transferDetail = transferDetail;
     }
+
+    public Long getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Long item_id) {
+        this.item_id = item_id;
+    }
+
+
 }

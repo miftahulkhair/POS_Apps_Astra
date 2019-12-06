@@ -2481,7 +2481,7 @@ declare module '@fullcalendar/core/structs/event-mutation' {
     export type eventDefMutationApplier = (eventDef: EventDef, mutation: EventMutation, calendar: Calendar) => void;
 }
 
-declare module '@fullcalendar/core/validation' {
+declare module '@fullcalendar/core/com.astra.pos.validation' {
     import { EventStore } from '@fullcalendar/core/structs/event-store';
     import Calendar from '@fullcalendar/core/Calendar';
     import { DateSpan, DateSpanApi } from '@fullcalendar/core/structs/date-span';

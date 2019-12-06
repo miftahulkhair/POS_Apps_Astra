@@ -20,9 +20,14 @@ public class MstUser {
     @NotNull
     private String password;
 
-//    @NotNull
+
+    //    @NotNull
     @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstRole role;
+
+    @Column(name = "role_id")
+    private Long role_id;
 
     @NotNull
     @OneToOne
@@ -120,4 +125,14 @@ public class MstUser {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public Long getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(Long role_id) {
+        this.role_id = role_id;
+    }
+
+
 }

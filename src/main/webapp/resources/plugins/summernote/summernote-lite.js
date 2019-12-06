@@ -4189,7 +4189,7 @@
           }
       }
       /**
-       * Process validation and adjust of start point if needed
+       * Process com.astra.pos.validation and adjust of start point if needed
        *
        * @param {int} rowIndex
        * @param {int} cellIndex

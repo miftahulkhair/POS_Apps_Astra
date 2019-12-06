@@ -1,5 +1,8 @@
 package com.astra.pos.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -26,27 +29,37 @@ public class MstSupplier {
 
     private Long createBy;
 
+    @CreationTimestamp
     private Timestamp createOn;
 
     private Long modifiedBy;
 
+    @UpdateTimestamp
     private Timestamp modifiedOn;
 
     @NotNull
     private boolean active;
 
-    @ManyToOne
     @NotNull
+    private Long  province_id;
+
+    @NotNull
+    private Long  region_id;
+
+    @NotNull
+    private Long  district_id;
+
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstProvince.class)
+    @JoinColumn(name = "province_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstProvince province;
 
-    @ManyToOne
-    @NotNull
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstRegion.class)
+    @JoinColumn(name = "region_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstRegion region;
 
-    @ManyToOne
-    @NotNull
+    @ManyToOne (fetch = FetchType.EAGER, targetEntity = MstDistrict.class)
+    @JoinColumn(name = "district_id", referencedColumnName = "id", insertable = false, updatable = false)
     private MstDistrict district;
-
 
     public Long getId() {
         return id;
@@ -134,6 +147,30 @@ public class MstSupplier {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Long getProvince_id() {
+        return province_id;
+    }
+
+    public void setProvince_id(Long province_id) {
+        this.province_id = province_id;
+    }
+
+    public Long getRegion_id() {
+        return region_id;
+    }
+
+    public void setRegion_id(Long region_id) {
+        this.region_id = region_id;
+    }
+
+    public Long getDistrict_id() {
+        return district_id;
+    }
+
+    public void setDistrict_id(Long district_id) {
+        this.district_id = district_id;
     }
 
     public MstProvince getProvince() {
