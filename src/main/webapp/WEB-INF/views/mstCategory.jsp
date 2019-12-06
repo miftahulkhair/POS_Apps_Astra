@@ -463,7 +463,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Category Name</label>
-                                            <form:input type="text" class="form-control" id="name" path="name"/>
+                                            <form:input type="text" class="form-control" id="name" path="name" required="required"/>
                                         </div>
                                         <div hidden class="form-group">
                                             <label>Category Name</label>
@@ -516,7 +516,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Category Name</label>
-                                        <form:input type="text" class="form-control" path="name"/>
+                                        <form:input type="text" class="form-control" path="name"  required="required"/>
                                     </div>
                                     <div hidden class="form-group">
                                         <label>Category Name</label>

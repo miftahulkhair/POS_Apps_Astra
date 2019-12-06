@@ -368,13 +368,13 @@
 
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input class="form-control" style="width: 100%;" value="${employees.get().firstName}" id="firstName" name="firstName"/>
+                                        <input class="form-control" style="width: 100%;" value="${employees.get().firstName}" id="firstName" name="firstName"  required="required"/>
                                         </input>
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input class="form-control" style="width: 100%;" value="${employees.get().lastName}" id="lastName" name="lastName"/>
+                                        <input class="form-control" style="width: 100%;" value="${employees.get().lastName}" id="lastName" name="lastName"  required="required"/>
                                         </input>
                                     </div>
 

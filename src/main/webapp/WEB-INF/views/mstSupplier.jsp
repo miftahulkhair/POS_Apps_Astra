@@ -468,7 +468,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Supplier Name</label>
-                                            <form:input type="text" class="form-control" id="name" path="name"/>
+                                            <form:input type="text" class="form-control" id="name" path="name"  required="required"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Supplier Address</label>
@@ -476,21 +476,21 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                                            <form:select id="province" path="province_id" class="form-control select2 " style="width: 100%;"  >
+                                            <form:select id="province" path="province_id" class="form-control select2 " style="width: 100%;"  required="required" >
                                                 <form:option value="0" label="Select Province"/>
                                                 <form:options items="${province}"/>
                                             </form:select>
                                         </div>
                                         <div class="form-group">
                                             <label>Region</label>
-                                            <form:select id="region" path="region_id" class="form-control select2" style="width: 100%;"  >
+                                            <form:select id="region" path="region_id" class="form-control select2" style="width: 100%;"  required="required" >
                                                 <form:option value="0" label="Select Region"/>
                                                 <form:options items="${region}"/>
                                             </form:select>
                                         </div>
                                         <div class="form-group">
                                             <label>District</label>
-                                            <form:select id="district" path="district_id" class="form-control select2" style="width: 100%;"  >
+                                            <form:select id="district" path="district_id" class="form-control select2" style="width: 100%;"  required="required" >
                                                 <form:option value="0" label="Select District"/>
                                                 <form:options items="${district}"/>
                                             </form:select>
