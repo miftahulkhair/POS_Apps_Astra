@@ -48,7 +48,7 @@
             <property name="jpaProperties">
                 <props>
                     <prop key="hibernate.show_sql">true</prop>
-                    <prop key="hibernate.hbm2ddl.auto">update</prop>
+                    <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
                     <prop key="hibernate.initialization-mode">always</prop>
                     <prop key="hibernate.hbm2ddl.import_files">data.sql</prop>
                     <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
@@ -73,6 +73,8 @@
     <mvc:resources mapping="/resources/**" location="/resources/" >
 
     </mvc:resources>
+
+    <mvc:view-controller path="/" view-name="dashboard"/>
 
     <!--         Step 2: Setup Hibernate session factory -->
 <!--    <bean id="sessionFactory"-->
