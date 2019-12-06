@@ -241,13 +241,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Category/" class="nav-link">
+                                <a href="/Category/" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Supplier/" class="nav-link active">
+                                <a href="/Supplier/" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
@@ -470,7 +470,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
 
-                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                        <button type="reset" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-outline-light">Save</button>
                                     </div>
                                 </form:form>

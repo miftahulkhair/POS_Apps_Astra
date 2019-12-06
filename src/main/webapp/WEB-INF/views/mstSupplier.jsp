@@ -509,7 +509,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                                        <button type="reset" class="btn btn-outline-light">Cancel</button>
                                         <button type="submit" class="btn btn-outline-light">Save</button>
                                     </div>
                                     <!-- /.card-body -->

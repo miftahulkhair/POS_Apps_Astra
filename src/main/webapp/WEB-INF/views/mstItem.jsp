@@ -56,86 +56,6 @@
             $('#category').val("0");
         });
     </script>
-    <%--    <script>--%>
-    <%--        $(function() {--%>
-    <%--            $("#example").DataTable();--%>
-    <%--            $('.loadData').click(function() {--%>
-    <%--                loadData();--%>
-    <%--            });--%>
-
-    <%--            function loadData() {--%>
-    <%--                var itemId = $(this).attr("id");--%>
-    <%--                $.ajax({--%>
-    <%--                    type: 'GET',--%>
-    <%--                    url: "/listInvent/"+itemId,--%>
-    <%--                    dataType: 'json',--%>
-    <%--                    success: function (data) {--%>
-    <%--                        myJsonData = data;--%>
-    <%--                        populateDataTable(myJsonData);--%>
-    <%--                    },--%>
-    <%--                    error: function (e) {--%>
-    <%--                        console.log("There was an error with your request...");--%>
-    <%--                        console.log("error: " + JSON.stringify(e));--%>
-    <%--                    }--%>
-    <%--                });--%>
-    <%--            }--%>
-
-    <%--            // populate the data table with JSON data--%>
-    <%--            function populateDataTable(data) {--%>
-    <%--                console.log("populating data table...");--%>
-    <%--                // clear the table before populating it with more data--%>
-    <%--                $("#example").DataTable().clear();--%>
-    <%--                var length = Object.keys(data.inventory.variant).length;--%>
-    <%--                for(var i = 1; i < length+1; i++) {--%>
-    <%--                    var inventory = data.inventory['inventory'+i];--%>
-
-    <%--                    // You could also use an ajax property on the data table initialization--%>
-    <%--                    $('#example').dataTable().fnAddData( [--%>
-    <%--                        inventory.beginning,--%>
-    <%--                        inventory.variant.id,--%>
-    <%--                        inventory.variant.name,--%>
-    <%--                        inventory.variant.price,--%>
-    <%--                        inventory.variant.sku--%>
-    <%--                    ]);--%>
-    <%--                }--%>
-    <%--            }--%>
-    <%--        })();--%>
-    <%--    </script>--%>
-    <%--    <script>--%>
-    <%--        $(function () {--%>
-    <%--            $("#variant").on("click", function () {--%>
-    <%--                var itemId = $(this).attr("id");--%>
-    <%--                $.ajax({--%>
-    <%--                    url: '/listInvent/' +itemId,--%>
-    <%--                    type: "GET",--%>
-    <%--                    dataType: "json",--%>
-    <%--                    contentType: "application/json; charset=utf-8",--%>
-    <%--                    success: function (data) {--%>
-    <%--                        var json = JSON.parse(data.d);--%>
-    <%--                        $(json).each(function (index, item) {--%>
-    <%--                            var beginning = json[index].beginning;--%>
-    <%--                            for (var option = 0; option < json[index].variant.length; option++) {--%>
-    <%--                                var name = json[index].variant[option].name;--%>
-    <%--                                var price = json[index].variant[option].price;--%>
-    <%--                                var sku = json[index].variant[option].sku;--%>
-    <%--                                $('tbody#item').append(--%>
-    <%--                                    '<tr><td>'--%>
-    <%--                                    + name--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + price--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + sku--%>
-    <%--                                    + '</td><td>'--%>
-    <%--                                    + beginning--%>
-    <%--                                    + '</td></tr>')--%>
-    <%--                            }--%>
-    <%--                        });--%>
-    <%--                    },--%>
-    <%--                    error: function (data) { alert(data.responseText); }--%>
-    <%--                });--%>
-    <%--            });--%>
-    <%--        });--%>
-    <%--    </script>--%>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -459,7 +379,7 @@
                             <!-- SEARCH FORM -->
                             <form class="form-inline ml-3">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
                                             <i class="fas fa-search"></i>
@@ -487,7 +407,7 @@
                                     <th>#</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="myTable">
                                 <c:forEach var="inventory" items="${inventories}" >
                                     <tr>
                                         <td hidden>${inventory.variant.item.id}</td>

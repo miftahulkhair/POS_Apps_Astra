@@ -33,6 +33,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+        // search option
+        $(document).ready(function(){
+            $("#optionInput").on("change", function() {
+                var value = $(this).val().toLowerCase();
+                if (value == "status"){
+                    value = "";
+                }
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        // search box
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -43,6 +58,7 @@
         });
     </script>
     <script>
+        // get data untuk edit
         $(document).on('click', '.edit_data', function(){
             var poId = $(this).attr("id");
             console.log("Hello, " + poId );
@@ -60,20 +76,6 @@
                     $('#notes').val(data.notes);
                 }
             });
-            // $.ajax({
-            //     url:"/PurchaseOrder/edit_formDetail/"+ poId,
-            //     method:"GET",
-            //     dataType:"json",
-            //     success:function(data){
-            //         $('#id').val(data.id);
-            //         $('#poNo').val(data.poNo);
-            //         $('#status').val(data.status);
-            //         $('#grandTotal').val(data.grandTotal);
-            //         $('#outletId').val(data.outlet_id);
-            //         $('#supplier').val(data.supplier_id);
-            //         $('#notes').val(data.notes);
-            //     }
-            // });
         });
     </script>
     <script>
@@ -251,7 +253,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Master
@@ -292,7 +294,7 @@
                         </ul>
                     </li>
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link ">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Purchase
@@ -413,10 +415,10 @@
                                 <%--Status--%>
                                 <input name="daterange" class="form-control" style="width: 20%" placeholder="MM/DD/YYYY - MM/DD/YYYY"/>
 
-                                <select class="form-control select2" style="width: 15%">
-                                    <option selected="selected">Status</option>
+                                <select id="optionInput" class="form-control select2" style="width: 15%">
+                                    <option id="optionInput" selected="selected" >Status</option>
                                     <c:forEach var="po" items="${allPO}">
-                                        <option id="optionInput">${po.status}</option>
+                                        <option>${po.status}</option>
                                     </c:forEach>
                                 </select>
 
