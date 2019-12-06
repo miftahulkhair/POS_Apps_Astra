@@ -125,7 +125,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="/employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -189,7 +189,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link ">
+                        <a href="/transferStock" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock

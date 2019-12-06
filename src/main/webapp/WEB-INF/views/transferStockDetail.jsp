@@ -264,7 +264,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link active">
+                        <a href="/transferStock" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock

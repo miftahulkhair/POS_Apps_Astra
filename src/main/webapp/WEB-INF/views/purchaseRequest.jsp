@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,11 +23,81 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 
+    <script>
+        // search option
+        $(document).ready(function(){
+            $("#optionInput").on("change", function() {
+                var value = $(this).val().toLowerCase();
+                if (value == "status"){
+                    value = "";
+                }
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.edit_data', function(){
+            var purchaseRequestId = $(this).attr("id");
+            console.log("Hello, " + purchaseRequestId );
+            $.ajax({
+                url:"/PurchaseRequest/edit_form/"+ purchaseRequestId,
+                method:"GET",
+                dataType:"json",
+                success:function(data){
+                    $('#id').val(data.id);
+                    $('#created_on').val(data.created_on);
+                    $('#pr_no').val(data.pr_no);
+                    $('#notes').val(data.notes);
+                    $('#status').val(data.status);
+                    $('#readyTime').val(data.readyTime);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.save_data', function(){
+            $('#id').val("");
+            $('#created_on').val("");
+            $('#pr_no').val("");
+            $('#note').val("");
+            $('#status').val("");
+            $('#readyTime').val("");
+            // $('#district').val("0");
+            // $('#phone').val("");
+            // $('#email').val("");
+            // $('#postalCode').val("");
+        });
+    </script>
+    <script>
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+            }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -185,7 +258,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li class="nav-item has-treeview ">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -195,13 +268,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="/employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="/Category/" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>
@@ -219,7 +292,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Item/viewitems" class="nav-link ">
+                                <a href="/Item/viewitem" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Item</p>
                                 </a>
@@ -259,7 +332,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link ">
+                        <a href="/transferStock" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock
@@ -345,10 +418,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="col-2 d-none d-sm-inline-block">
-                                <input type="text" class="form-control" id="cek" value="">
+                                <%--                                <input type="text" class="form-control" id="cek" value="">--%>
+                                <input name="daterange" class="form-control" placeholder="MM/DD/YYYY - MM/DD/YYYY"/>
                             </div>
                             <div class="col-2 d-none d-sm-inline-block">
-                                <select class="form-control select2" style="width: 100%;">
+                                <select id="optionInput" class="form-control select2" style="width: 100%;">
                                     <option selected="selected">Status</option>
                                     <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
                                         <option>${PrcsRequest.status}</option>
@@ -358,7 +432,7 @@
                             <!-- SEARCH FORM -->
                             <div class="col-2 d-none d-sm-inline-block">
                                 <div class="input-group">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
                                             <i class="fas fa-search"></i>
@@ -368,7 +442,7 @@
                             </div>
                             <div align="right" class="col-5 d-none d-sm-inline-block">
                                 <button type="button" class="btn btn-primary">Export</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                                <button type="button" class="save_data btn btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -384,24 +458,23 @@
                                     <th>#</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="myTable">
                                 <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
                                     <tr>
                                         <td hidden>${PrcsRequest.id}</td>
-                                        <td>${PrcsRequest.createdOn}</td>
+                                            <%--                                        <td>${PrcsRequest.id}</td>--%>
+                                        <td>
+                                            <fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${PrcsRequest.createOn}"/>
+                                        </td>
                                         <td>${PrcsRequest.prNo}</td>
                                         <td>${PrcsRequest.notes}</td>
                                         <td>${PrcsRequest.status}</td>
                                         <td align="center">
-                                            <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/PurchaseRequest/edit_form?id=${PrcsRequest.id}';"
-                                                    data-toggle="modal" data-target="#modal-edit"
-                                            >Edit
+                                            <button type="button" class="edit_data btn btn-block btn-info" id="${PrcsRequest.id}"
+                                                    data-toggle="modal" data-target="#modal-create">Edit
                                             </button>
-                                            <button type="button" class="btn btn-block btn-info"
-                                                    onclick="href = '/PurchaseRequest/edit_form?id=${PrcsRequest.id}';"
-                                                    data-toggle="modal" data-target="#modal-view"
-                                            >View
+                                            <button type="button" class="btn btn-block btn-info" id="${PrcsRequest.id}"
+                                                    data-toggle="modal" data-target="#modal-create">View
                                             </button>
                                         </td>
                                     </tr>
@@ -424,30 +497,33 @@
             <!-- /.modal -->
             <div class="modal fade" id="modal-create">
                 <div class="modal-dialog">
-                    <div style="width: 120%" class="modal-content bg-info">
+                    <div class="modal-content bg-info">
                         <div class="modal-header">
                             <h4 class="modal-title">Purchase Request</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
+
                         <div class="modal-body">
                             <!-- form start -->
-                            <form:form method="POST" action="/PrcsRequest/saveUpdate-pr" modelAttribute="tpr">
+                            <form:form method="POST" action="/PurchaseRequest/saveUpdate-pr" modelAttribute="tpr">
                                 <div class="card-body">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Create New PR : "nama outlet login"</h4>
+                                    </div>
                                     <div class="form-group">
                                         <label>Supplier Id</label>
                                         <form:input disabled="true" type="text" class="form-control" id="id" path="id" />
                                     </div>
-                                    <h4 class="modal-title">Create New PR : "nama outlet login"</h4>
                                     <div class="form-group">
-                                        <label>Target Waktu Item Ready</label>
+                                        <label for="datepicker">Target Waktu Item Ready</label>
                                         <!-- Date -->
                                         <div class="form-group">
                                             <div class="input-group date">
                                                 <div >
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input type="text" name="batasWaktu" class="form-control pull-right">
+                                                <input type="text" class="form-control pull-right" id="datepicker">
                                             </div>
                                             <div class="form-group">
                                                 <label for="notes">Notes</label>
@@ -458,6 +534,9 @@
                                     </div>
                                     <div class="modal-header">
                                         <h4 class="modal-title">Purchase Request</h4>
+                                    </div>
+                                    <div class="row" style="margin-left: 15px; margin-right: 15px; margin-top: 25px">
+                                        <button class="btn btn-outline-light text-center w-100" data-target="#modal2"  data-toggle="modal"> Add Item</button>
                                     </div>
                                     <div class="card-body">
                                         <c:choose>
@@ -508,7 +587,8 @@
                                 <!-- /.card-body -->
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-outline-light">Save</button>
+                                    <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modal-create-add">Add Item</button>
+                                    <button type="submit" class="btn btn-outline-light" >Save</button>
                                 </div>
                             </form:form>
                         </div>
@@ -519,232 +599,232 @@
                 <!-- /.modal-dialog -->
             </div>
 
-            <%--            <div class="modal fade" id="modal-edit">--%>
+            <%--                        <div class="modal fade" id="modal-create-add">--%>
+            <%--                            <div class="modal-dialog">--%>
+            <%--                                <div class="modal-content bg-info">--%>
+            <%--                                    <div class="modal-header">--%>
+            <%--                                        <h4 class="modal-title">Add Purchase Item</h4>--%>
+            <%--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+            <%--                                            <span aria-hidden="true">&times;</span></button>--%>
+            <%--                                    </div>--%>
+            <%--                                    <div class="modal-body">--%>
+            <%--                                        <form:form method="POST" action="/PrcsRequest/saveUpdate-pr" modelAttribute="tpr">--%>
+            <%--                                            <div class="card-body">--%>
+            <%--                                                <div class="card-body">--%>
+            <%--                                                    <div class="form-group">--%>
+            <%--                                                        <label>Supplier Id</label>--%>
+            <%--                                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
+            <%--                                                    </div>--%>
+            <%--                                                    <div class="form-group">--%>
+            <%--                                                        <label for="name">Name</label>--%>
+            <%--                                                        <form:input disabled="true" type="text" class="form-control" id="name" path="name" />--%>
+            <%--                                                    </div>--%>
+            <%--                                                    <div class="form-group">--%>
+            <%--                                                        <label for="address">Address</label>--%>
+            <%--                                                        <input type="text" class="form-control" id="address" value="">--%>
+            <%--                                                    </div>--%>
+            <%--                                                    <div class="form-group">--%>
+            <%--                                                        <label for="phone">Phone</label>--%>
+            <%--                                                        <input type="text" class="form-control" id="phone" value="">--%>
+            <%--                                                    </div>--%>
+            <%--                                                    <div class="form-group">--%>
+            <%--                                                        <label for="email">Email</label>--%>
+            <%--                                                        <input type="email" class="form-control" id="email" value="">--%>
+            <%--                                                    </div>--%>
+            <%--                                                </div>--%>
+            <%--                                                <!-- /.card-body -->--%>
+            <%--                                                <div class="modal-footer justify-content-between">--%>
+            <%--                                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
+            <%--                                                    <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
+            <%--                                                </div>--%>
+
+
+
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Supplier Id</label>--%>
+            <%--                                                    <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
+            <%--                                                </div>--%>
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Supplier Name</label>--%>
+            <%--                                                    <form:input type="text" class="form-control" id="name" path="name" />--%>
+            <%--                                                </div>--%>
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Address</label>--%>
+            <%--                                                    <form:input type="text" class="form-control" id="adddress" path="address" />--%>
+            <%--                                                </div>--%>
+
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Province</label>--%>
+            <%--                                                    <form:select path="province_id" id="province" class="form-control select2" style="width: 100%;"  >--%>
+            <%--                                                        <form:option value="0" label="-SELECT PROVINCE-"/>--%>
+            <%--                                                        <form:options items="${province}"/>--%>
+            <%--                                                    </form:select>--%>
+            <%--                                                </div>--%>
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Region</label>--%>
+            <%--                                                    <form:select path="region_id" id="region" class="form-control select2" style="width: 100%;"  >--%>
+            <%--                                                        <form:option value="0"  label="-SELECT REGION-"/>--%>
+            <%--                                                        <form:options items="${region}"/>--%>
+            <%--                                                    </form:select>--%>
+            <%--                                                </div>--%>
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>District</label>--%>
+            <%--                                                    <form:select path="district_id" id="district" class="form-control select2" style="width: 100%;"  >--%>
+            <%--                                                        <form:option value="0" label="-SELECT DISTRICT-"/>--%>
+            <%--                                                        <form:options items="${district}"/>--%>
+            <%--                                                    </form:select>--%>
+            <%--                                                </div>--%>
+
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Phone</label>--%>
+            <%--                                                    <form:input type="text" class="form-control" id="phone" path="phone" />--%>
+            <%--                                                </div>--%>
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Email</label>--%>
+            <%--                                                    <form:input type="text" class="form-control" id="email" path="email" />--%>
+            <%--                                                </div>--%>
+
+            <%--                                                <div class="form-group">--%>
+            <%--                                                    <label>Postal Code</label>--%>
+            <%--                                                    <form:input type="text" class="form-control" id="postalCode" path="postalCode" />--%>
+            <%--                                                </div>--%>
+            <%--                                            </div>--%>
+            <%--                                            <!-- /.card-body -->--%>
+            <%--                                            <div class="modal-footer justify-content-between">--%>
+            <%--                                                <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
+            <%--                                                <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
+            <%--                                            </div>--%>
+            <%--                                        </form:form>--%>
+
+
+            <%--                                        <c:choose>--%>
+            <%--                                            <c:when test="">--%>
+            <%--                                                <form role="form" method="POST" action="save_edit">--%>
+            <%--                                                    <div class="card-body">--%>
+            <%--                                                        <input type="hidden" name="id" value="${PrcsRequest.prNo}" />--%>
+            <%--                                                        <div class="form-group">--%>
+            <%--                                                            <label for="name">Name</label>--%>
+            <%--                                                            <input type="text" class="form-control" id="name" value="">--%>
+            <%--                                                        </div>--%>
+            <%--                                                        <div class="form-group">--%>
+            <%--                                                            <label for="address">Address</label>--%>
+            <%--                                                            <input type="text" class="form-control" id="address" value="">--%>
+            <%--                                                        </div>--%>
+            <%--                                                        <div class="form-group">--%>
+            <%--                                                            <label for="phone">Phone</label>--%>
+            <%--                                                            <input type="text" class="form-control" id="phone" value="">--%>
+            <%--                                                        </div>--%>
+            <%--                                                        <div class="form-group">--%>
+            <%--                                                            <label for="email">Email</label>--%>
+            <%--                                                            <input type="email" class="form-control" id="email" value="">--%>
+            <%--                                                        </div>--%>
+            <%--                                                    </div>--%>
+            <%--                                                    <!-- /.card-body -->--%>
+            <%--                                                    <div class="modal-footer justify-content-between">--%>
+            <%--                                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
+            <%--                                                        <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
+            <%--                                                    </div>--%>
+            <%--                                                </form>--%>
+            <%--                                            </c:when>--%>
+            <%--                                        </c:choose>--%>
+            <%--                                    </div>--%>
+
+            <%--                                </div>--%>
+            <%--                                <!-- /.modal-content -->--%>
+            <%--                            </div>--%>
+            <%--                            <!-- /.modal-dialog -->--%>
+            <%--                        </div>--%>
+
+            <%--            <div class="modal fade" id="modal-view">--%>
             <%--                <div class="modal-dialog">--%>
             <%--                    <div class="modal-content bg-info">--%>
             <%--                        <div class="modal-header">--%>
-            <%--                            <h4 class="modal-title">Edit Supplier</h4>--%>
+            <%--                            <h4 class="modal-title col-5 d-none d-sm-inline-block">Purchase Request Detail</h4>--%>
+            <%--                            <form:select path="id" id="id" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >--%>
+            <%--                                <form:option value="0" label="MORE"/>--%>
+            <%--                                <form:options items=""/>--%>
+            <%--                            </form:select>--%>
             <%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
             <%--                                <span aria-hidden="true">&times;</span></button>--%>
             <%--                        </div>--%>
             <%--                        <div class="modal-body">--%>
-            <%--                            <form:form method="POST" action="/PrcsRequest/saveUpdate-pr" modelAttribute="tpr">--%>
+            <%--                            <form role="form" method="POST" action="save_edit">--%>
             <%--                                <div class="card-body">--%>
-            <%--                                    <div class="card-body">--%>
-            <%--                                        <div class="form-group">--%>
-            <%--                                            <label>Supplier Id</label>--%>
-            <%--                                            <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
-            <%--                                        </div>--%>
-            <%--                                        <div class="form-group">--%>
-            <%--                                            <label for="name">Name</label>--%>
-            <%--                                            <form:input disabled="true" type="text" class="form-control" id="name" path="name" />--%>
-            <%--                                        </div>--%>
-            <%--                                        <div class="form-group">--%>
-            <%--                                            <label for="address">Address</label>--%>
-            <%--                                            <input type="text" class="form-control" id="address" value="">--%>
-            <%--                                        </div>--%>
-            <%--                                        <div class="form-group">--%>
-            <%--                                            <label for="phone">Phone</label>--%>
-            <%--                                            <input type="text" class="form-control" id="phone" value="">--%>
-            <%--                                        </div>--%>
-            <%--                                        <div class="form-group">--%>
-            <%--                                            <label for="email">Email</label>--%>
-            <%--                                            <input type="email" class="form-control" id="email" value="">--%>
-            <%--                                        </div>--%>
-            <%--                                    </div>--%>
-            <%--                                    <!-- /.card-body -->--%>
-            <%--                                    <div class="modal-footer justify-content-between">--%>
-            <%--                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
-            <%--                                        <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
-            <%--                                    </div>--%>
-
-
-
+            <%--                                    <label>PR Number : </label>--%>
+            <%--                                    <label>Create By : </label>--%>
+            <%--                                    <label>Target Waktu Item Ready : </label>--%>
+            <%--                                    <label>PR Status : </label>--%>
             <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Supplier Id</label>--%>
-            <%--                                        <form:input disabled="true" type="text" class="form-control" id="id" path="id" />--%>
+            <%--                                        <label>Notes : </label>--%>
+            <%--                                        <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>--%>
             <%--                                    </div>--%>
+            <%--                                    <h4 class="modal-title">Status History</h4>--%>
+            <%--                                    &lt;%&ndash;                                            Kalo history kaya gimana ya? perlu di forEach ga?&ndash;%&gt;--%>
+            <%--                                    <label>On  -  is </label>--%>
+            <%--                                    <h4 class="modal-title">Purchase Items</h4>--%>
             <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Supplier Name</label>--%>
-            <%--                                        <form:input type="text" class="form-control" id="name" path="name" />--%>
-            <%--                                    </div>--%>
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Address</label>--%>
-            <%--                                        <form:input type="text" class="form-control" id="adddress" path="address" />--%>
-            <%--                                    </div>--%>
-
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Province</label>--%>
-            <%--                                        <form:select path="province_id" id="province" class="form-control select2" style="width: 100%;"  >--%>
-            <%--                                            <form:option value="0" label="-SELECT PROVINCE-"/>--%>
-            <%--                                            <form:options items="${province}"/>--%>
-            <%--                                        </form:select>--%>
-            <%--                                    </div>--%>
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Region</label>--%>
-            <%--                                        <form:select path="region_id" id="region" class="form-control select2" style="width: 100%;"  >--%>
-            <%--                                            <form:option value="0"  label="-SELECT REGION-"/>--%>
-            <%--                                            <form:options items="${region}"/>--%>
-            <%--                                        </form:select>--%>
-            <%--                                    </div>--%>
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>District</label>--%>
-            <%--                                        <form:select path="district_id" id="district" class="form-control select2" style="width: 100%;"  >--%>
-            <%--                                            <form:option value="0" label="-SELECT DISTRICT-"/>--%>
-            <%--                                            <form:options items="${district}"/>--%>
-            <%--                                        </form:select>--%>
-            <%--                                    </div>--%>
-
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Phone</label>--%>
-            <%--                                        <form:input type="text" class="form-control" id="phone" path="phone" />--%>
-            <%--                                    </div>--%>
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Email</label>--%>
-            <%--                                        <form:input type="text" class="form-control" id="email" path="email" />--%>
-            <%--                                    </div>--%>
-
-            <%--                                    <div class="form-group">--%>
-            <%--                                        <label>Postal Code</label>--%>
-            <%--                                        <form:input type="text" class="form-control" id="postalCode" path="postalCode" />--%>
+            <%--                                        <table class="table table-bordered table-hover">--%>
+            <%--                                            <thead>--%>
+            <%--                                            <tr>--%>
+            <%--                                                <th hidden>Id</th>--%>
+            <%--                                                <th>Item</th>--%>
+            <%--                                                <th>In Stock</th>--%>
+            <%--                                                <th>Request Qty</th>--%>
+            <%--                                                <th></th>--%>
+            <%--                                            </tr>--%>
+            <%--                                            </thead>--%>
+            <%--                                            <tbody>--%>
+            <%--                                            <c:forEach var="supplier" items="">--%>
+            <%--                                                <tr>--%>
+            <%--                                                    <td hidden></td>--%>
+            <%--                                                    <td> - </td>--%>
+            <%--                                                    <td></td>--%>
+            <%--                                                    <td></td>--%>
+            <%--                                                    <td align="center">--%>
+            <%--                                                        <button type="button" class="delete btn btn-block btn-danger"--%>
+            <%--                                                                onclick="edit()"--%>
+            <%--                                                                data-value=""--%>
+            <%--                                                                data-toggle="modal" data-target="#modal-edit-create"--%>
+            <%--                                                        >X--%>
+            <%--                                                        </button>--%>
+            <%--                                                    </td>--%>
+            <%--                                                </tr>--%>
+            <%--                                            </c:forEach>--%>
+            <%--                                            </tbody>--%>
+            <%--                                        </table>--%>
             <%--                                    </div>--%>
             <%--                                </div>--%>
             <%--                                <!-- /.card-body -->--%>
-            <%--                                <div class="modal-footer justify-content-between">--%>
-            <%--                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" value="cancel">Cancel</button>--%>
-            <%--                                    <button type="submit" class="btn btn-outline-light" value="save">Save</button>--%>
-            <%--                                </div>--%>
-            <%--                            </form:form>--%>
-
-
-            <%--                            <c:choose>--%>
-            <%--                                <c:when test="">--%>
-            <%--                                    <form role="form" method="POST" action="save_edit">--%>
-            <%--                                        <div class="card-body">--%>
-            <%--                                            <input type="hidden" name="id" value="${PrcsRequest.prNo}" />--%>
-            <%--                                            <div class="form-group">--%>
-            <%--                                                <label for="name">Name</label>--%>
-            <%--                                                <input type="text" class="form-control" id="name" value="">--%>
-            <%--                                            </div>--%>
-            <%--                                            <div class="form-group">--%>
-            <%--                                                <label for="address">Address</label>--%>
-            <%--                                                <input type="text" class="form-control" id="address" value="">--%>
-            <%--                                            </div>--%>
-            <%--                                            <div class="form-group">--%>
-            <%--                                                <label for="phone">Phone</label>--%>
-            <%--                                                <input type="text" class="form-control" id="phone" value="">--%>
-            <%--                                            </div>--%>
-            <%--                                            <div class="form-group">--%>
-            <%--                                                <label for="email">Email</label>--%>
-            <%--                                                <input type="email" class="form-control" id="email" value="">--%>
-            <%--                                            </div>--%>
-            <%--                                        </div>--%>
-            <%--                                        <!-- /.card-body -->--%>
-            <%--                                        <div class="modal-footer justify-content-between">--%>
-            <%--                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>--%>
-            <%--                                            <button type="submit" class="btn btn-outline-light">Save changes</button>--%>
-            <%--                                        </div>--%>
-            <%--                                    </form>--%>
-            <%--                                </c:when>--%>
-            <%--                            </c:choose>--%>
-            <%--                        </div>--%>
-
-            <%--                    </div>--%>
-            <%--                    <!-- /.modal-content -->--%>
-            <%--                </div>--%>
-            <%--                <!-- /.modal-dialog -->--%>
-            <%--            </div>--%>
-
-            <div class="modal fade" id="modal-view">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-info">
-                        <div class="modal-header">
-                            <h4 class="modal-title col-5 d-none d-sm-inline-block">Purchase Request Detail</h4>
-                            <form:select path="status_id" id="province" class="form-control select2 col-5 d-none d-sm-inline-block" style="width: 100%;"  >
-                                <form:option value="0" label="MORE"/>
-                                <form:options items=""/>
-                            </form:select>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <form role="form" method="POST" action="save_edit">
-                                <div class="card-body">
-                                    <label>PR Number : </label>
-                                    <label>Create By : </label>
-                                    <label>Target Waktu Item Ready : </label>
-                                    <label>PR Status : </label>
-                                    <div class="form-group">
-                                        <label>Notes : </label>
-                                        <textarea disabled rows="4" cols="50" type="text" class="form-control" value=""></textarea>
-                                    </div>
-                                    <h4 class="modal-title">Status History</h4>
-                                    <%--                                            Kalo history kaya gimana ya? perlu di forEach ga?--%>
-                                    <label>On  -  is </label>
-                                    <h4 class="modal-title">Purchase Items</h4>
-                                    <div class="form-group">
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th hidden>Id</th>
-                                                <th>Item</th>
-                                                <th>In Stock</th>
-                                                <th>Request Qty</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach var="supplier" items="">
-                                                <tr>
-                                                    <td hidden></td>
-                                                    <td> - </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td align="center">
-                                                        <button type="button" class="delete btn btn-block btn-danger"
-                                                                onclick="edit()"
-                                                                data-value=""
-                                                                data-toggle="modal" data-target="#modal-edit-create"
-                                                        >X
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="modal-footer justify-content-between">
-                                    <button type="submit" class="btn btn-outline-light" data-dismiss="modal">Done</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+            <div class="modal-footer justify-content-between">
+                <button type="submit" class="btn btn-outline-light" data-dismiss="modal">Done</button>
             </div>
-
-
-            <!-- /.modal -->
-        </section>
-        <!-- /.content -->
+            </section>
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.0-rc.5
-        </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
-    </footer>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+
+<!-- /.modal -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+        <b>Version</b> 3.0.0-rc.5
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+    reserved.
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -758,7 +838,6 @@
 
 <script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -778,17 +857,9 @@
     });
 
     //Date picker
-    $(function() {
-        $('input[name="batasWaktu"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1901,
-            maxYear: parseInt(moment().format('YYYY'),10)
-        }, function(start, end, label) {
-            var years = moment().diff(start, 'years');
-            alert("You are " + years + " years old!");
-        });
-    });
+    $('#datepicker').datepicker({
+        autoclose: true
+    })
 </script>
 </body>
 </html>

@@ -307,7 +307,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employee.jsp" class="nav-link">
+                                <a href="/employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -371,7 +371,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link ">
+                        <a href="/transferStock" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock
@@ -459,7 +459,7 @@
                             <!-- SEARCH FORM -->
                             <form class="form-inline ml-3">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                    <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
                                             <i class="fas fa-search"></i>
@@ -487,7 +487,7 @@
                                     <th>#</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="myTable">
                                 <c:forEach var="inventory" items="${inventories}" >
                                     <tr>
                                         <td hidden>${inventory.variant.item.id}</td>

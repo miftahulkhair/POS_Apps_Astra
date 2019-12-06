@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -230,7 +231,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -303,8 +304,8 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="/transferStock" class="nav-link active">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock
@@ -371,7 +372,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Supplier</h1>
+                        <h1>Transfer Stock</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -421,7 +422,9 @@
                                 <tbody id="myTable">
                                 <c:forEach var="transferStock" items="${transferStocks}">
                                     <tr>
-                                        <td>${transferStock.modifiedOn}</td>
+                                        <td>
+                                            <fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${transferStock.modifiedOn}"/>
+                                        </td>
                                         <td>${transferStock.fromOutletObject.name}</td>
                                         <td>${transferStock.toOutletObject.name}</td>
                                         <td>${transferStock.status}</td>

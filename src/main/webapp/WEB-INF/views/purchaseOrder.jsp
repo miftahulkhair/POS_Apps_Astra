@@ -33,6 +33,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+        // search option
+        $(document).ready(function(){
+            $("#optionInput").on("change", function() {
+                var value = $(this).val().toLowerCase();
+                if (value == "status"){
+                    value = "";
+                }
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -260,7 +274,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="employees" class="nav-link">
+                                <a href="/employees" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Employee</p>
                                 </a>
@@ -324,7 +338,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link ">
+                        <a href="/transferStock" class="nav-link ">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Transfer Stock
@@ -413,10 +427,10 @@
                                 <%--Status--%>
                                 <input name="daterange" class="form-control" style="width: 20%" placeholder="MM/DD/YYYY - MM/DD/YYYY"/>
 
-                                <select class="form-control select2" style="width: 15%">
+                                <select id="optionInput" class="form-control select2" style="width: 15%">
                                     <option selected="selected">Status</option>
                                     <c:forEach var="po" items="${allPO}">
-                                        <option id="optionInput">${po.status}</option>
+                                        <option>${po.status}</option>
                                     </c:forEach>
                                 </select>
 
@@ -542,13 +556,8 @@
                                                         <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
                                                         <td disabled="true">${poDetail.inventory.adjustmentQty}</td>
                                                         <td>
-                                                                <%--                                                            <form:form method="POST" action="/PurchaseOrder/update-po" modelAttribute="PODetail">--%>
-                                                                <%--                                                                <form:input id="unitCost" path="unit_cost"/>--%>
                                                             <input style="background: transparent; border: none; color: white;" class="form-control"
                                                                    id="unitCost" value="${poDetail.unit_cost}"/>
-
-                                                                <%--                                                                <button type="submit" class="btn btn-success">O</button>--%>
-                                                                <%--                                                            </form:form>--%>
                                                         </td>
                                                         <td disabled="true">
                                                             <fmt:formatNumber type="currency" currencySymbol="Rp " value = "${poDetail.sub_total}" />
