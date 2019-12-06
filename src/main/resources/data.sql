@@ -52,8 +52,8 @@ INSERT INTO pos_item_inventory (adjustmentQty, alertAtQty, beginning, endingQty,
 INSERT INTO pos_item_inventory (adjustmentQty, alertAtQty, beginning, endingQty, outlet_id, purchaseQty, salesOrderQty, transferStockQty, variant_id) VALUES (20, 2, 20, 20, 3, 5, 5, 5, 3);
 
 INSERT INTO pos_mst_customer (active, address, dob, email, name, phone, province_id, region_id, district_id) VALUES (true, 'jakarta', '2019-12-03 10:48:43.000000', 'bejo@gmail.com', 'bejo', '08191829282', 1, 1, 1);
-INSERT INTO pos_mst_customer (active, address, dob, email, name, phone, province_id, region_id, district_id) VALUES (true, 'tangerang', '2019-12-03 10:48:43.000000', 'alif@gmail.com', 'aluf', '082381238712', 2, 2, 2);
-INSERT INTO pos_mst_customer (active, address, dob, email, name, phone, province_id, region_id, district_id) VALUES (true, 'bandung', '2019-12-03 10:48:43.000000', 'lala@gmail.com', 'lala', '0812361283611', 3, 3, 3);
+INSERT INTO pos_mst_customer (active, address, dob, email, name, phone, province_id, region_id, district_id) VALUES (true, 'tangerang', '2019-12-04 10:48:43.000000', 'alif@gmail.com', 'aluf', '082381238712', 2, 2, 2);
+INSERT INTO pos_mst_customer (active, address, dob, email, name, phone, province_id, region_id, district_id) VALUES (true, 'bandung', '2019-12-05 10:48:43.000000', 'lala@gmail.com', 'lala', '0812361283611', 3, 3, 3);
 
 INSERT INTO pos_mst_supplier (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (true, 'jakarta', 'supplier1@gmail.com', 'Supplier 1', '08162686222', '16123', 1, 1, 1);
 INSERT INTO pos_mst_supplier (active, address, email, name, phone, postalCode, province_id, region_id, district_id) VALUES (true, 'tangerang', 'supplier2@gmail.com', 'Supplier 2', '08162686211', '15135', 2, 2, 2);
@@ -69,9 +69,27 @@ INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, vari
 INSERT INTO pos_t_transfer_stock_detail (instock, transferQty, transfer_id, variant_id) VALUES (70, 50, 3, 3);
 
 INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 1, '2019-12-05');
-INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Approved', 1, '2019-12-05');
-INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 2, '2019-12-05');
-INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 3, '2019-12-05');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Approved', 1, '2019-12-06');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 2, '2019-12-07');
+INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 3, '2019-12-08');
+
+INSERT INTO pos_t_prcs (notes, prNo, readyTime, status, outlet_id) VALUES ('PR pertama', 'PR001', '2019-12-05', 'Submitted', 1);
+INSERT INTO pos_t_prcs (notes, prNo, readyTime, status, outlet_id) VALUES ('PR kedua', 'PR002', '2019-12-06', 'Submitted', 2);
+INSERT INTO pos_t_prcs (notes, prNo, readyTime, status, outlet_id) VALUES ('PR ketiga', 'PR003', '2019-12-07', 'Submitted', 3);
+
+-- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (50, 1, 1);
+-- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (80, 2, 2);
+-- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (100, 3, 3);
+
+INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-05', 10000000, 'PO pertama', 'PO001', 'Submitted', 1, 1, 1);
+INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-06', 10000000, 'PO kedua', 'PO002', 'Submitted', 2, 2, 2);
+INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-07', 10000000, 'PO ketiga', 'PO003', 'Submitted', 3, 3, 3);
+
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (1, 1, 2, 5000000, 2);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (2, 1, 2, 5000000, 2);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 2, 5, 7000000, 7);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 3, 20, 1000000, 10);
+
 
 
 

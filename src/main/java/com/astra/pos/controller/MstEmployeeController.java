@@ -73,6 +73,7 @@ public class MstEmployeeController {
                                      @RequestParam(value = "assEmployeeOutlet_id", required = false) Long assEmployeeOutlet_id)
     {
 
+        ModelAndView mv = new ModelAndView("redirect:/employees");
         MstEmployee mstEmployee = new MstEmployee();
         MstUser mstUser = new MstUser();
         AssEmployeeOutlet assEmployeeOutlet = new AssEmployeeOutlet();
@@ -164,7 +165,7 @@ public class MstEmployeeController {
             }
         }
 
-        return getEmployees();
+        return mv;
 
     }
 
