@@ -74,19 +74,19 @@ INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES 
 INSERT INTO pos_t_transfer_stock_history (status, transfer_id, createOn) VALUES ('Submitted', 3, '2019-12-08');
 
 INSERT INTO pos_t_prcs (createOn, notes, prNo, readyTime, status, outlet_id) VALUES ('2019-12-05', 'PR pertama', 'PR001', '2019-12-05', 'Submitted', 1);
-INSERT INTO pos_t_prcs (createOn, notes, prNo, readyTime, status, outlet_id) VALUES ('2019-12-06', 'PR kedua', 'PR002', '2019-12-06', 'Rejected', 2);
-INSERT INTO pos_t_prcs (createOn, notes, prNo, readyTime, status, outlet_id) VALUES ('2019-12-07', 'PR ketiga', 'PR003', '2019-12-07', 'Approved', 3);
+INSERT INTO pos_t_prcs (createOn, notes, prNo, readyTime, status, outlet_id) VALUES ('2019-12-06', 'PR kedua', 'PR002', '2019-12-06', 'Submitted', 2);
+INSERT INTO pos_t_prcs (createOn, notes, prNo, readyTime, status, outlet_id) VALUES ('2019-12-07', 'PR ketiga', 'PR003', '2019-12-07', 'Submitted', 3);
 
 -- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (50, 1, 1);
 -- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (80, 2, 2);
 -- INSERT INTO pos_t_purchase_request_detail (request_qty, inventory_id, pr_id) VALUES (100, 3, 3);
 
 INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-05', 10000000, 'PO pertama', 'PO001', 'Submitted', 1, 1, 1);
-INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-06', 10000000, 'PO kedua', 'PO002', 'Submitted', 2, 2, 2);
-INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-07', 10000000, 'PO ketiga', 'PO003', 'Submitted', 3, 3, 3);
+INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-06', 10000000, 'PO kedua', 'PO002', 'Approved', 2, 2, 2);
+INSERT INTO pos_t_po (createOn, grandTotal, notes, poNo, status, outlet_id, pr_id, supplier_id) VALUES ('2019-12-07', 10000000, 'PO ketiga', 'PO003', 'Rejected', 3, 3, 3);
 
-INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (1, 1, 2, 5000000, 2);
-INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (2, 1, 2, 5000000, 2);
-INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 2, 5, 7000000, 7);
-INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 3, 20, 1000000, 10);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (1, 1, 2, 5000000, 200000);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (2, 1, 2, 5000000, 200000);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 2, 5, 7000000, 700000);
+INSERT INTO pos_t_purchase_order_detail (inventory_id, po_id, request_qty, sub_total, unit_cost) VALUES (3, 3, 20, 1000000, 100000;
 

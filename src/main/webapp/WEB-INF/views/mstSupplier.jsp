@@ -497,15 +497,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Supplier Phone</label>
-                                            <form:input type="text" class="form-control" id="phone" path="phone"/>
+                                            <form:input type="number" class="form-control" id="phone" path="phone"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Supplier Email</label>
-                                            <form:input type="text" class="form-control" id="email" path="email"/>
+                                            <form:input type="email" class="form-control" id="email" path="email"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Supplier Postal Code</label>
-                                            <form:input type="text" class="form-control" id="postalCode" path="postalCode"/>
+                                            <form:input type="number" class="form-control" id="postalCode" path="postalCode"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">

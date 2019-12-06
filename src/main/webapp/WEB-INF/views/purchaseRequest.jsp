@@ -417,20 +417,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="col-2 d-none d-sm-inline-block">
-                                <%--                                <input type="text" class="form-control" id="cek" value="">--%>
+                            <form class="form-inline justify-content-between" style="width: 100%">
                                 <input name="daterange" class="form-control" placeholder="MM/DD/YYYY - MM/DD/YYYY"/>
-                            </div>
-                            <div class="col-2 d-none d-sm-inline-block">
-                                <select id="optionInput" class="form-control select2" style="width: 100%;">
+
+                                <select id="optionInput" class="form-control select2" style="width: 15%">
                                     <option selected="selected">Status</option>
                                     <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
                                         <option>${PrcsRequest.status}</option>
                                     </c:forEach>
                                 </select>
-                            </div>
-                            <!-- SEARCH FORM -->
-                            <div class="col-2 d-none d-sm-inline-block">
+
+                                <!-- SEARCH FORM -->
                                 <div class="input-group">
                                     <input id="myInput" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                     <div class="input-group-append">
@@ -439,11 +436,10 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div align="right" class="col-5 d-none d-sm-inline-block">
-                                <button type="button" class="btn btn-primary">Export</button>
-                                <button type="button" class="save_data btn btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
-                            </div>
+
+                                <button style="width: 15%" type="button" class="btn btn-primary">Export</button>
+                                <button style="width: 15%" type="button" class="save_data btn btn-primary" data-toggle="modal" data-target="#modal-create">Create</button>
+                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -462,7 +458,6 @@
                                 <c:forEach var="PrcsRequest" items="${allPrcsRequest}">
                                     <tr>
                                         <td hidden>${PrcsRequest.id}</td>
-                                            <%--                                        <td>${PrcsRequest.id}</td>--%>
                                         <td>
                                             <fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${PrcsRequest.createOn}"/>
                                         </td>
